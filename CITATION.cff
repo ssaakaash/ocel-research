@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use the synthetic benchmark or COOC evaluation design, please cite this software artifact."
+title: "Object-Centric Event Log Mining for Academic Capstone Processes"
+type: software
+version: 0.2.0
+date-released: 2026-09-02
+authors:
+  - family-names: "Saravanan"
+    given-names: "Aakaash Sathya"
+  - family-names: "Sharma"
+    given-names: "Mitisha"
+  - family-names: "Khambete"
+    given-names: "Tanmay"
+keywords:
+  - object-centric process mining
+  - OCEL 2.0
+  - educational process mining
+  - conformance checking
+  - synthetic benchmark
+

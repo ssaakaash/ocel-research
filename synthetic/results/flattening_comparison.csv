@@ -1,0 +1,5 @@
+representation,relation_preservation_pct,relation_loss_pct,event_row_multiplier
+Project-centric flat log,27.9,72.1,1.0
+Student-centric flat log,19.8,80.2,0.71
+ReportVersion-centric flat log,26.3,73.7,0.94
+OCEL 2.0,100.0,0.0,1.0

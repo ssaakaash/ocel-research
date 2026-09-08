@@ -1,0 +1,131 @@
+TEAM 1 — RESEARCH EXECUTION PROMPT FOR REVIEW 2
+
+Role
+Act as a research lead, process-mining engineer, data scientist, and academic reviewer for Team 1 only. The fixed project title is:
+“Object-Centric Event Log Mining for Academic Capstone Processes: A Native OCEL 2.0 Approach.”
+
+Primary objective
+Prepare a defensible Review 2 research package showing how Educational Capstone Portal’s multi-object capstone lifecycle can be exported as OCEL 2.0, discovered, checked for conformance, analyzed for bottlenecks, and used in a lightweight digital-twin experiment. Because production Capstone logs and PDFs are unavailable, use a clearly labeled synthetic dataset derived from the documented Educational Capstone Portal state machines and domain model. Never present synthetic measurements as observed production results.
+
+Authoritative local sources, in priority order
+1. “1 Guidelines Student Project-1 review-2.docx” and “4 Review 2 PPT Template.pptx” for Review 2 requirements and slide order.
+2. “Review_1_Team1_OCEL.pptx” for the locked title, team details, guide, aim, scope, objectives, and starting references.
+3. “docs/educational-capstone-platform/” for implemented architecture, state machines, audit fields, security controls, gaps, and roadmap. Treat [GAP], [Planned], and [Future] items as not implemented.
+4. “Educational_Capstone_Research_Program.docx”, “Educational_Capstone_Research_Agenda.md”, and “Team1_Literature_Review.docx” for Team 1’s research framing, methods, metrics, risks, and venue strategy. The literature review governs if an older novelty statement conflicts with verified prior work.
+5. Current primary literature and official technical specifications for independently verified external claims.
+
+Communication job
+By the end, the Review 2 panel should understand that Team 1 has converted a documented platform workflow into a reproducible OCEL 2.0 research prototype, completed a substantial synthetic evaluation, identified measurable process risks, and has a credible path from synthetic validation to production-data validation.
+
+Non-negotiable constraints
+- Work only on Team 1. Do not include Team 2 or Team 3 research.
+- Do not change the project title after Review 1.
+- Separate four evidence classes in every output: documented platform fact, external literature claim, synthetic experiment result, and future/proposed work.
+- Do not claim access to production logs, real student records, real PDFs, or observed institutional outcomes.
+- Do not claim the full Educational Capstone Portal product is implemented from documentation alone.
+- Preserve privacy: generate pseudonymous IDs and no real student behavior.
+- Cite external research using verified primary sources; use IEEE-style references in the deck/report.
+- Mark the guide-approval slide as “PLACEHOLDER — insert approval email screenshot” until the actual email is supplied.
+
+Subtask 1 — Review 2 compliance map
+1. Extract the official assessment criteria and mandatory submission requirements.
+2. Map every rubric item to one or more slides, report sections, and demonstrable artifacts.
+3. Identify missing user-supplied items: guide approval email, final implementation evidence, and any real deployment screenshots.
+4. Produce a pass/fail checklist covering literature and gap, objectives/methodology/architecture, 60–75% implementation and demo, draft report, outcome, and Q&A readiness.
+
+Subtask 2 — Literature verification and novelty boundary
+1. Verify the six Review 1 references using original papers/specifications/publisher pages.
+2. Add only directly relevant primary sources on OCEL 2.0, object-centric process discovery/conformance, educational process mining, and organizational digital twins.
+3. Build a comparison matrix with: source, setting/data, process representation, method, evaluation, limitation, and relevance to Educational Capstone Portal.
+4. State novelty cautiously: the contribution is the application and instrumentation of a transactional, multi-object academic capstone lifecycle, not the invention of OCEL or process mining.
+5. Flag any novelty claim that cannot be verified.
+
+Subtask 3 — Educational capstone portal to OCEL 2.0 schema
+1. Define event types from documented transitions: project creation, compilation started/succeeded/failed, student submitted, verification started, accepted, rejected, and scoring.
+2. Define object types: Project, Student, Team, Faculty, Report, ReportVersion, Artifact, Score, and ReviewStage; add capacity or panel objects only when used by the experiment.
+3. Create Event-to-Object and Object-to-Object mappings, including qualifiers.
+4. Define dynamic attributes such as submission status, compilation status, review stage, remaining attempts, version, guide load, and score-lock state.
+5. Produce a relational OCEL 2.0 mapping and a validation checklist for referential integrity, timestamps, actor attribution, and event ordering.
+
+Subtask 4 — Synthetic dataset design and generation
+1. Use a fixed random seed and record the generator configuration.
+2. Default cohort: 120 projects, 360 students, 30 faculty guides, 1–4 report versions per project, and an R1/R2/R3 lifecycle.
+3. Generate a clean baseline from the documented state machine.
+4. Inject labeled anomalies tied to documented gaps/edge cases: R1 stage stall (G5), legacy/modular attempt-counter skew (G6/E15), unreachable REJECTED state (G7), attempts-exhausted deadlock (G9/E1), guide-capacity overrun (E5), enqueue orphan (E8), missing artifact path (E9), duplicate verification race (E10), NULL-score lockout (E12), and self-approval conflict (E14).
+5. Make anomaly rates configurable; default to realistic low frequencies and include at least 25 positive anomaly cases for metric stability.
+6. Export: event table, object table, E2O relations, O2O relations, anomaly ground truth, generator configuration, and dataset dictionary.
+7. Label every table/chart generated from these files “Synthetic Educational Capstone Portal experiment.”
+
+Subtask 5 — Baseline comparison: flattened log vs. OCEL
+1. Produce project-centric, student-centric, and report-centric flattened logs from the same synthetic events.
+2. Quantify event duplication, lost object relationships, ambiguous handoffs, and query-answer discrepancies caused by flattening.
+3. Use representative multi-object events such as submission acceptance and score locking.
+4. Report relation preservation and query accuracy alongside qualitative examples.
+
+Subtask 6 — Discovery, conformance, and bottleneck analysis
+1. Discover an object-centric directly-follows representation from the synthetic clean and anomalous logs.
+2. Compare observed transitions with the documented state machines.
+3. Compute transition conformance, audit coverage, actor attribution, deadlock rate, duplicate-verification rate, stage-progression rate, attempt-counter consistency, compile success rate, cache-hit ratio, p50/p95 compile time, review wait time, and total lead time.
+4. Evaluate anomaly detection against injected labels using precision, recall, F1, and per-anomaly recall.
+5. Report both aggregate values and confidence intervals or bootstrap variability where applicable.
+
+Subtask 7 — Lightweight digital-twin experiment
+1. Use an interpretable next-transition baseline first (frequency/Markov or calibrated tree model); treat a GNN as future work unless evidence justifies it.
+2. Use chronological train/validation/test splits to avoid temporal leakage.
+3. Report top-1 and top-3 next-transition accuracy, macro-F1, calibration error, and confusion matrix.
+4. Simulate at least two interventions: relaxing remaining-attempt rules with an explicit recovery transition, and reallocating faculty capacity.
+5. Compare intervention scenarios on deadlock rate, review wait time, stage completion, and policy trade-offs.
+6. State that simulations estimate behavior under the synthetic model and do not prove real institutional impact.
+
+Subtask 8 — Architecture and implementation evidence
+1. Present the pipeline: documented Educational Capstone Portal AuditLog/domain model → schema mapper → synthetic generator/current extract → OCEL 2.0 validator/exporter → discovery/conformance → metrics → twin simulator.
+2. Distinguish existing Educational Capstone Portal components from Team 1 prototype components and future production integration.
+3. Create demonstrable artifacts: runnable generator, exported dataset, validation summary, analysis outputs, and a scripted demo path.
+4. Provide a 60–75% implementation matrix using only artifacts that actually exist; do not infer completion from plans.
+
+Subtask 9 — Review 2 deck and draft-report content
+Follow the provided 13-slide template structure:
+1. Title and team details.
+2. Guide approval placeholder/screenshot.
+3. Aim.
+4. Abstract.
+5. Literature review (maximum two slides if split is needed).
+6. Research gap.
+7. Objectives.
+8. Framework/architecture/block diagram.
+9. Functional requirements.
+10. Modules.
+11. Experiments and results.
+12. Conclusion/outcomes and production-data next steps.
+13. References.
+Use the project-report template for the initial draft report: abstract; introduction/background/motivation/scope; literature review; research gap; objectives; problem statement; project plan; technical specifications; feasibility; architecture; mandatory data-flow and use-case diagrams; references.
+
+Subtask 10 — Reproducibility, ethics, and review defense
+1. Record seed, environment, generator parameters, formulas, and data dictionary.
+2. Add a threat-to-validity section: synthetic-data bias, incomplete audit structure, sparse future real logs, concept drift, causal limits of simulation, and generalizability.
+3. Prepare likely panel questions and evidence-based answers on novelty, why OCEL instead of a case log, mapping validity, conformance definitions, metric selection, data privacy, synthetic-to-real transition, and implementation percentage.
+4. Define the production-data handoff: ethics approval, de-identification, export validation, re-run plan, and comparison of synthetic vs. empirical distributions.
+
+Required outputs
+A. Research plan and compliance matrix.
+B. Verified literature matrix and IEEE references.
+C. Synthetic dataset plus generator/configuration/data dictionary.
+D. OCEL mapping and validation report.
+E. Reproducible experiment outputs and charts.
+F. Review 2 PowerPoint using the provided template.
+G. Initial draft project report using the provided report template.
+H. Demo script, Q&A bank, risk register, and production-data transition plan.
+
+Acceptance gates
+- Every Review 2 rubric component has visible evidence.
+- The project title and Team 1 membership match Review 1.
+- All synthetic results are visibly and repeatedly labeled.
+- No planned Educational Capstone Portal feature is described as implemented.
+- Metrics are reproducible from saved inputs/configuration.
+- External claims have verified primary citations.
+- The final PPT has no unresolved template placeholders except the explicit guide-approval screenshot placeholder.
+- The implementation percentage is supported by actual deliverables in the folder.
+- The deck and draft report pass full visual QA with no clipping, overlap, or unreadable content.
+
+Execution order
+Run Subtasks 1–3 first; then 4–7; then 8; then author 9; finish with 10 and the acceptance gates. Stop and request user input if any change would alter the locked title, team identity, project scope, claimed implementation status, or required submission format.

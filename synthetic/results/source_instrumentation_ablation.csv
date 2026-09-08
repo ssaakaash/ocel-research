@@ -1,0 +1,4 @@
+representation,observable_risks,total_risks,coverage_pct,detectable
+project audit core fields,2,6,33.3,G5 stage stall; E10 duplicate verification
+audit core + parsed details,5,6,83.3,G5; E10; G9 attempts; E5 capacity; E15 counter skew
+OCEL with linked domain objects,6,6,100.0,G5; E10; G9; E5; E15; E12 score lockout

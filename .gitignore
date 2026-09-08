@@ -1,0 +1,36 @@
+# Operating systems and editors
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# Frontend
+demo/node_modules/
+demo/.next/
+demo/.vinext/
+demo/dist/
+demo/out/
+demo/.wrangler/
+demo/next-env.d.ts
+demo/tsconfig.tsbuildinfo
+
+# Credentials and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Generated local archives and temporary work
+*.zip
+*.tar
+*.tar.gz
+work/
+outputs/

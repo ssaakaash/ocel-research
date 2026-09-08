@@ -1,0 +1,72 @@
+TEAM 1 — RESEARCH AND NOVELTY PLAN
+
+Project title
+Object-Centric Event Log Mining for Academic Capstone Processes: A Native OCEL 2.0 Approach
+
+1. Defensible novelty position
+
+Do not claim that this is the first use of OCEL in education. Miri et al. (2026) already present an object-centric approach to multi-entity educational process mining and export OCEL 2.0 from Moodle.
+
+The defensible contribution is narrower and stronger:
+
+• A native OCEL 2.0 model for the transactional capstone lifecycle, connecting projects, teams, students, faculty, review stages, submissions, versioned artifacts, attempts, and immutable scores.
+• A documentation-grounded validation triad: normative process model, descriptive process mining, and adversarial synthetic cases.
+• State-machine conformance rules for capstone-specific constraints, including approval-before-submission, stage order, score immutability, attempt limits, and guide/reviewer capacity.
+• A representation-preservation study comparing OCEL with conventional case-centric flattenings.
+• Cross-Object Observability Coverage (COOC), a study-specific metric: the fraction of preregistered cross-object predicates that a representation can compute and answer correctly on an oracle-labelled benchmark.
+• An offline digital-twin experiment for evaluating attempt-policy and faculty-capacity interventions before deployment.
+
+2. Claim ladder
+
+Review 2 — proof-of-mechanism claims supported by synthetic data
+
+• The implementation produces schema-valid, referentially consistent OCEL 2.0 SQLite data.
+• A native object-centric representation preserves all tested event–object relations, while the tested flattenings discard substantial relation context.
+• Capstone-specific conformance rules detect the injected synthetic violations with high accuracy.
+• The offline simulator can compare policy alternatives under controlled assumptions.
+
+Claims that must remain explicitly provisional
+
+• Detector accuracy on real Educational Capstone Portal logs.
+• Predictive performance on future capstone cohorts.
+• Causal impact of the simulated interventions.
+• Generality of COOC outside the preregistered capstone predicates.
+
+Future journal claims — only after real-data validation
+
+• Native OCEL improves cross-object diagnostic coverage over case-centric baselines on real capstone data.
+• Documentation-grounded conformance checks find operationally meaningful deviations with acceptable expert agreement.
+• Capacity- and attempt-aware interventions improve prospective outcomes in a pilot or credible quasi-experimental evaluation.
+
+3. Research questions and hypotheses
+
+RQ1. Which capstone relations and constraints become unobservable when a multi-entity lifecycle is flattened to a single case notion?
+H1. Native OCEL will achieve higher preregistered COOC than project-, student-, or artifact-centric flattenings.
+
+RQ2. Can documentation-derived invariants identify capstone process deviations across interacting objects?
+H2. Object-aware conformance rules will outperform single-case rules on cross-object violations such as reviewer conflicts, version lineage, and capacity overload.
+
+RQ3. Which intervention combinations best reduce failure and waiting without creating new bottlenecks?
+H3. Joint attempt-policy and capacity interventions will dominate either intervention alone on completion rate, subject to workload constraints.
+
+4. Evidence required for a journal submission
+
+• Preregister the object schema, anomaly catalogue, predicates, metrics, and analysis plan before examining outcome labels.
+• Replace or augment synthetic data with de-identified Educational Capstone Portal event data and documentation-derived ground truth.
+• Obtain independent domain-expert labels; report inter-rater agreement and adjudication.
+• Run multiple seeds, cohort sizes, anomaly rates, missingness levels, and sensitivity analyses.
+• Compare against event-level, project-case, student-case, and artifact-case baselines.
+• Include ablations for object relations, temporal attributes, documentation rules, and source instrumentation.
+• Separate Source Instrumentation Coverage from Representation Preservation Coverage.
+• Release a privacy-safe benchmark generator, oracle labels, configuration, and evaluation scripts.
+• If possible, evaluate on a second institution or a second multi-entity academic workflow.
+
+5. Citation anchors
+
+OCEL 2.0 specification: https://www.ocel-standard.org/2.0/ocel20_specification.pdf
+Miri et al. (2026): https://doi.org/10.1016/j.dajour.2026.100724
+van der Aalst (2019): https://doi.org/10.1007/978-3-030-30446-1_1
+Park and van der Aalst (2021): https://doi.org/10.1109/ICPM53251.2021.9576846
+Park et al. (2024): https://doi.org/10.1007/978-3-031-70418-5_11
+Wei et al. / Dirigo (2025): https://doi.org/10.1016/j.datak.2025.102485
+

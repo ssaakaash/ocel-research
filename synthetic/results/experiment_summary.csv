@@ -1,0 +1,4 @@
+scenario,projects,events,objects,e2o_relations,o2o_relations,compile_success_pct,r3_acceptance_pct
+clean_target,120,2346,1530,8412,1860,87.0,100.0
+implemented_baseline,120,811,1005,3152,1095,94.4,0.0
+gap_injected,120,2083,1411,7471,1670,89.4,77.5

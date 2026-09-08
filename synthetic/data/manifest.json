@@ -1,0 +1,48 @@
+{
+  "synthetic": true,
+  "seed": 4971,
+  "projects": 120,
+  "faculty": 30,
+  "students_per_team": 3,
+  "scenarios": {
+    "clean_target": {
+      "events": 2346,
+      "objects": 1530,
+      "e2o": 8412,
+      "o2o": 1860,
+      "validation": {
+        "dangling_e2o": 0,
+        "dangling_o2o": 0,
+        "timestamps_monotonic_per_project": true,
+        "required_tables_present": true,
+        "sha256": "ffb3c061a79c544297e6eeb5d940d9056a2d9dfabec5ca6a61be7e8c4f85da6b"
+      }
+    },
+    "implemented_baseline": {
+      "events": 811,
+      "objects": 1005,
+      "e2o": 3152,
+      "o2o": 1095,
+      "validation": {
+        "dangling_e2o": 0,
+        "dangling_o2o": 0,
+        "timestamps_monotonic_per_project": true,
+        "required_tables_present": true,
+        "sha256": "027a4f173a110eec7780083b01b4157dc39c188a1a7a68d90128fe4985c83a99"
+      }
+    },
+    "gap_injected": {
+      "events": 2083,
+      "objects": 1411,
+      "e2o": 7471,
+      "o2o": 1670,
+      "validation": {
+        "dangling_e2o": 0,
+        "dangling_o2o": 0,
+        "timestamps_monotonic_per_project": true,
+        "required_tables_present": true,
+        "sha256": "94a88e69d4021ec9b56559d4c62daca133674eead01b45e61bca29d1db5c6d97"
+      }
+    }
+  }
+}

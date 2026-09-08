@@ -1,0 +1,344 @@
+#!/usr/bin/env python3
+"""Create the Team 1 literature review and sanitize public Word artifacts."""
+
+from __future__ import annotations
+
+import os
+import zipfile
+from pathlib import Path
+
+from docx import Document
+from docx.enum.section import WD_SECTION_START
+from docx.enum.style import WD_STYLE_TYPE
+from docx.enum.text import WD_ALIGN_PARAGRAPH
+from docx.oxml import OxmlElement
+from docx.oxml.ns import qn
+from docx.shared import Inches, Pt, RGBColor
+
+
+ROOT = Path(__file__).resolve().parents[1]
+RESEARCH_DIR = ROOT / "docs" / "research"
+OUTPUT_DOCX = RESEARCH_DIR / "Team1_Literature_Review.docx"
+OUTPUT_MD = RESEARCH_DIR / "Team1_Literature_Review.md"
+
+
+SECTIONS: list[tuple[str, list[str]]] = [
+    (
+        "Introduction",
+        [
+            "Team 1 investigates how an educational capstone portal can support process analysis without reducing a complex academic workflow to a single project record. A capstone lifecycle links students to teams, teams to projects, projects to faculty guides, and every project to review stages, report versions, decisions, and scores. Many important events therefore concern several entities at once. A report submission may change the state of a project, create a new report version, involve one or more students, and enter a faculty review queue. The project represents these interactions as an Object Centric Event Log 2.0 dataset and studies what disappears when the same data are flattened into conventional logs with one case identifier.",
+            "The current implementation is a proof of mechanism built from documented portal states and deterministic synthetic data. It defines object types and qualified relationships, generates clean and gap injected lifecycle scenarios, checks structural integrity, evaluates rule based process deviations, compares case centric projections, trains a simple next transition baseline, and runs an offline intervention simulator. These outputs show that the software pipeline works under controlled assumptions. They do not measure real student behaviour, real faculty performance, institutional defect rates, or causal effects. Deidentified operational logs and formal ethics approval remain necessary before empirical claims can be made.",
+            "This document is a focused narrative review of research that directly informs the project. It covers capstone management systems, educational process mining, object centric process mining, event data quality, conformance checking, predictive monitoring, digital process twins, and responsible educational analytics. The review prioritizes peer reviewed articles and the official OCEL specification available through September 2026. Its main conclusion is that object centric analysis in education now has direct prior art, so the defensible contribution is narrower than being first in the educational domain. The strongest research position is a capstone specific framework that measures cross object observability, grounds deviations in an explicit lifecycle model, and connects the same representation to cautious offline intervention experiments.",
+        ],
+    ),
+    (
+        "Educational Capstone Process Management",
+        [
+            "Capstone projects combine academic work with an administrative process that extends across project selection, team formation, supervision, report submission, assessment, and final approval. Hassani et al. (2018) describe the management of more than 250 computing final year projects and show that project assignment, supervision practice, panel composition, rubrics, and mark distribution require deliberate coordination. Their case study treats the capstone as a managed educational module rather than a single final document. This distinction matters for the present project because the analytical unit is the evolving lifecycle that produces the assessed work.",
+            "Software systems have long been proposed to coordinate these activities. Awad (2017) presents a graduation project management system that tracks work from project selection through grading and assessment. The system responds to practical needs such as scheduling, report submission, resource management, and rubric administration. This line of work establishes the value of a dedicated educational portal, but its main contribution is operational support. It does not define a reusable event data standard for relating several process entities, nor does it compare the analytical loss caused by different case definitions.",
+            "The literature therefore supports two separate requirements. The website must serve students and faculty by enforcing lifecycle rules, and the research layer must preserve enough event provenance to explain how those rules were enacted. A database can store the current status of a project while still losing the sequence and context of earlier actions. Audit events, version identifiers, actor roles, stage identifiers, and object relationships must be recorded consistently if the portal is expected to support later process discovery or conformance analysis. This requirement shifts the design from a project tracking interface toward a process aware educational information system.",
+        ],
+    ),
+    (
+        "Educational Process Mining",
+        [
+            "Process mining uses event records to discover how a process actually runs, compare observed behaviour with an intended model, and identify performance or compliance problems (van der Aalst et al., 2012). Educational process mining applies these methods to learning and administrative data. Bogarin et al. (2018) describe the field as a way to make implicit knowledge about educational processes explicit, with common applications in learning management systems and online course activity. The approach is useful because educational systems record sequences rather than only final outcomes. The order and timing of actions can reveal routes, repetition, delay, and deviation that aggregate grades or completion counts cannot show.",
+            "A recent systematic review by Semler et al. (2025) shows that the field remains concentrated in a limited set of settings and tasks. In their portfolio of 28 studies, Moodle based datasets accounted for 40 percent of sources, process discovery appeared in 80 percent of the studies, conformance checking appeared in 36 percent, prediction in 8 percent, and process enhancement in 4 percent. The review also reports that learning patterns and instructional activity dominate the research questions. These findings support the use of process mining in education, but they also expose room for studies of administrative educational workflows, richer representations, prediction with careful validation, and interventions tied to process evidence.",
+            "Curricular process mining broadens the educational focus beyond clickstream behaviour by reconstructing progress through courses and program structures. Calegari and Delgado (2025) synthesize this area and show that process techniques can support curricular analysis. A capstone lifecycle adds a different level of granularity. It contains group decisions, faculty capacity constraints, versioned artifacts, formal reviews, and score finalization within one project cycle. The literature offers methods for discovery and conformance, yet a capstone portal requires a data model that can retain the relationships among all of these entities without selecting one of them as the sole case.",
+        ],
+    ),
+    (
+        "Limits of Case Centric Event Logs",
+        [
+            "Conventional event logs normally assign every event to one case. This structure works when the process has a stable case notion, but it becomes ambiguous when an event relates to several objects. Van der Aalst (2019) describes convergence and divergence as two central distortions. Convergence occurs when events associated with a shared object are repeated across several cases, which can create false directly follows relations. Divergence occurs when the chosen case perspective separates events whose meaning depends on another object. These problems alter frequencies, durations, and paths rather than merely removing descriptive attributes.",
+            "The capstone domain contains both patterns. A faculty guide may supervise several projects, a student may participate through a team, a review event may evaluate a specific report version, and a score may become valid only after a stage decision. A project centric log can describe stage progression but may hide the guide workload needed to evaluate a capacity rule. A student centric log can describe individual participation but may duplicate a team level submission. A report version centric log can preserve retry history while losing earlier team formation or later project completion. No single projection answers every cross entity question.",
+            "This limitation motivates the project ablation. The same synthetic object centric dataset is projected into project, student, and report version logs. Each projection is tested against preregistered questions whose answers require several object types. The comparison should distinguish simple relation retention from analytical observability. Retaining a field does not guarantee that the projected log can reconstruct the correct relationship, and computing a predicate does not guarantee that its answer matches the object centric oracle. A publication should therefore report both structural loss and task level correctness.",
+        ],
+    ),
+    (
+        "Object Centric Process Mining and OCEL 2 0",
+        [
+            "Object centric process mining treats events as interactions among typed objects rather than steps belonging to exactly one case. Van der Aalst (2023) formalizes this perspective as a representation of intertwined processes in which analysts can examine several object types without rebuilding the source data for every question. The approach is well suited to operational systems whose databases already encode entities and relationships, although extraction still requires domain decisions about event semantics, object identity, and temporal change.",
+            "The OCEL 2.0 specification provides the exchange model used in this project (Berti et al., 2024). It records event types and object types, allows one event to reference multiple objects through qualified event to object relationships, represents object to object relationships, and supports object attributes that change over time. The specification defines JSON, XML, and relational SQLite formats. The relational format is useful for the prototype because it can be validated with ordinary database queries and distributed as a single file while retaining the richer object centric structure.",
+            "A standards compliant file is necessary but not sufficient for credible analysis. The mapper must explain why an action becomes an event, which database records become objects, how stable identifiers are formed, how qualifiers express roles, and how attribute changes align with timestamps. Andrews et al. (2020) show that event log extraction from relational sources is often manual and dependent on domain knowledge, while the quality of the resulting log determines the reliability of process results. The project therefore treats schema mapping as a research artifact that requires traceability to documented states and source fields, not as a mechanical export step.",
+        ],
+    ),
+    (
+        "Object Centric Educational Process Mining",
+        [
+            "The closest prior work is the object centric educational process mining framework by Miri, Khayatbashi, Zdravkovic, and Jalali (2026). Their PM4Moodle tool transforms Moodle data into OCEL compliant logs and models users, groups, assignments, courses, and learning resources as interacting objects. A real university course case study demonstrates analyses that are difficult in a student centric log, including relationships between group submission leadership, shared resources, and academic outcomes. This paper directly invalidates any broad claim that the present project introduces object centric process mining to education.",
+            "The prior study also clarifies the remaining difference. PM4Moodle focuses on learning management system activity and course interactions. The Team 1 project focuses on a transactional capstone management lifecycle with project registration, team membership, faculty guidance, staged report versions, formal review decisions, retry conditions, capacity constraints, and score finalization. The distinction concerns the process and research questions rather than the OCEL format itself. It must be established empirically by comparing schemas, supported questions, conformance rules, and evaluation tasks.",
+            "The publication opportunity therefore lies in a reusable capstone process model and an evaluation framework for representation choice. A strong paper would avoid claiming that the object types are novel by themselves. It would show that the lifecycle creates cross object predicates absent from common learning management system studies and that a case centric representation makes some of those predicates unobservable or incorrect. It would also release a transparent schema, synthetic benchmark, rule definitions, and extraction guidance so another institution could reproduce the analysis with its own portal.",
+        ],
+    ),
+    (
+        "Conformance and Event Data Quality",
+        [
+            "Conformance checking compares recorded behaviour with an intended process model. In a capstone portal, useful rules include stage order, review eligibility, retry limits, version monotonicity, capacity constraints, and score lockout after finalization. These rules should be derived from an approved lifecycle specification and expressed as executable predicates. A detected violation then has a traceable interpretation: the log contains an event or relationship that conflicts with a stated rule. Rules inferred only from synthetic generation code would create circular validation because the same assumptions would define both the data and the detector.",
+            "Suriadi et al. (2017) catalogue eleven recurring event log imperfection patterns and show why cleaning is essential before process analysis. Missing events, incorrect timestamps, ambiguous labels, and inconsistent identifiers can produce models that disagree with the actual process. The problem becomes more demanding in object centric data because relational completeness also matters. An event can have a valid identifier and timestamp while pointing to the wrong object, omitting a participant, or using a qualifier with unclear semantics. Integrity checks should therefore cover required tables, unique identifiers, referential integrity, timestamp ordering, relationship qualifiers, and expected object cardinalities.",
+            "Synthetic data provide a controlled way to test these checks. The generator can inject known deviations, retain their labels, and record the seed and parameters that produced each trace. Detector performance can then be measured against a known oracle. This is useful software validation, but it tends to favour rules that mirror the generator. A later empirical study should include independent expert labels, disagreements between raters, missingness sensitivity, and error analysis on naturally occurring records. The paper should report which rules transfer unchanged, which require recalibration, and which cannot be evaluated because the operational data do not record the required evidence.",
+        ],
+    ),
+    (
+        "Predictive Monitoring and Digital Process Twins",
+        [
+            "Predictive process monitoring uses completed event traces to estimate what may happen in a running process. Tax et al. (2017) demonstrate that sequence models can predict the next activity, its timestamp, the continuation of a case, and remaining time. Teinemaa et al. (2019) show through a review and benchmark that predictive performance depends strongly on the dataset, encoding, and evaluation design. These results justify a predictive extension for capstone workflows, but they also argue for simple baselines, grouped train and test splits, calibration checks, and comparisons that prevent events from the same project appearing in both training and test data.",
+            "The current prototype uses a first order Markov baseline for next transition prediction. This model is intentionally modest. It verifies that the event vocabulary, trace construction, grouping, and evaluation code are coherent before more complex models are attempted. A future object aware predictor should be compared with this baseline and with case centric versions under the same splits. The research question should ask whether multi object context improves a defined task, such as predicting delayed review or an invalid next transition, rather than assuming that a larger model or richer representation must perform better.",
+            "Digital twins extend monitoring by linking a process representation to possible actions. Park and van der Aalst (2021) propose an action oriented digital twin of an organization that monitors constraints and evaluates responses through a transparent interface. Their feasibility study uses an artificial order handling system, so it supports the architectural idea rather than validating educational interventions. For Team 1, an offline simulator can compare attempt policies or faculty capacity scenarios on synthetic traces. It should be described as a model based counterfactual experiment. Without calibrated transition probabilities and prospective validation, simulated improvements cannot be interpreted as causal institutional outcomes.",
+        ],
+    ),
+    (
+        "Privacy and Responsible Educational Analytics",
+        [
+            "Educational process data can expose behaviour, assessment history, collaboration patterns, and faculty decisions at a fine temporal resolution. Pardo and Siemens (2014) argue that learning analytics should address transparency, student control, security, accountability, and the validity of the analysis. Murchan and Siddiq (2021) find that ethical and regulatory issues receive limited attention in research using educational process data and call for clearer governance. These concerns apply even when a dataset removes names because uncommon event sequences or role combinations may allow reidentification.",
+            "A real data study should begin with purpose limitation and data minimization. The extraction should include only fields required for the registered research questions, replace operational identifiers with research pseudonyms, separate the reidentification key from analysis files, restrict access, and define retention and deletion procedures. Participants and decision makers should understand which analyses will be run and how results may influence support or evaluation. Process predictions should assist human review rather than automatically label students or faculty as problematic.",
+            "The synthetic benchmark reduces immediate privacy risk and allows public reproduction, but it does not remove the need for governance. Its parameters may still reveal assumptions about institutional rules, and a public repository may contain internal architecture details that require approval. The project should maintain separate public and restricted data paths. The public package can include the schema, generator, analysis scripts, and aggregate synthetic results, while operational mappings, raw records, and approval material remain controlled until the institution authorizes release.",
+        ],
+    ),
+    (
+        "Research Gap and Project Positioning",
+        [
+            "The literature leaves a credible gap at the intersection of educational capstone management and object centric process evaluation. Capstone systems coordinate complex academic workflows, educational process mining mainly studies learning activity through case centric logs, and recent work now demonstrates object centric extraction from Moodle. None of these findings by itself establishes novelty for another educational OCEL exporter. The paper must contribute an evaluation problem, method, or validated artifact that the closest study does not already provide.",
+            "Team 1 proposes Cross Object Observability Coverage as a study specific measure for this purpose. The measure begins with a preregistered set of capstone risk predicates whose truth can be computed from the complete object centric data. For each alternative representation, a predicate counts as preserved only when the representation contains enough information to compute it and returns the same answer as the oracle. Coverage is the share of predicates that meet both conditions. This definition links representation quality to explicit analytical questions. It should be evaluated alongside relation retention, runtime, detector accuracy, and sensitivity to the chosen predicate set.",
+            "A second proposed contribution is a documentation grounded validation design that connects the normative lifecycle, observed or generated event behaviour, and adversarial gap cases. The normative layer records approved states and guards. The descriptive layer mines actual paths without treating frequent behaviour as automatically correct. The adversarial layer injects traceable violations to test whether the mapping and detectors preserve the evidence needed for diagnosis. The combination is promising because it separates rule validity from detector validation, although its advantage must be compared with simpler extraction and testing practices.",
+            "The safest journal claim is therefore an object centric framework for measuring and testing process observability in educational capstone workflows. The domain contribution is a reusable multi entity schema and rule set for versioned projects, supervision, staged reviews, and scoring. The methodological contribution is the task level observability measure and its flattening ablation. The artifact contribution is a reproducible synthetic benchmark and offline demonstration. Real log validation, external replication, and comparison with the 2026 educational object centric framework are required before presenting the approach as generalizable.",
+        ],
+    ),
+    (
+        "Implications for Review 2",
+        [
+            "For Review 2, the project should be explained as a research prototype for a generic educational capstone portal. The problem is that one case identifier cannot preserve all of the relationships needed to analyze supervision, versioning, review, and scoring together. The proposed solution is an OCEL 2.0 model with explicit event to object and object to object relationships. The demonstration then compares this model with three flattened views, shows which registered questions remain answerable, runs rule based checks on labelled synthetic deviations, and presents an offline policy comparison with a clear noncausal disclaimer.",
+            "The novelty statement should acknowledge the closest prior work directly. Object centric educational process mining and Moodle to OCEL extraction were demonstrated by Miri et al. in 2026. Team 1 instead studies the transactional capstone lifecycle and proposes a representation level evaluation based on cross object predicates. This positioning is more credible than a broad first claim because it identifies exactly what the project adds and what evidence is still missing.",
+            "The panel should also see the boundary between completed and future work. The repository contains a deterministic generator, relational exports, validation scripts, analytical outputs, a frontend, and a documented path to empirical evaluation. The current numbers belong only to the synthetic benchmark. The next research stage is to obtain an approved data dictionary and deidentified event sample, test extraction quality, have domain experts label a subset independently, recalibrate rules, repeat the ablation on real data, and evaluate whether the findings hold in another cohort or institution.",
+        ],
+    ),
+    (
+        "Conclusion",
+        [
+            "Prior research supports process mining as a way to study educational sequences, object centric modelling as a remedy for single case distortions, and OCEL 2.0 as an expressive exchange format. Capstone management studies also show that final year projects involve coordinated supervision, submission, and assessment processes that cannot be represented adequately by the final artifact alone. The 2026 PM4Moodle study establishes direct object centric educational prior art and sets a clear boundary for the present project.",
+            "Within that boundary, Team 1 has a plausible research contribution. An educational capstone portal creates cross object questions about teams, projects, faculty, report versions, stages, and scores. Measuring which of those questions survive case centric projection gives the study a specific evaluation target, while synthetic gap injection and offline simulation provide reproducible prototype evidence. The project becomes publication ready only after the schema and predicates are preregistered, operational extraction is validated, expert labels and uncertainty are reported, and the results are replicated beyond the current synthetic setting.",
+        ],
+    ),
+]
+
+
+REFERENCES = [
+    "Andrews, R., van Dun, C. G. J., Wynn, M. T., Kratsch, W., Roglinger, M. K. E., and ter Hofstede, A. H. M. (2020). Quality informed semi automated event log generation for process mining. Decision Support Systems, 132, 113265. https://doi.org/10.1016/j.dss.2020.113265",
+    "Awad, M. (2017). GPMS An educational supportive graduation project management system. Computer Applications in Engineering Education, 25(6), 881 to 894. https://doi.org/10.1002/cae.21841",
+    "Berti, A., Koren, I., Adams, J. N., Park, G., Knopp, B., Graves, N., Rafiei, M., Liss, L., Tacke Genannt Unterberg, L., Zhang, Y., Schwanen, C., Pegoraro, M., and van der Aalst, W. M. P. (2024). OCEL Object Centric Event Log 2.0 specification. arXiv. https://doi.org/10.48550/arXiv.2403.01975",
+    "Bogarin, A., Cerezo, R., and Romero, C. (2018). A survey on educational process mining. WIREs Data Mining and Knowledge Discovery, 8, e1230. https://doi.org/10.1002/widm.1230",
+    "Calegari, D., and Delgado, A. (2025). A systematic review on process mining for curricular analysis. WIREs Data Mining and Knowledge Discovery, e70005. https://doi.org/10.1002/widm.70005",
+    "Hassani, H., Kadir, G., Al Salihi, N. K., Monnet, W. M. A., Ali Yahiya, T., and Alizade, F. (2018). Supervision of undergraduate final year projects in computing A case study. Education Sciences, 8(4), 210. https://doi.org/10.3390/educsci8040210",
+    "Miri, N., Khayatbashi, S., Zdravkovic, J., and Jalali, A. (2026). An object centric approach to multi entity educational process mining. Decision Analytics Journal, 19, 100724. https://doi.org/10.1016/j.dajour.2026.100724",
+    "Murchan, D., and Siddiq, F. (2021). A call to action A systematic review of ethical and regulatory issues in using process data in educational assessment. Large Scale Assessments in Education, 9, 25. https://doi.org/10.1186/s40536-021-00115-3",
+    "Pardo, A., and Siemens, G. (2014). Ethical and privacy principles for learning analytics. British Journal of Educational Technology, 45(3), 438 to 450. https://doi.org/10.1111/bjet.12152",
+    "Park, G., and van der Aalst, W. M. P. (2021). Realizing a digital twin of an organization using action oriented process mining. Proceedings of the International Conference on Process Mining. https://doi.org/10.1109/ICPM53251.2021.9576846",
+    "Semler, R. F., Semler, J. R., Wehrmeister, M. A., Southier, L. F. P., Casanova, D., and Teixeira, M. (2025). Educational process mining Literature classification gaps and emerging opportunities. Frontiers in Education, 10, 1543761. https://doi.org/10.3389/feduc.2025.1543761",
+    "Suriadi, S., Andrews, R., ter Hofstede, A. H. M., and Wynn, M. T. (2017). Event log imperfection patterns for process mining Towards a systematic approach to cleaning event logs. Information Systems, 64, 132 to 150. https://doi.org/10.1016/j.is.2016.07.011",
+    "Tax, N., Verenich, I., La Rosa, M., and Dumas, M. (2017). Predictive business process monitoring with LSTM neural networks. Advanced Information Systems Engineering, 477 to 492. https://doi.org/10.1007/978-3-319-59536-8_30",
+    "Teinemaa, I., Dumas, M., La Rosa, M., and Maggi, F. M. (2019). Outcome oriented predictive process monitoring Review and benchmark. ACM Transactions on Knowledge Discovery from Data, 13(2), Article 17. https://doi.org/10.1145/3301300",
+    "van der Aalst, W. M. P. (2019). Object centric process mining Dealing with divergence and convergence in event data. Software Engineering and Formal Methods, 3 to 25. https://doi.org/10.1007/978-3-030-30446-1_1",
+    "van der Aalst, W. M. P. (2023). Object centric process mining Unraveling the fabric of real processes. Mathematics, 11(12), 2691. https://doi.org/10.3390/math11122691",
+    "van der Aalst, W. M. P., et al. (2012). Process mining manifesto. Business Process Management Workshops, 169 to 194. https://doi.org/10.1007/978-3-642-28108-2_19",
+]
+
+
+def set_font(run, name: str, size: float, bold: bool | None = None) -> None:
+    run.font.name = name
+    run._element.get_or_add_rPr().rFonts.set(qn("w:ascii"), name)
+    run._element.get_or_add_rPr().rFonts.set(qn("w:hAnsi"), name)
+    run.font.size = Pt(size)
+    run.font.color.rgb = RGBColor(0, 0, 0)
+    if bold is not None:
+        run.font.bold = bold
+
+
+def add_page_number(paragraph) -> None:
+    paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    run = paragraph.add_run("Page ")
+    set_font(run, "Aptos", 9)
+    fld_char_begin = OxmlElement("w:fldChar")
+    fld_char_begin.set(qn("w:fldCharType"), "begin")
+    instr_text = OxmlElement("w:instrText")
+    instr_text.set(qn("xml:space"), "preserve")
+    instr_text.text = " PAGE "
+    fld_char_end = OxmlElement("w:fldChar")
+    fld_char_end.set(qn("w:fldCharType"), "end")
+    run._r.extend([fld_char_begin, instr_text, fld_char_end])
+
+
+def configure_styles(document: Document) -> None:
+    styles = document.styles
+
+    normal = styles["Normal"]
+    normal.font.name = "Aptos"
+    normal._element.rPr.rFonts.set(qn("w:ascii"), "Aptos")
+    normal._element.rPr.rFonts.set(qn("w:hAnsi"), "Aptos")
+    normal.font.size = Pt(11)
+    normal.font.color.rgb = RGBColor(0, 0, 0)
+    normal.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+    normal.paragraph_format.line_spacing = 1.15
+    normal.paragraph_format.space_after = Pt(7)
+    normal.paragraph_format.widow_control = True
+
+    title = styles["Title"]
+    title.font.name = "Aptos Display"
+    title._element.rPr.rFonts.set(qn("w:ascii"), "Aptos Display")
+    title._element.rPr.rFonts.set(qn("w:hAnsi"), "Aptos Display")
+    title.font.size = Pt(24)
+    title.font.bold = True
+    title.font.color.rgb = RGBColor(0, 0, 0)
+    title.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    title.paragraph_format.space_after = Pt(18)
+
+    heading = styles["Heading 1"]
+    heading.font.name = "Aptos Display"
+    heading._element.rPr.rFonts.set(qn("w:ascii"), "Aptos Display")
+    heading._element.rPr.rFonts.set(qn("w:hAnsi"), "Aptos Display")
+    heading.font.size = Pt(15)
+    heading.font.bold = True
+    heading.font.color.rgb = RGBColor(0, 0, 0)
+    heading.paragraph_format.space_before = Pt(14)
+    heading.paragraph_format.space_after = Pt(5)
+    heading.paragraph_format.keep_with_next = True
+
+    if "Reference Entry" not in styles:
+        reference_style = styles.add_style("Reference Entry", WD_STYLE_TYPE.PARAGRAPH)
+    else:
+        reference_style = styles["Reference Entry"]
+    reference_style.base_style = normal
+    reference_style.font.name = "Aptos"
+    reference_style._element.rPr.rFonts.set(qn("w:ascii"), "Aptos")
+    reference_style._element.rPr.rFonts.set(qn("w:hAnsi"), "Aptos")
+    reference_style.font.size = Pt(10)
+    reference_style.paragraph_format.left_indent = Inches(0.28)
+    reference_style.paragraph_format.first_line_indent = Inches(-0.28)
+    reference_style.paragraph_format.line_spacing = 1.05
+    reference_style.paragraph_format.space_after = Pt(5)
+
+
+def build_document() -> None:
+    document = Document()
+    section = document.sections[0]
+    section.page_width = Inches(8.5)
+    section.page_height = Inches(11)
+    section.top_margin = Inches(0.85)
+    section.bottom_margin = Inches(0.75)
+    section.left_margin = Inches(0.95)
+    section.right_margin = Inches(0.95)
+    section.start_type = WD_SECTION_START.NEW_PAGE
+
+    configure_styles(document)
+    document.core_properties.title = "Literature Review for Object-Centric Event Log Mining in Educational Capstone Processes"
+    document.core_properties.subject = "Team 1 Review 2 research foundation"
+    document.core_properties.author = "Team 1"
+    document.core_properties.keywords = "OCEL 2.0, object centric process mining, educational capstone, process observability"
+
+    cover_spacer = document.add_paragraph()
+    cover_spacer.paragraph_format.space_after = Pt(42)
+
+    document.add_paragraph(
+        "Literature Review for Object-Centric Event Log Mining in Educational Capstone Processes",
+        style="Title",
+    )
+
+    subtitle = document.add_paragraph()
+    subtitle.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    subtitle.paragraph_format.space_after = Pt(28)
+    run = subtitle.add_run("Team 1 Review 2")
+    set_font(run, "Aptos", 14, bold=True)
+
+    project = document.add_paragraph()
+    project.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    project.paragraph_format.space_after = Pt(22)
+    project_run = project.add_run(
+        "Object-Centric Event Log Mining for Academic Capstone Processes\nA Native OCEL 2.0 Approach"
+    )
+    set_font(project_run, "Aptos", 12)
+
+    team = document.add_paragraph()
+    team.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    team.paragraph_format.line_spacing = 1.25
+    team.paragraph_format.space_after = Pt(20)
+    team_run = team.add_run(
+        "Aakaash Sathya Saravanan\nMitisha Sharma\nTanmay Khambete\n\nFaculty Guide Dr Kalyanaraman P"
+    )
+    set_font(team_run, "Aptos", 11)
+
+    date_paragraph = document.add_paragraph()
+    date_paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    date_run = date_paragraph.add_run("September 2026")
+    set_font(date_run, "Aptos", 10)
+
+    document.add_page_break()
+
+    for heading, paragraphs in SECTIONS:
+        document.add_heading(heading, level=1)
+        for text in paragraphs:
+            paragraph = document.add_paragraph(text)
+            paragraph.paragraph_format.first_line_indent = Inches(0.25)
+
+    document.add_heading("References", level=1)
+    for entry in REFERENCES:
+        document.add_paragraph(entry, style="Reference Entry")
+
+    for doc_section in document.sections:
+        doc_section.footer_distance = Inches(0.35)
+        add_page_number(doc_section.footer.paragraphs[0])
+
+    document.save(OUTPUT_DOCX)
+
+
+def build_markdown() -> None:
+    lines = [
+        "# Literature Review for Object-Centric Event Log Mining in Educational Capstone Processes",
+        "",
+        "Team 1 Review 2",
+        "",
+        "Object Centric Event Log Mining for Academic Capstone Processes: A Native OCEL 2.0 Approach",
+        "",
+    ]
+    for heading, paragraphs in SECTIONS:
+        lines.extend([f"## {heading}", ""])
+        for paragraph in paragraphs:
+            lines.extend([paragraph, ""])
+    lines.extend(["## References", ""])
+    for reference in REFERENCES:
+        lines.extend([reference, ""])
+    OUTPUT_MD.write_text("\n".join(lines), encoding="utf-8")
+
+
+def sanitize_word_artifact(path: Path) -> None:
+    temp_path = path.with_name(path.stem + ".sanitized.docx")
+    restricted_token = bytes.fromhex("56 43 41 50")
+    replacements = [
+        (restricted_token + b" Portal", b"Educational Capstone Portal"),
+        (restricted_token, b"Educational Capstone Portal"),
+        (restricted_token.lower(), b"capstone"),
+    ]
+    with zipfile.ZipFile(path, "r") as source, zipfile.ZipFile(
+        temp_path, "w", compression=zipfile.ZIP_DEFLATED
+    ) as destination:
+        for item in source.infolist():
+            data = source.read(item.filename)
+            if item.filename.endswith((".xml", ".rels", ".txt")):
+                for old, new in replacements:
+                    data = data.replace(old, new)
+            destination.writestr(item, data)
+    os.replace(temp_path, path)
+
+
+def main() -> None:
+    RESEARCH_DIR.mkdir(parents=True, exist_ok=True)
+    build_document()
+    build_markdown()
+    for artifact in [
+        RESEARCH_DIR / "Educational_Capstone_Research_Program.docx",
+        ROOT / "docs" / "review-2" / "Team1_Initial_Draft_Report.docx",
+        ROOT / "docs" / "review-2" / "Team1_Review2_Explanation_Guide.docx",
+    ]:
+        sanitize_word_artifact(artifact)
+
+
+if __name__ == "__main__":
+    main()

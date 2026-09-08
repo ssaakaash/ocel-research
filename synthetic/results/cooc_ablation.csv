@@ -1,0 +1,5 @@
+representation,preserved_risks,total_risks,cooc_pct,preserved
+Project-centric flat log,2,6,33.3,G5 stage stall; E10 duplicate verification
+Student-centric flat log,1,6,16.7,G5 stage stall
+ReportVersion-centric flat log,3,6,50.0,G5 stage stall; G9 attempts; E12 score lockout
+OCEL with linked domain objects,6,6,100.0,G5; E10; G9; E5; E15; E12

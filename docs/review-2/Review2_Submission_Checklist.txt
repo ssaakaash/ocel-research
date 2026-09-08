@@ -1,0 +1,50 @@
+TEAM 1 — REVIEW 2 SUBMISSION AND DEMO CHECKLIST
+
+Must be completed by the team before submission
+
+[ ] Obtain the project guide's email approval for attendance, PPT, demo, draft report, and stated outcome.
+[ ] Replace the yellow placeholder on slide 2 with a readable screenshot of that approval email.
+[ ] Confirm whether Team 1 presents on 02-09-2026 or 09-09-2026; update the title-slide date if required.
+[ ] Confirm all names, registration numbers, guide name, project title, and institutional wording.
+[ ] Upload the final report to Moodle in the required format and naming convention.
+[ ] Test the PPT, fonts, videos/animations if added, and prototype on the presentation laptop.
+
+Suggested live-demo flow (5–7 minutes)
+
+1. Open the package README and explain that no production Educational Capstone Portal logs were available.
+2. Run the synthetic generator using the documented command.
+3. Show the three scenarios: clean target, implemented baseline, and gap-injected.
+4. Open one generated OCEL SQLite database and show the event, object, E2O, and O2O tables.
+5. Run the analysis script.
+6. Present the integrity checks, flattening comparison, six conformance detectors, forecasting result, and intervention simulation.
+7. End with the limitation: these are proof-of-mechanism results, not claims of deployed performance.
+
+Key numbers to rehearse
+
+• 120 projects and 30 faculty per scenario; seed 4971.
+• Zero dangling event–object or object–object references in all generated scenarios.
+• Relation retention: project-flat 27.9%, student-flat 19.8%, report-version-flat 26.3%, native OCEL 100%.
+• Six synthetic violation detectors: macro-F1 0.977 on the injected benchmark.
+• Project-grouped Markov next-event baseline: top-1 accuracy 0.912, top-2 accuracy 0.986, macro-F1 0.673.
+• Offline simulation: combined intervention reduced modelled deadlock from 11.2% to 1.3% and increased modelled completion from 74.5% to 89.5%.
+• COOC on six preregistered predicates: project-flat 33.3%, student-flat 16.7%, report-version-flat 50.0%, native OCEL 100%.
+
+Safe wording for Q&A
+
+• Say “on the synthetic benchmark,” “under the simulator assumptions,” or “proof of mechanism” before quoting results.
+• Do not claim “first OCEL in education.” The novelty is the transactional capstone domain, documentation-grounded validation triad, cross-object conformance, COOC study metric, and offline intervention evaluation.
+• COOC is a study-specific evaluation metric, not yet a universal OCEL quality measure.
+• The next validation stage requires de-identified real logs, independent expert labels, stronger baselines, and sensitivity analysis.
+
+Final file check
+
+[ ] Team1_Review2_OCEL.pptx
+[ ] Team1_Initial_Draft_Report.docx
+[ ] Team1_Research_Execution_Prompt.txt (in the Project 1 root)
+[ ] README.txt
+[ ] src/team1_synthetic_ocel.py
+[ ] src/analyze_team1_synthetic.py
+[ ] data/*.sqlite
+[ ] results/*.csv and experiment_summary.json
+[ ] Research_and_Novelty_Plan.txt
+[ ] Review2_Submission_Checklist.txt
