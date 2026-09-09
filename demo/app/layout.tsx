@@ -7,13 +7,13 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 });
 export const metadata: Metadata = {
-  title: 'OCEL Capstone Lab · Team 1 Review 2',
+  title: 'Capstone Risk Twin · Team 1 Review 2',
   description:
-    'Interactive synthetic proof-of-mechanism for object-centric process mining of academic capstones.',
+    'Interactive synthetic study of cross-object risk observability and intervention hypotheses in educational capstone workflows.',
   openGraph: {
-    title: 'OCEL Capstone Lab · Team 1',
+    title: 'Capstone Risk Twin · Team 1',
     description:
-      'See what flat event logs lose—and what an object-centric model preserves.',
+      'Explore what cross-object evidence reveals, what flat logs lose, and how synthetic intervention policies compare.',
     images: ['/social-preview.png'],
   },
 };

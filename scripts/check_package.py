@@ -43,8 +43,14 @@ def main() -> None:
     assert summary["observability"]["cross_object_observability_coverage"]["ablation"][-1]["cooc_pct"] == 100.0
 
     hosting = json.loads(require("demo/.openai/hosting.json").read_text())
-    if "project_id" in hosting:
-        raise SystemExit("Deployment-specific Sites project_id must not be published")
+    unexpected_hosting_keys = set(hosting) - {"d1", "r2", "project_id"}
+    if unexpected_hosting_keys:
+        raise SystemExit(
+            f"Unexpected hosting configuration keys: {sorted(unexpected_hosting_keys)}"
+        )
+    project_id = hosting.get("project_id")
+    if project_id is not None and not str(project_id).startswith("appgprj_"):
+        raise SystemExit("Sites project_id has an unexpected format")
     if (ROOT / "demo/.env").exists():
         raise SystemExit("Secret-bearing demo environment file is present")
     print("Repository package check passed: synthetic boundary and required artifacts verified.")
