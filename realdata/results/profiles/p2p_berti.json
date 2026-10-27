@@ -1,0 +1,109 @@
+{
+  "name": "p2p_berti",
+  "events": 8300,
+  "objects": 4493,
+  "e2o_rows": 16827,
+  "o2o_rows": 0,
+  "time_span": [
+    "2024-09-02 08:04:53.367624+00:00",
+    "2024-09-20 12:36:57.686830+00:00"
+  ],
+  "event_attribute_columns": [
+    "user",
+    "cost_center",
+    "location"
+  ],
+  "activities": {
+    "Create PR": 1000,
+    "Approve PR": 900,
+    "Approve PO": 900,
+    "Send PO to Supplier": 900,
+    "Receive Goods": 900,
+    "Receive Invoice": 900,
+    "Make Payment": 900,
+    "Three-way Match - Successful": 823,
+    "Create PO (Batch)": 457,
+    "Create PO": 443,
+    "Reject PR": 100,
+    "Three-way Match - Mismatch Found": 77
+  },
+  "object_types": {
+    "Purchase Requisition": 1000,
+    "Purchase Order": 870,
+    "Goods Receipt": 858,
+    "Invoice": 858,
+    "Payment": 857,
+    "Supplier": 50
+  },
+  "qualifiers": {
+    "None": 16827
+  },
+  "objects_per_event": {
+    "mean": 2.03,
+    "50%": 2.0,
+    "max": 7.0
+  },
+  "flattening": [
+    {
+      "case_type": "Goods Receipt",
+      "cases": 858,
+      "events": 8300,
+      "flat_rows": 1800,
+      "row_multiplier": 0.217,
+      "deficiency_share": 0.7831,
+      "convergence_share": 0.0,
+      "divergence_share": 1.0
+    },
+    {
+      "case_type": "Invoice",
+      "cases": 858,
+      "events": 8300,
+      "flat_rows": 2700,
+      "row_multiplier": 0.325,
+      "deficiency_share": 0.6747,
+      "convergence_share": 0.0,
+      "divergence_share": 1.0
+    },
+    {
+      "case_type": "Payment",
+      "cases": 857,
+      "events": 8300,
+      "flat_rows": 900,
+      "row_multiplier": 0.108,
+      "deficiency_share": 0.8916,
+      "convergence_share": 0.0,
+      "divergence_share": 1.0
+    },
+    {
+      "case_type": "Purchase Order",
+      "cases": 870,
+      "events": 8300,
+      "flat_rows": 5400,
+      "row_multiplier": 0.651,
+      "deficiency_share": 0.3494,
+      "convergence_share": 0.0,
+      "divergence_share": 0.8171
+    },
+    {
+      "case_type": "Purchase Requisition",
+      "cases": 1000,
+      "events": 8300,
+      "flat_rows": 4227,
+      "row_multiplier": 0.509,
+      "deficiency_share": 0.6506,
+      "convergence_share": 0.1576,
+      "divergence_share": 0.9982
+    },
+    {
+      "case_type": "Supplier",
+      "cases": 50,
+      "events": 8300,
+      "flat_rows": 1800,
+      "row_multiplier": 0.217,
+      "deficiency_share": 0.7831,
+      "convergence_share": 0.0,
+      "divergence_share": 1.0
+    }
+  ],
+  "source_file": "raw/T1a_berti_simulated/02_p2p.xml"
+}

@@ -1,0 +1,125 @@
+{
+  "name": "hiring",
+  "events": 18119,
+  "objects": 3768,
+  "e2o_rows": 34908,
+  "o2o_rows": 0,
+  "time_span": [
+    "2024-10-02 08:12:17.823636+00:00",
+    "2063-08-06 14:05:17.823636+00:00"
+  ],
+  "event_attribute_columns": [
+    "CreatedBy",
+    "ApprovedBy",
+    "PostedBy",
+    "ScreenedBy",
+    "Outcome",
+    "Result",
+    "Decision"
+  ],
+  "activities": {
+    "Submit Application": 3000,
+    "Screen Resume": 3000,
+    "Send Rejection Letter": 2877,
+    "Schedule Initial Interview": 1811,
+    "Conduct Initial Interview": 1811,
+    "Send Assessment": 911,
+    "Complete Assessment": 911,
+    "Review Assessment": 911,
+    "Schedule Panel Interview": 462,
+    "Conduct Panel Interview": 462,
+    "Evaluate Interview": 462,
+    "Initiate Background Check": 234,
+    "Complete Background Check": 234,
+    "Prepare Offer Letter": 123,
+    "Send Offer Letter": 123,
+    "Create Job Requisition": 100,
+    "Approve Job Requisition": 100,
+    "Post Job Opening": 100,
+    "Candidate Accept Offer": 91,
+    "Start Onboarding": 91,
+    "Complete HR Paperwork": 91,
+    "Attend Orientation Training": 91,
+    "Complete Onboarding": 91,
+    "Candidate Reject Offer": 32
+  },
+  "object_types": {
+    "Candidate": 3000,
+    "Assessment": 588,
+    "JobRequisition": 100,
+    "Interviewer": 50,
+    "HiringManager": 20,
+    "Recruiter": 10
+  },
+  "qualifiers": {
+    "None": 34908
+  },
+  "objects_per_event": {
+    "mean": 1.93,
+    "50%": 2.0,
+    "max": 5.0
+  },
+  "flattening": [
+    {
+      "case_type": "Assessment",
+      "cases": 588,
+      "events": 18119,
+      "flat_rows": 2733,
+      "row_multiplier": 0.151,
+      "deficiency_share": 0.8492,
+      "convergence_share": 0.0,
+      "divergence_share": 1.0
+    },
+    {
+      "case_type": "Candidate",
+      "cases": 3000,
+      "events": 18119,
+      "flat_rows": 17819,
+      "row_multiplier": 0.983,
+      "deficiency_share": 0.0166,
+      "convergence_share": 0.0,
+      "divergence_share": 0.0
+    },
+    {
+      "case_type": "HiringManager",
+      "cases": 20,
+      "events": 18119,
+      "flat_rows": 1596,
+      "row_multiplier": 0.088,
+      "deficiency_share": 0.9119,
+      "convergence_share": 0.0,
+      "divergence_share": 1.0
+    },
+    {
+      "case_type": "Interviewer",
+      "cases": 50,
+      "events": 18119,
+      "flat_rows": 2738,
+      "row_multiplier": 0.151,
+      "deficiency_share": 0.949,
+      "convergence_share": 1.0,
+      "divergence_share": 1.0
+    },
+    {
+      "case_type": "JobRequisition",
+      "cases": 100,
+      "events": 18119,
+      "flat_rows": 3300,
+      "row_multiplier": 0.182,
+      "deficiency_share": 0.8179,
+      "convergence_share": 0.0,
+      "divergence_share": 1.0
+    },
+    {
+      "case_type": "Recruiter",
+      "cases": 10,
+      "events": 18119,
+      "flat_rows": 6722,
+      "row_multiplier": 0.371,
+      "deficiency_share": 0.629,
+      "convergence_share": 0.0,
+      "divergence_share": 1.0
+    }
+  ],
+  "source_file": "raw/T1a_berti_simulated/03_hiring.xml"
+}

@@ -1,0 +1,7 @@
+family,predicates,any_dflat_correct_pct,any_flat_correct_pct,any_flat_or_lead_pct,silent_pairs
+actor_conflict,4,100.0,50.0,50.0,0
+capacity,3,100.0,0.0,0.0,0
+consistency,2,0.0,0.0,0.0,0
+retry_limit,2,100.0,100.0,100.0,0
+stage_order,15,100.0,100.0,100.0,0
+stall,4,75.0,75.0,75.0,0

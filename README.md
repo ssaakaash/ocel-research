@@ -1,113 +1,48 @@
 # Object-Centric Event Log Mining for Academic Capstone Processes
 
-![OCEL Capstone Lab](demo/public/social-preview.png)
+> **Research status (2026-10-27):** the project has moved from the Review 2 synthetic proof of mechanism to a **public-data study**. The synthetic benchmark and the interactive demo were removed from the working tree; they remain in Git history (commit `28b629c`). The Review 2 slides and draft report in `docs/review-2/` still describe the synthetic results and have not been edited. This repository contains no production Educational Capstone Portal logs, real capstone PDFs, or measured institutional outcomes.
 
-> **Research status:** Review 2 proof of mechanism. Every dataset and numerical result in this repository is synthetic. This repository contains no production Educational Capstone Portal logs, real capstone PDFs, or measured institutional outcomes.
-
-This Team 1 project investigates whether a native [OCEL 2.0](https://www.ocel-standard.org/2.0/) representation can preserve and analyse the interacting entities in an academic capstone lifecycle: projects, teams, students, faculty, review stages, report versions, and scores.
-
-The repository combines the research design, Educational Capstone Portal documentation baseline, a deterministic synthetic benchmark, analysis outputs, Review 2 deliverables, and an interactive professor-facing demonstration.
+This Team 1 project investigates whether a native [OCEL 2.0](https://www.ocel-standard.org/2.0/) representation preserves the interacting entities of a review workflow (work item, actors, stages, versions, scores, shared resources), and which process-rule questions stop being answerable when the same data are flattened to one case notion.
 
 ## Research question
 
-Conventional process mining normally selects one case identifier. A capstone event may simultaneously concern a project, three students, a guide, a review stage, a versioned report, and an immutable score. The central question is:
+Conventional process mining selects one case identifier. A capstone event may simultaneously concern a project, three students, a guide, a review stage, a versioned report, and an immutable score. The central question is:
 
-**Which process relationships and risk predicates become unobservable when this multi-entity lifecycle is flattened to one case notion?**
+**Which process rules and risk predicates become unobservable, or wrongly answered, when this multi-entity lifecycle is flattened to one case notion, and what must a flat export carry to keep them answerable?**
 
-## Proposed contributions
+The project does **not** claim to be the first use of object-centric process mining in education (Miri et al., 2026).
 
-1. A native OCEL 2.0 model for the transactional academic-capstone lifecycle.
-2. A documentation-grounded validation triad joining a normative model, descriptive process analysis, and adversarial synthetic cases.
-3. Capstone-specific cross-object conformance rules for stage progression, retry limits, capacity, score lockout, duplicate verification, and counter skew.
-4. **Cross-Object Observability Coverage (COOC)**, a study-specific metric measuring how many preregistered cross-object predicates remain computable and oracle-correct in a representation.
-5. An offline digital-twin experiment for comparing attempt-policy and faculty-capacity interventions before any platform change.
+## Current approach
 
-COOC is proposed as a study-specific evaluation measure, not as a universal OCEL quality standard. The project does **not** claim to be the first use of object-centric process mining in education.
+1. **COOC (Cross-Object Observability Coverage):** the share of a registered set of rule predicates that a representation can express *and* answer identically to an object-centric oracle. It is a study-specific diagnostic, not a universal quality standard.
+2. **Three representation tiers:** native OCEL (oracle), plain case-centric flat log, and a denormalised flat log that keeps related object identifiers as columns.
+3. **Public datasets:** simulated OCEL 2.0 logs, a real Gerrit code-review corpus (CROP) as the closest public analogue of a capstone review lifecycle, and a real education log (OULAD). All are openly licensed and downloaded locally, never redistributed here.
+4. **Executable predicate registry** with an independent SQL cross-check of the oracle.
 
-## Review 2 results
-
-| Experiment | Synthetic result |
-|---|---:|
-| Project-centric relation retention | 27.9% |
-| Student-centric relation retention | 19.8% |
-| Report-version-centric relation retention | 26.3% |
-| Native OCEL relation retention | 100.0% |
-| Flat-log COOC range | 16.7–50.0% |
-| Native OCEL COOC | 100.0% (6/6 predicates) |
-| Deterministic anomaly detector macro-F1 | 0.977 |
-| Markov next-transition top-1 / top-2 accuracy | 0.912 / 0.986 |
-| Combined intervention: modelled deadlock | 11.2% → 1.3% |
-| Combined intervention: modelled completion | 74.5% → 89.5% |
-
-These values validate the implementation under controlled assumptions. They do not estimate real Educational Capstone Portal defect rates, predictive performance, or causal intervention effects.
-
-## Research pipeline
-
-```mermaid
-flowchart LR
-    D[Educational Capstone Portal documentation] --> M[Normative object model]
-    M --> G[Deterministic synthetic generator]
-    G --> O[(OCEL 2.0 SQLite + CSV)]
-    O --> A[Integrity and conformance analysis]
-    O --> F[Case-centric flattening ablation]
-    O --> P[Next-transition baseline]
-    A --> R[Review 2 evidence]
-    F --> R
-    P --> R
-    R --> T[Offline intervention simulator]
-```
+Preliminary results, limitations and the remaining work are in [`docs/research/Journal_Manuscript_Draft.md`](docs/research/Journal_Manuscript_Draft.md); the plan and its execution log are in [`docs/research/Journal_Paper_Research_Plan.md`](docs/research/Journal_Paper_Research_Plan.md).
 
 ## Repository layout
 
 ```text
 .
-├── demo/                   Interactive Review 2 frontend
 ├── docs/
-│   ├── research/           Literature review, agenda, execution prompt, and novelty plan
+│   ├── research/           Plan, manuscript draft, literature review, agenda, execution prompt
 │   ├── review-1/           Team 1 Review 1 presentation
-│   ├── review-2/           Presentation, draft report, and explanation guide
+│   ├── review-2/           Review 2 presentation, draft report, and explanation guide (synthetic-era)
 │   └── educational-capstone-platform/  Documentation used to derive the process model
-├── synthetic/
-│   ├── src/                Dependency-free Python generator and analysis
-│   ├── data/               Three generated scenarios and OCEL databases
-│   └── results/            CSV/JSON experiment outputs
+├── realdata/               Public-data study: manifest, loaders, COOC engine, registry, results
 ├── scripts/                Repository-level validation
-└── .github/workflows/      Reproducibility and frontend build checks
+└── .github/workflows/      Package check
 ```
 
-## Reproduce the synthetic study
+## Reproduce the public-data study
 
-Python 3.10 or newer is sufficient; the research pipeline uses only the Python standard library.
+See [`realdata/README.md`](realdata/README.md) for first-time setup (virtual environment, checksum-verified downloads, conversions). Afterwards:
 
 ```bash
-python3 synthetic/src/team1_synthetic_ocel.py
-python3 synthetic/src/analyze_team1_synthetic.py
-python3 scripts/check_package.py
+make study     # run the experiments, aggregate results, SQL cross-check
+make check     # repository boundary check
 ```
-
-Default configuration: seed `4971`, 120 projects per scenario, 30 faculty, and three students per team.
-
-## Run the Review 2 demo
-
-The frontend requires Node.js 22.13+ and pnpm.
-
-```bash
-cd demo
-pnpm install --frozen-lockfile
-pnpm dev
-```
-
-Open `http://localhost:3000`. The demo uses packaged results and does not require Educational Capstone Portal access or an internet connection after dependencies have been installed.
-
-## Scenarios
-
-- `clean_target`: intended R1–R2–R3 lifecycle.
-- `implemented_baseline`: documented currently implemented R1-only progression.
-- `gap_injected`: intended lifecycle plus controlled and labelled edge-case injections.
-
-## Path to a journal claim
-
-Before publication, the team should preregister the schema, predicates, baselines, and analysis; validate on de-identified real Educational Capstone Portal logs; obtain independent expert labels; report inter-rater agreement; run multi-seed and missingness sensitivity analyses; and, if possible, test a second institution or academic workflow.
 
 ## Team
 
@@ -128,4 +63,4 @@ Project guide: **Dr. Kalyanaraman P.**
 
 ## Responsible use
 
-Do not add real student, faculty, score, submission, or capstone-document data to this repository. See [SECURITY.md](SECURITY.md) before connecting the pipeline to institutional data.
+Do not add real student, faculty, score, submission, or capstone-document data to this repository, and do not commit third-party raw data. See [SECURITY.md](SECURITY.md) before connecting the pipeline to institutional data.

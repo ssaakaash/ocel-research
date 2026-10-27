@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-message: "If you use the synthetic benchmark or COOC evaluation design, please cite this software artifact."
+message: "If you use the COOC evaluation design or the predicate registry, please cite this software artifact."
 title: "Object-Centric Event Log Mining for Academic Capstone Processes"
 type: software
 version: 0.2.0
@@ -16,5 +16,5 @@ keywords:
   - OCEL 2.0
   - educational process mining
   - conformance checking
-  - synthetic benchmark
+  - event data flattening
 

@@ -11,16 +11,6 @@ __pycache__/
 .venv/
 venv/
 
-# Frontend
-demo/node_modules/
-demo/.next/
-demo/.vinext/
-demo/dist/
-demo/out/
-demo/.wrangler/
-demo/next-env.d.ts
-demo/tsconfig.tsbuildinfo
-
 # Credentials and local configuration
 .env
 .env.*
@@ -34,3 +24,10 @@ demo/tsconfig.tsbuildinfo
 *.tar.gz
 work/
 outputs/
+
+# Real public datasets (downloaded, untrusted, not redistributed)
+realdata/raw/
+realdata/ocel/
+realdata/.venv/
+realdata/**/*.log
+realdata/results/*.flag

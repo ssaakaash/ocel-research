@@ -5,38 +5,14 @@ on:
   pull_request:
 
 jobs:
-  synthetic-study:
+  package-check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Regenerate synthetic OCEL data
-        run: python3 synthetic/src/team1_synthetic_ocel.py
-      - name: Recompute analyses
-        run: python3 synthetic/src/analyze_team1_synthetic.py
-      - name: Validate package boundary and results
+      - name: Validate package boundary and dataset manifest
         run: python3 scripts/check_package.py
-      - name: Confirm deterministic tracked outputs
-        run: git diff --exit-code -- synthetic/results ':(glob)synthetic/data/**/*.csv'
-
-  demo-build:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: demo
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 11.19.0
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "22.13.0"
-          cache: pnpm
-          cache-dependency-path: demo/pnpm-lock.yaml
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm exec oxlint app
-      - run: pnpm exec tsc --noEmit
-      - run: pnpm build
+      - name: Syntax-check the study code (data and pm4py are not needed in CI)
+        run: python3 -m compileall -q realdata/src

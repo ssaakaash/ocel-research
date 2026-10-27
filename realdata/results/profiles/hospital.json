@@ -1,0 +1,125 @@
+{
+  "name": "hospital",
+  "events": 14642,
+  "objects": 3688,
+  "e2o_rows": 27605,
+  "o2o_rows": 0,
+  "time_span": [
+    "2024-06-24 07:17:46.239130+00:00",
+    "2024-10-07 18:38:46.239130+00:00"
+  ],
+  "event_attribute_columns": [],
+  "activities": {
+    "Pre-Admission Consultation": 2000,
+    "Insurance Verification": 2000,
+    "Appointment Scheduling": 2000,
+    "Patient Arrival": 2000,
+    "Registration": 2000,
+    "Initial Evaluation": 2000,
+    "Assign Bed": 2000,
+    "Diagnostic Test Order": 321,
+    "Perform Diagnostic Test": 321
+  },
+  "object_types": {
+    "Patient": 2000,
+    "Bed": 587,
+    "Nurse": 399,
+    "Room": 399,
+    "Physician": 100,
+    "LabTechnician": 97,
+    "DiagnosticEquipment": 96,
+    "InsuranceCompany": 10
+  },
+  "qualifiers": {
+    "None": 21605,
+    "assigned": 6000
+  },
+  "objects_per_event": {
+    "mean": 1.89,
+    "50%": 2.0,
+    "max": 3.0
+  },
+  "flattening": [
+    {
+      "case_type": "Bed",
+      "cases": 587,
+      "events": 14642,
+      "flat_rows": 2000,
+      "row_multiplier": 0.137,
+      "deficiency_share": 0.8634,
+      "convergence_share": 0.0,
+      "divergence_share": 1.0
+    },
+    {
+      "case_type": "DiagnosticEquipment",
+      "cases": 96,
+      "events": 14642,
+      "flat_rows": 321,
+      "row_multiplier": 0.022,
+      "deficiency_share": 0.9781,
+      "convergence_share": 0.0,
+      "divergence_share": 1.0
+    },
+    {
+      "case_type": "InsuranceCompany",
+      "cases": 10,
+      "events": 14642,
+      "flat_rows": 2000,
+      "row_multiplier": 0.137,
+      "deficiency_share": 0.8634,
+      "convergence_share": 0.0,
+      "divergence_share": 1.0
+    },
+    {
+      "case_type": "LabTechnician",
+      "cases": 97,
+      "events": 14642,
+      "flat_rows": 321,
+      "row_multiplier": 0.022,
+      "deficiency_share": 0.9781,
+      "convergence_share": 0.0,
+      "divergence_share": 1.0
+    },
+    {
+      "case_type": "Nurse",
+      "cases": 399,
+      "events": 14642,
+      "flat_rows": 4000,
+      "row_multiplier": 0.273,
+      "deficiency_share": 0.7268,
+      "convergence_share": 0.0,
+      "divergence_share": 1.0
+    },
+    {
+      "case_type": "Patient",
+      "cases": 2000,
+      "events": 14642,
+      "flat_rows": 14642,
+      "row_multiplier": 1.0,
+      "deficiency_share": 0.0,
+      "convergence_share": 0.0,
+      "divergence_share": 0.0
+    },
+    {
+      "case_type": "Physician",
+      "cases": 100,
+      "events": 14642,
+      "flat_rows": 2321,
+      "row_multiplier": 0.159,
+      "deficiency_share": 0.8415,
+      "convergence_share": 0.0,
+      "divergence_share": 1.0
+    },
+    {
+      "case_type": "Room",
+      "cases": 399,
+      "events": 14642,
+      "flat_rows": 2000,
+      "row_multiplier": 0.137,
+      "deficiency_share": 0.8634,
+      "convergence_share": 0.0,
+      "divergence_share": 1.0
+    }
+  ],
+  "source_file": "raw/T1a_berti_simulated/04_hospital.xml"
+}

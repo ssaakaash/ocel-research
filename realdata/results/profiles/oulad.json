@@ -1,0 +1,80 @@
+{
+  "name": "oulad",
+  "events": 216532,
+  "objects": 61577,
+  "e2o_rows": 823508,
+  "o2o_rows": 65174,
+  "time_span": [
+    "2012-03-28 00:00:00+00:00",
+    "2015-09-15 00:00:00+00:00"
+  ],
+  "event_attribute_columns": [
+    "score",
+    "is_banked"
+  ],
+  "activities": {
+    "Submit": 173912,
+    "Register": 32548,
+    "Unregister": 10072
+  },
+  "object_types": {
+    "Enrollment": 32587,
+    "Student": 28780,
+    "Assessment": 188,
+    "Presentation": 22
+  },
+  "qualifiers": {
+    "enrollment": 216532,
+    "student": 216532,
+    "presentation": 216532,
+    "assessment": 173912
+  },
+  "objects_per_event": {
+    "mean": 3.8,
+    "50%": 4.0,
+    "max": 4.0
+  },
+  "flattening": [
+    {
+      "case_type": "Assessment",
+      "cases": 188,
+      "events": 216532,
+      "flat_rows": 173912,
+      "row_multiplier": 0.803,
+      "deficiency_share": 0.1968,
+      "convergence_share": 0.0,
+      "divergence_share": 1.0
+    },
+    {
+      "case_type": "Enrollment",
+      "cases": 32587,
+      "events": 216532,
+      "flat_rows": 216532,
+      "row_multiplier": 1.0,
+      "deficiency_share": 0.0,
+      "convergence_share": 0.0,
+      "divergence_share": 1.0
+    },
+    {
+      "case_type": "Presentation",
+      "cases": 22,
+      "events": 216532,
+      "flat_rows": 216532,
+      "row_multiplier": 1.0,
+      "deficiency_share": 0.0,
+      "convergence_share": 0.0,
+      "divergence_share": 1.0
+    },
+    {
+      "case_type": "Student",
+      "cases": 28780,
+      "events": 216532,
+      "flat_rows": 216532,
+      "row_multiplier": 1.0,
+      "deficiency_share": 0.0,
+      "convergence_share": 0.0,
+      "divergence_share": 1.0
+    }
+  ],
+  "source_file": "ocel/oulad.sqlite"
+}

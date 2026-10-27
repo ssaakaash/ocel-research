@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Check the public package boundary and headline synthetic results."""
+"""Check the public package boundary: required artifacts, dataset manifest, and no tracked raw data."""
 
 from __future__ import annotations
 
 import json
+import subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -22,38 +23,36 @@ def main() -> None:
         "CITATION.cff",
         "docs/review-2/Team1_Review2_OCEL.pptx",
         "docs/review-2/Team1_Initial_Draft_Report.docx",
-        "synthetic/src/team1_synthetic_ocel.py",
-        "synthetic/src/analyze_team1_synthetic.py",
-        "synthetic/data/manifest.json",
-        "synthetic/results/experiment_summary.json",
-        "demo/app/page.tsx",
-        "demo/package.json",
+        "docs/research/Journal_Paper_Research_Plan.md",
+        "docs/research/Journal_Manuscript_Draft.md",
+        "realdata/README.md",
+        "realdata/sources.json",
+        "realdata/requirements.txt",
+        "realdata/src/cooc.py",
+        "realdata/src/registry.py",
+        "realdata/src/run_cooc.py",
     ]
     for item in required:
         require(item)
 
-    manifest = json.loads(require("synthetic/data/manifest.json").read_text())
-    summary = json.loads(require("synthetic/results/experiment_summary.json").read_text())
-    assert manifest["synthetic"] is True
-    assert summary["configuration"]["synthetic"] is True
-    assert summary["configuration"]["seed"] == 4971
-    assert all(s["validation"]["dangling_e2o"] == 0 for s in manifest["scenarios"].values())
-    assert all(s["validation"]["dangling_o2o"] == 0 for s in manifest["scenarios"].values())
-    assert summary["anomaly_detection"]["macro_f1"] == 0.977
-    assert summary["observability"]["cross_object_observability_coverage"]["ablation"][-1]["cooc_pct"] == 100.0
+    sources = json.loads(require("realdata/sources.json").read_text(encoding="utf-8"))["sources"]
+    for src in sources:
+        for field in ("id", "doi", "license", "title"):
+            if not src.get(field):
+                raise SystemExit(f"realdata/sources.json: source {src.get('id')!r} lacks {field!r}")
+        if "CC-BY" not in src["license"]:
+            raise SystemExit(f"realdata/sources.json: {src['id']} is not marked CC-BY; review its licence before use")
 
-    hosting = json.loads(require("demo/.openai/hosting.json").read_text())
-    unexpected_hosting_keys = set(hosting) - {"d1", "r2", "project_id"}
-    if unexpected_hosting_keys:
-        raise SystemExit(
-            f"Unexpected hosting configuration keys: {sorted(unexpected_hosting_keys)}"
-        )
-    project_id = hosting.get("project_id")
-    if project_id is not None and not str(project_id).startswith("appgprj_"):
-        raise SystemExit("Sites project_id has an unexpected format")
-    if (ROOT / "demo/.env").exists():
-        raise SystemExit("Secret-bearing demo environment file is present")
-    print("Repository package check passed: synthetic boundary and required artifacts verified.")
+    # Downloaded or derived third-party data must never be tracked.
+    if (ROOT / ".git").exists():
+        tracked = subprocess.run(["git", "ls-files", "realdata/raw", "realdata/ocel", "realdata/.venv"],
+                                 cwd=ROOT, capture_output=True, text=True, check=True).stdout.split()
+        if tracked:
+            raise SystemExit(f"Raw/derived third-party data is tracked in git: {tracked[:5]}")
+    for env_file in ROOT.rglob(".env"):
+        if ".venv" not in env_file.parts and "raw" not in env_file.parts:
+            raise SystemExit(f"Secret-bearing environment file is present: {env_file.relative_to(ROOT)}")
+    print(f"Repository package check passed: {len(required)} artifacts, {len(sources)} licensed sources, no tracked raw data.")
 
 
 if __name__ == "__main__":

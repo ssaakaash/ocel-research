@@ -1,15 +1,8 @@
-.PHONY: research check demo-install demo-build
+.PHONY: check study
 
-research:
-	python3 synthetic/src/team1_synthetic_ocel.py
-	python3 synthetic/src/analyze_team1_synthetic.py
+# Public-data observability study (needs realdata/.venv; see realdata/README.md for first-time setup)
+study:
+	cd realdata && .venv/bin/python -I src/run_cooc.py && .venv/bin/python -I src/analyze_cooc.py && python3 -I src/sql_crosscheck.py
 
 check:
 	python3 scripts/check_package.py
-
-demo-install:
-	cd demo && pnpm install --frozen-lockfile
-
-demo-build:
-	cd demo && pnpm run build
-

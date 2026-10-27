@@ -1,0 +1,60 @@
+{
+  "native_correct": {
+    "share": 1.0,
+    "ci95": [
+      1.0,
+      1.0
+    ]
+  },
+  "any_flat_correct": {
+    "share": 0.7333,
+    "ci95": [
+      0.5667,
+      0.8667
+    ]
+  },
+  "any_dflat_correct": {
+    "share": 0.9,
+    "ci95": [
+      0.7667,
+      1.0
+    ]
+  },
+  "any_flat_or_lead_correct": {
+    "share": 0.7333,
+    "ci95": [
+      0.5667,
+      0.9
+    ]
+  },
+  "single_flat_view_cooc": {
+    "share": 0.1109,
+    "ci95": [
+      0.0484,
+      0.1785
+    ],
+    "views": 39
+  },
+  "silent_error_rate_among_answered_flat_pairs": {
+    "silent": 0,
+    "answered": 22,
+    "rate": 0.0
+  },
+  "single_dflat_view_cooc": {
+    "share": 0.2244,
+    "ci95": [
+      0.1343,
+      0.3202
+    ],
+    "views": 39
+  },
+  "silent_error_rate_among_answered_dflat_pairs": {
+    "silent": 0,
+    "answered": 45,
+    "rate": 0.0
+  },
+  "predicates_evaluated": 30,
+  "predicates_excluded_low_positives": 4,
+  "predicates_natural": 9,
+  "predicates_injected": 21
+}
