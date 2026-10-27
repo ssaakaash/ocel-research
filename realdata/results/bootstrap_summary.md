@@ -1,0 +1,34 @@
+| quantity | estimate | 95% interval |
+|---|---:|---|
+| narrowed | 20.0 | 20.0 to 20.0 |
+| plausible | 15.0 | 15.0 to 15.0 |
+| plausible_narrowed | 2.0 | 2.0 to 2.0 |
+| dup_below_095 | 2.0 | 1.0 to 3.0 |
+| crop:rho_all_median | 1.0 | 1.0 to 1.0 |
+| crop:rho_all_min | 1.0 | 1.0 to 1.0 |
+| crop:rho_dup_min | 1.0 | 1.0 to 1.0 |
+| crop:entity_min | 1.0 | 1.0 to 1.0 |
+| oulad:rho_all_median | 1.0 | 1.0 to 1.0 |
+| oulad:rho_all_min | 0.866 | 0.866 to 1.0 |
+| oulad:rho_dup_min | 1.0 | 1.0 to 1.0 |
+| oulad:entity_min | 0.9844 | 0.9837 to 0.9851 |
+| angular_commits:rho_all_median | 0.8828 | 0.8014 to 0.9303 |
+| angular_commits:rho_all_min | 0.8051 | 0.6473 to 0.8934 |
+| angular_commits:rho_dup_min | 0.8059 | 0.6599 to 0.8974 |
+| angular_commits:entity_min | 0.8834 | 0.8798 to 0.8873 |
+| bundestag:rho_all_median | 0.1681 | 0.1363 to 0.2909 |
+| bundestag:rho_all_min | -0.0037 | -0.1441 to 0.112 |
+| bundestag:rho_dup_min | 0.9984 | 0.9959 to 0.9994 |
+| bundestag:entity_min | 0.3379 | 0.1995 to 0.5072 |
+| enron:rho_all_median | 0.9667 | 0.8683 to 1.0 |
+| enron:rho_all_min | 0.8656 | 0.3777 to 0.9959 |
+| enron:rho_dup_min | 0.9333 | 0.5257 to 1.0 |
+| enron:entity_min | 0.1589 | 0.1361 to 0.1797 |
+| ethereum:rho_all_median | 0.643 | 0.5339 to 0.7046 |
+| ethereum:rho_all_min | 0.0173 | -0.1303 to 0.1571 |
+| ethereum:rho_dup_min | 0.9996 | 0.9988 to 0.9997 |
+| ethereum:entity_min | -0.006 | -0.0338 to 0.0172 |
+| aoe2:rho_all_median | 0.2141 | 0.1482 to 0.2913 |
+| aoe2:rho_all_min | -0.0458 | -0.1522 to 0.0513 |
+| aoe2:rho_dup_min | 0.9996 | 0.999 to 0.9998 |
+| aoe2:entity_min | -0.4089 | -0.6701 to -0.2567 |

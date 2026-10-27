@@ -37,6 +37,8 @@ Suggested AI-use statement (edit so it is true for you): "During the preparation
 
 ## 3. Choosing a venue (facts as found on 2026-10-27; verify before relying on them)
 
+**Update (2026-10-27, later):** Springer's own index list for Process Science does not include Scopus, so it fails the VIT outcome form. The chosen target is now the **Journal of Intelligent Information Systems** (Scopus and SCIE, no fee on the subscription route). The LaTeX manuscript, cover letter and step-by-step guide are in [`jiis/`](jiis/SUBMISSION_GUIDE.md).
+
 | Venue | Fit and facts | Check yourself |
 |---|---|---|
 | **Process Science** (Springer; flagship of the Process Science Association, run by the BPM Conference steering committee and the IEEE Task Force on Process Mining) | Best topical fit. Fully gold open access, article processing charge due at acceptance, waivers possible. Single-blind review. States a target of a first decision within a month and bimonthly deadlines. Published [6], so it covers object-centric data quality | Scopus indexing (we could not confirm it), the current charge, article types and length limits, preprint policy |

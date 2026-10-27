@@ -1,0 +1,33 @@
+{
+  "identical": true,
+  "logs": {
+    "crop": {
+      "case_notions": 3,
+      "type_pairs": 6
+    },
+    "oulad": {
+      "case_notions": 4,
+      "type_pairs": 12
+    },
+    "angular_commits": {
+      "case_notions": 2,
+      "type_pairs": 2
+    },
+    "bundestag": {
+      "case_notions": 44,
+      "type_pairs": 62
+    },
+    "enron": {
+      "case_notions": 4,
+      "type_pairs": 12
+    },
+    "ethereum": {
+      "case_notions": 5,
+      "type_pairs": 20
+    },
+    "aoe2": {
+      "case_notions": 25,
+      "type_pairs": 180
+    }
+  }
+}

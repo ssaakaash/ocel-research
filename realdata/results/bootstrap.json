@@ -1,0 +1,167 @@
+{
+  "replicates": 200,
+  "seed": 4971,
+  "method": "Poisson bootstrap over events for counts; item bootstrap (activities, entities) for rank correlations",
+  "quantities": {
+    "narrowed": {
+      "estimate": 20.0,
+      "ci_low": 20.0,
+      "ci_high": 20.0
+    },
+    "plausible": {
+      "estimate": 15.0,
+      "ci_low": 15.0,
+      "ci_high": 15.0
+    },
+    "plausible_narrowed": {
+      "estimate": 2.0,
+      "ci_low": 2.0,
+      "ci_high": 2.0
+    },
+    "dup_below_095": {
+      "estimate": 2.0,
+      "ci_low": 1.0,
+      "ci_high": 3.0
+    },
+    "crop:rho_all_median": {
+      "estimate": 1.0,
+      "ci_low": 1.0,
+      "ci_high": 1.0
+    },
+    "crop:rho_all_min": {
+      "estimate": 1.0,
+      "ci_low": 1.0,
+      "ci_high": 1.0
+    },
+    "crop:rho_dup_min": {
+      "estimate": 1.0,
+      "ci_low": 1.0,
+      "ci_high": 1.0
+    },
+    "crop:entity_min": {
+      "estimate": 1.0,
+      "ci_low": 1.0,
+      "ci_high": 1.0
+    },
+    "oulad:rho_all_median": {
+      "estimate": 1.0,
+      "ci_low": 1.0,
+      "ci_high": 1.0
+    },
+    "oulad:rho_all_min": {
+      "estimate": 0.866,
+      "ci_low": 0.866,
+      "ci_high": 1.0
+    },
+    "oulad:rho_dup_min": {
+      "estimate": 1.0,
+      "ci_low": 1.0,
+      "ci_high": 1.0
+    },
+    "oulad:entity_min": {
+      "estimate": 0.9844,
+      "ci_low": 0.9837,
+      "ci_high": 0.9851
+    },
+    "angular_commits:rho_all_median": {
+      "estimate": 0.8828,
+      "ci_low": 0.8014,
+      "ci_high": 0.9303
+    },
+    "angular_commits:rho_all_min": {
+      "estimate": 0.8051,
+      "ci_low": 0.6473,
+      "ci_high": 0.8934
+    },
+    "angular_commits:rho_dup_min": {
+      "estimate": 0.8059,
+      "ci_low": 0.6599,
+      "ci_high": 0.8974
+    },
+    "angular_commits:entity_min": {
+      "estimate": 0.8834,
+      "ci_low": 0.8798,
+      "ci_high": 0.8873
+    },
+    "bundestag:rho_all_median": {
+      "estimate": 0.1681,
+      "ci_low": 0.1363,
+      "ci_high": 0.2909
+    },
+    "bundestag:rho_all_min": {
+      "estimate": -0.0037,
+      "ci_low": -0.1441,
+      "ci_high": 0.112
+    },
+    "bundestag:rho_dup_min": {
+      "estimate": 0.9984,
+      "ci_low": 0.9959,
+      "ci_high": 0.9994
+    },
+    "bundestag:entity_min": {
+      "estimate": 0.3379,
+      "ci_low": 0.1995,
+      "ci_high": 0.5072
+    },
+    "enron:rho_all_median": {
+      "estimate": 0.9667,
+      "ci_low": 0.8683,
+      "ci_high": 1.0
+    },
+    "enron:rho_all_min": {
+      "estimate": 0.8656,
+      "ci_low": 0.3777,
+      "ci_high": 0.9959
+    },
+    "enron:rho_dup_min": {
+      "estimate": 0.9333,
+      "ci_low": 0.5257,
+      "ci_high": 1.0
+    },
+    "enron:entity_min": {
+      "estimate": 0.1589,
+      "ci_low": 0.1361,
+      "ci_high": 0.1797
+    },
+    "ethereum:rho_all_median": {
+      "estimate": 0.643,
+      "ci_low": 0.5339,
+      "ci_high": 0.7046
+    },
+    "ethereum:rho_all_min": {
+      "estimate": 0.0173,
+      "ci_low": -0.1303,
+      "ci_high": 0.1571
+    },
+    "ethereum:rho_dup_min": {
+      "estimate": 0.9996,
+      "ci_low": 0.9988,
+      "ci_high": 0.9997
+    },
+    "ethereum:entity_min": {
+      "estimate": -0.006,
+      "ci_low": -0.0338,
+      "ci_high": 0.0172
+    },
+    "aoe2:rho_all_median": {
+      "estimate": 0.2141,
+      "ci_low": 0.1482,
+      "ci_high": 0.2913
+    },
+    "aoe2:rho_all_min": {
+      "estimate": -0.0458,
+      "ci_low": -0.1522,
+      "ci_high": 0.0513
+    },
+    "aoe2:rho_dup_min": {
+      "estimate": 0.9996,
+      "ci_low": 0.999,
+      "ci_high": 0.9998
+    },
+    "aoe2:entity_min": {
+      "estimate": -0.4089,
+      "ci_low": -0.6701,
+      "ci_high": -0.2567
+    }
+  }
+}

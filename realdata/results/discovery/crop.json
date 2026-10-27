@@ -1,0 +1,59 @@
+{
+  "log": "crop",
+  "activities": 10,
+  "noise_threshold": 0.2,
+  "time_budget_s": 900,
+  "notions": [
+    {
+      "case_type": "Change",
+      "flat_rows": 306716,
+      "cases": 54487,
+      "completed": true,
+      "sum_squared_case_length": 3337790,
+      "fitness": 0.975,
+      "precision": 0.6464,
+      "tree_nodes": 51,
+      "places": 40,
+      "transitions": 50,
+      "silent_transitions": 40,
+      "arcs": 116,
+      "loop_share": 1.0,
+      "activity_coverage": 1.0,
+      "seconds": 180.9
+    },
+    {
+      "case_type": "Person",
+      "flat_rows": 306716,
+      "cases": 825,
+      "completed": true,
+      "sum_squared_case_length": 1678569388,
+      "fitness": 0.9987,
+      "precision": null,
+      "tree_nodes": 50,
+      "places": 40,
+      "transitions": 49,
+      "silent_transitions": 39,
+      "arcs": 116,
+      "loop_share": 1.0,
+      "activity_coverage": 1.0,
+      "seconds": 20.1
+    },
+    {
+      "case_type": "Project",
+      "flat_rows": 306716,
+      "cases": 11,
+      "completed": true,
+      "sum_squared_case_length": 12352206762,
+      "fitness": 1.0,
+      "precision": null,
+      "tree_nodes": 29,
+      "places": 22,
+      "transitions": 24,
+      "silent_transitions": 15,
+      "arcs": 62,
+      "loop_share": 1.0,
+      "activity_coverage": 0.9,
+      "seconds": 333.0
+    }
+  ]
+}

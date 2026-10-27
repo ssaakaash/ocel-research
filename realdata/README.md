@@ -17,7 +17,10 @@ Executable COOC (Cross-Object Observability Coverage) experiments on public OCEL
 | `src/run_cooc.py`, `src/analyze_cooc.py` | Predicate-based COOC runner and aggregation (appendix-level; natural prevalence only). |
 | `src/consequence.py`, `src/summarize_consequence.py` | Consequence analysis: activity rankings, directly-follows frequencies, spurious edges, variants, entity rankings (flat vs object-centric). |
 | `src/check_consequence.py` | Self-check of `consequence.py` against a plain-Python implementation on a real Enron slice. |
-| `src/check_distortion.py` | Self-check of `distortion.py` against a plain-Python implementation on 6,000-event slices of Enron, Bundestag and Age of Empires II. |
+| `src/check_distortion.py` | Self-check of `distortion.py` against a plain-Python implementation: 6,000-event slices of Enron, Bundestag and Age of Empires II by default; with `--full` (used by `make study`) all seven full logs against the published `results/distortion/` files. |
+| `src/bootstrap.py` | Poisson bootstrap (200 replicates, seed 4971) of the headline consequence numbers; `bootstrap.json`, `bootstrap_summary.md`. Run by `make extended`. |
+| `src/discovery.py`, `src/summarize_discovery.py` | Process-discovery consequence: Inductive Miner model per flat view, fitness, precision, loop share, size; correlations with the distortion metrics. Run by `make extended`. |
+| `src/rerun_failed_discovery.py` | Re-mines the three case notions that `discovery.py` does not finish (Angular branches: time budget; AoE2 Match: a RecursionError inside pm4py's Inductive Miner; AoE2 Session: fails before the budget, cause not traced) with a longer budget, recording peak memory. |
 | `src/summarize_distortion.py` | Combines per-log distortion JSON into `distortion_summary.{csv,md}`. |
 | `src/summarize_log_level.py` | One row per log (`log_level_summary.csv`): copies per event, dropped events, shared-object type pairs. |
 | `src/sql_crosscheck.py` | Independent stdlib-SQLite check of four CROP predicates. |
@@ -34,7 +37,7 @@ python3 -I src/extract_archives.py                # safe extraction into new dir
 .venv/bin/python -I src/convert_crop.py && .venv/bin/python -I src/convert_oulad.py
 .venv/bin/python -I src/profile_all.py
 .venv/bin/python -I src/run_cooc.py && .venv/bin/python -I src/analyze_cooc.py
-.venv/bin/python -I src/distortion.py && python3 -I src/summarize_distortion.py && python3 -I src/summarize_log_level.py && .venv/bin/python -I src/check_distortion.py
+.venv/bin/python -I src/distortion.py && python3 -I src/summarize_distortion.py && python3 -I src/summarize_log_level.py && .venv/bin/python -I src/check_distortion.py --full
 .venv/bin/python -I src/check_consequence.py && .venv/bin/python -I src/consequence.py && python3 -I src/summarize_consequence.py
 python3 -I src/sql_crosscheck.py
 ```

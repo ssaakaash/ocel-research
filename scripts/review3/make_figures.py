@@ -24,7 +24,8 @@ INK, MUTED, GRID, SURFACE = "#1f2328", "#5b616b", "#e3e6ea", "#ffffff"
 BLUE, ORANGE, AQUA, GRAY = "#2a78d6", "#eb6834", "#1baf7a", "#9aa1ab"
 FILL, FILL_B, FILL_O, FILL_A = "#f3f6fa", "#e6f0fc", "#fdeee7", "#e3f6ee"
 plt.rcParams.update({"font.family": ["Arial", "DejaVu Sans"], "axes.edgecolor": MUTED, "text.color": INK, "axes.labelcolor": INK,
-                     "xtick.color": MUTED, "ytick.color": MUTED, "savefig.facecolor": SURFACE, "figure.facecolor": SURFACE})
+                     "xtick.color": MUTED, "ytick.color": MUTED, "savefig.facecolor": SURFACE, "figure.facecolor": SURFACE,
+                     "pdf.fonttype": 42})   # TrueType fonts in PDFs (publishers reject Type 3)
 
 
 def canvas(w=100, h=58, size=(10, 5.8)):
@@ -45,8 +46,13 @@ def arrow(ax, p, q, ls="-", color=INK, lw=1.4, rad=0.0, style="-|>", ms=11):
     ax.add_patch(FancyArrowPatch(p, q, arrowstyle=style, mutation_scale=ms, lw=lw, color=color, ls=ls, connectionstyle=f"arc3,rad={rad}", shrinkA=0, shrinkB=0))
 
 
+PAPER_FIGS = {"fig_regimes.png", "fig_rank_activity.png", "fig_rank_entity.png"}   # also written as vector PDF for the journal manuscript
+
+
 def save(fig, name):
     fig.savefig(OUT / name, dpi=200)
+    if name in PAPER_FIGS:
+        fig.savefig(OUT / name.replace(".png", ".pdf"))
     plt.close(fig)
     print("wrote", name)
 

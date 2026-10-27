@@ -1,0 +1,68 @@
+{
+  "notions": 35,
+  "not_completed": [
+    "angular_commits/branches (time budget or failure)",
+    "aoe2/Match (time budget or failure)",
+    "aoe2/Session (time budget or failure)"
+  ],
+  "fitness_median": 0.9943,
+  "fitness_min": 0.9553,
+  "precision_computed": 25,
+  "precision_median": 0.672,
+  "precision_min": 0.0409,
+  "loop_share_ge_0.9": 16,
+  "model_covers_under_half_of_activities": 20,
+  "high_divergence_notions": 17,
+  "high_divergence_with_loop_share_ge_0.9": 12,
+  "low_divergence_with_loop_share_ge_0.9": 4,
+  "spearman": {
+    "loop_share~divergence_share": {
+      "rho": 0.6576,
+      "notions": 35
+    },
+    "loop_share~copies_per_event": {
+      "rho": 0.031,
+      "notions": 35
+    },
+    "loop_share~coverage": {
+      "rho": 0.6054,
+      "notions": 35
+    },
+    "fitness~divergence_share": {
+      "rho": 0.2552,
+      "notions": 35
+    },
+    "fitness~copies_per_event": {
+      "rho": -0.4912,
+      "notions": 35
+    },
+    "fitness~coverage": {
+      "rho": 0.2484,
+      "notions": 35
+    },
+    "precision~divergence_share": {
+      "rho": -0.2557,
+      "notions": 25
+    },
+    "precision~copies_per_event": {
+      "rho": -0.5699,
+      "notions": 25
+    },
+    "precision~coverage": {
+      "rho": -0.2094,
+      "notions": 25
+    },
+    "tree_nodes~divergence_share": {
+      "rho": -0.0455,
+      "notions": 35
+    },
+    "tree_nodes~copies_per_event": {
+      "rho": 0.5982,
+      "notions": 35
+    },
+    "tree_nodes~coverage": {
+      "rho": -0.0312,
+      "notions": 35
+    }
+  }
+}

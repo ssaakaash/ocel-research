@@ -1,0 +1,32 @@
+{
+  "log": "angular_commits",
+  "activities": 67,
+  "noise_threshold": 0.2,
+  "time_budget_s": 900,
+  "notions": [
+    {
+      "case_type": "branches",
+      "flat_rows": 2271272,
+      "cases": 139,
+      "completed": false,
+      "seconds": 901.4
+    },
+    {
+      "case_type": "files",
+      "flat_rows": 179828,
+      "cases": 28178,
+      "completed": true,
+      "sum_squared_case_length": 16068374,
+      "fitness": 0.9868,
+      "precision": 0.6001,
+      "tree_nodes": 141,
+      "places": 76,
+      "transitions": 131,
+      "silent_transitions": 87,
+      "arcs": 278,
+      "loop_share": 0.4318,
+      "activity_coverage": 0.6567,
+      "seconds": 461.4
+    }
+  ]
+}

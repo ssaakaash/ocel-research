@@ -1,0 +1,286 @@
+%% Journal of Intelligent Information Systems submission, built on the Springer Nature LaTeX template (sn-jnl.cls).
+%% Numbers follow docs/research/Journal_Manuscript_Draft.md (v0.4) plus realdata/results (bootstrap, discovery,
+%% full-log check).
+\documentclass[pdflatex,sn-basic]{sn-jnl}
+
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{url}
+\usepackage{xcolor}
+\usepackage{lineno}
+\linenumbers
+
+\begin{document}
+
+\title[What Does Flattening Hide?]{What Does Flattening Hide? Measuring Case-Notion Distortion and Its Consequences on Seven Real Object-Centric Event Logs}
+
+\author[1]{\fnm{Aakaash Sathya} \sur{Saravanan}}\email{aakaash.sathya2023@vitstudent.ac.in}
+\equalcont{These authors contributed equally to this work.}
+\author[1]{\fnm{Mitisha} \sur{Sharma}}\email{mitisha.sharma2023@vitstudent.ac.in}
+\equalcont{These authors contributed equally to this work.}
+\author[1]{\fnm{Tanmay} \sur{Khambete}}\email{tanmay.khambete2023@vitstudent.ac.in}
+\equalcont{These authors contributed equally to this work.}
+\author*[1]{\fnm{Kalyanaraman} \sur{P.}}\email{pkalyanaraman@vit.ac.in}
+
+\affil[1]{\orgdiv{School of Computer Science and Engineering}, \orgname{Vellore Institute of Technology}, \orgaddress{\city{Vellore}, \postcode{632014}, \state{Tamil Nadu}, \country{India}}}
+
+\abstract{Most process-mining tools want exactly one case per event. Real information systems rarely record data that way, since a single event often touches several objects, so analysts flatten the data on one object type and accept that some events get copied and others disappear. The problem has been named, but as far as we know it has never been measured on real data. We did so for seven public object-centric event logs (code review, education, legislation, e-mail, blockchain, software commits and a strategy game), 38 case notions in total. For each case notion we compared what an analyst would read from the flat view with an object-centric reference. Three regimes emerged. In star logs nothing is copied or dropped; in partitioned logs the median case notion loses 69\% to 91\% of the events; in fan-out logs one event can turn into 81.65 rows. Copying matters less than we expected: only 2 case notions fall below an activity-rank correlation of 0.95 from duplication alone. Narrowing matters more. In 20 case notions most activities never reach the flat log, and 2 of the 15 case notions covering at least half of their log are among them. Discovered models hide this: every narrowed case notion still yields a model with replay fitness of at least 0.955. Row counts from a denormalised export can even reverse entity rankings (worst cases 0.16, $-0.01$ and $-0.41$). All numbers carry bootstrap intervals and come from an open pipeline that reproduces byte for byte.}
+
+\keywords{Object-centric process mining, OCEL 2.0, Event data flattening, Case notion, Event data quality, Event log extraction}
+
+\maketitle
+
+\section{Introduction}\label{sec:intro}
+
+Ask a process-mining tool to analyse your data and the first thing it wants is a case identifier. That request is easy to meet for a purchase order moving through three departments. It is much harder to meet for an e-mail, which has a sender, perhaps five recipients and a message identifier, or for a Gerrit code review, where a change, two reviewers and a project can all appear in a single event.
+
+In practice people flatten. One object type is picked as the case notion, and the log is rewritten so that every event sits in exactly one case. Three things can go wrong along the way~\cite{vanderaalst2019ocpm}. An event with several objects of the chosen type is copied once per object (convergence). An event with no such object simply vanishes (deficiency). And repeated events that really belong to different objects of some other type end up merged into one case (divergence). Object-centric event logs were designed to make this rewrite unnecessary: in OCEL~2.0~\cite{berti2024ocel20}, an event may point to any number of typed objects, and objects may point to one another.
+
+So there are good reasons to think the extra structure matters. Machine-learning tasks do better when the object graph is kept than when features are flattened~\cite{adams2023preserving}. Adams and van der Aalst~\cite{adams2024addressing} handle convergence, divergence and deficiency within one approach. In a case study at a food company, one-to-many links produced directly-follows relations that did not really exist~\cite{waibel2022causal}. Object-centric data brings quality issues of its own~\cite{kabierski2026quality}, and in Moodle data, a student-centric view hides group and resource links altogether~\cite{miri2026educational}.
+
+What we could not find were numbers. How often does a flat view copy events in real data, and how much does it drop? Would an analyst reading the resulting chart actually reach a different conclusion? Searching Zenodo, 4TU and the wider web turned up worked examples and single case studies. We did not find a measurement that spans several real logs, though we cannot rule out having missed one. This paper tries to supply that measurement. It makes three contributions.
+
+\begin{enumerate}
+\item Distortion metrics computed on seven real, public logs (38 case notions), which sort the logs into three regimes.
+\item A comparison of five standard outputs between the flat and the object-centric view: activity rankings, directly-follows edges, variants, entity rankings and a discovered process model, with bootstrap intervals on the headline numbers. Throughout, we keep duplication apart from narrowing. An analyst can undo duplication; narrowing cannot be undone. We also separate narrowing in case notions that someone would plausibly choose from narrowing that the structure of the log makes unavoidable.
+\item Verification. A second implementation reproduces the distortion metrics exactly on all seven full logs, further independent checks cover other parts of the pipeline, and we report the three bugs those checks caught in our own code. One command re-runs the whole study.
+\end{enumerate}
+
+We should also say what this paper does not claim. Object-centric logs have been used in education before~\cite{miri2026educational}, so that is not new. Nothing here says how a particular organisation's processes behave outside these seven logs. Seven logs cannot establish a general law, either.
+
+\section{Background and related work}\label{sec:related}
+
+\paragraph{The flattening problem.} Logs that allow one case per event misrepresent processes whose entities interact, as van der Aalst~\cite{vanderaalst2019ocpm} argues, and Adams and van der Aalst~\cite{adams2024addressing} later dealt with convergence, deficiency and divergence together. Adams et al.~\cite{adams2022cases} went a step further and defined cases and variants on the object-centric data itself, removing the need to choose a single case notion at all. All of this work is conceptual or algorithmic. None of it reports how frequently the flattening effects show up in real logs. More recently, a research manifesto on object-centric process management~\cite{seidel2026manifesto} set out to harmonise terminology across object-centric modelling and mining and listed the field's open challenges.
+
+\paragraph{Format and extraction.} An OCEL~2.0 log~\cite{berti2024ocel20} holds events, objects and the relations between events and objects and between objects, each relation carrying a qualifier; the format can be serialised as JSON, XML or SQLite. Getting such logs out of operational systems is a research topic in its own right. Berti et al.~\cite{berti2023sap} extract object-centric data from SAP ERP databases, while Egger et al.~\cite{egger2025unstructured} bring unstructured data into object-centric process mining. Extraction determines which objects and relations make it into a log in the first place. Our question comes later in the chain: once such a log exists, what is lost when it is flattened for a tool that expects cases?
+
+\paragraph{Consequences and quality.} Using a causal event graph on one company's data, Waibel et al.~\cite{waibel2022causal} showed that one-to-many links create spurious directly-follows relations. Kabierski et al.~\cite{kabierski2026quality} built a classification of quality issues in object-centric data. Their contribution is a taxonomy of problem kinds rather than counts of how often each occurs. On predictive tasks, Adams et al.~\cite{adams2023preserving} found that encodings preserving the object structure beat flattened features.
+
+\paragraph{Education and review processes.} Miri et al.~\cite{miri2026educational} mined Moodle data with object-centric techniques, and Khayatbashi et al.~\cite{khayatbashi2026multidim} extended object-centric process mining with multi-dimensional data operations. Hassani et al.~\cite{hassani2018supervision} report on a department that supervises over 250 final-year computing projects, though without event data. Premchaiswadi and Porouhan~\cite{premchaiswadi2015peer} analysed an online peer-review process using a single case notion. Flattening is not measured in any of these.
+
+\section{Method}\label{sec:method}
+
+\subsection{Logs and case notions}\label{sec:logs}
+
+\paragraph{How the logs were chosen.} Our starting point was academic project review, and no public event log of that process exists. So we began with two real logs from neighbouring processes, Gerrit code review (CROP~\cite{paixao2018crop}) and student enrolment and assessment (OULAD~\cite{kuzilek2017oulad}), and converted each to OCEL~2.0 ourselves. Would the results hold outside these two domains? To find out, we went looking for more logs on Zenodo, 4TU and the OCEL website. A candidate had to pass four tests. It had to record real activity rather than a simulation, carry an open licence, have timestamped events, and link events to at least two object types. Five logs passed and joined the study. Everything simulated was excluded. So were a Moodle log with a single object type, an OpenReview corpus whose comments lack timestamps, and a publications log with no licence stated. BPI Challenge 2019 was also left out, because it is a flat log and an OCEL would have to be derived from it first. What we have, then, is a purposive sample picked for variety of domain. It is not a random sample of object-centric logs.
+
+Table~\ref{tab:logs} gives the basic figures. Five logs were already published as OCEL files: Angular and Bundestag in JSON, Age of Empires in SQLite, and Enron and Ethereum as parquet bundles. The full Ethereum log has 3.2 million events, more than our 8\,GiB of memory could hold, so we work with a contiguous window of 300{,}000 of them. In Enron, e-mail addresses are hashed and split by role into sender, recipient and copied. Each object type is a possible \emph{case notion}, and we treat it as \emph{analysed} if its flat log contains at least 1{,}000 events. Thirty-eight case notions clear that bar.
+
+\begin{table}[h]
+\caption{The seven logs. Types: object types. Obj./event: objects per event. Notions: analysed case notions (at least 1{,}000 events)}\label{tab:logs}
+\footnotesize
+\begin{tabular*}{\textwidth}{@{\extracolsep\fill}llrrrrr}
+\toprule
+Log & Domain & Events & Objects & Types & Obj./event & Notions \\
+\midrule
+CROP (Gerrit) & code review & 306{,}716 & 55{,}323 & 3 & 3.0 & 3 \\
+OULAD & education & 216{,}532 & 61{,}577 & 4 & 3.8 & 4 \\
+German Bundestag & legislation & 62{,}719 & 37{,}665 & 44 & 1.1 & 9 \\
+Age of Empires II & game play & 34{,}860 & 5{,}054 & 25 & 4.3 & 11 \\
+Ethereum (window) & blockchain & 300{,}000 & 17{,}773 & 5 & 1.6 & 5 \\
+Angular commits & software commits & 27{,}842 & 28{,}317 & 2 & 88.0 & 2 \\
+Enron e-mail & e-mail & 96{,}175 & 70{,}541 & 4 & 3.5 & 4 \\
+\botrule
+\end{tabular*}
+\end{table}
+
+\subsection{Distortion metrics}\label{sec:metrics}
+
+Write $E$ for the set of events, $O$ for the objects (object $o$ has type $\tau(o)$) and $R \subseteq E \times O$ for the event-to-object relation. Fix a case notion $T$. Then $R_T$ contains the pairs of $R$ whose object is of type $T$, and $E_T$ contains the events that occur in those pairs. Flattening on $T$ produces one row for each pair in $R_T$; this is also what the pm4py library does. We measure the following.
+
+\begin{itemize}
+\item \textbf{Deficiency} $\delta(T) = 1 - |E_T| / |E|$ is the share of events the flat view loses. We call $1-\delta(T)$ the \emph{coverage} of $T$.
+\item \textbf{Convergence share} $\kappa(T)$ is the share of events in $E_T$ that carry two or more $T$-objects.
+\item \textbf{Copies per event}, $c(T) = |R_T| / |E_T|$, equals 1.0 if no event is copied.
+\item \textbf{Divergence share.} Take every combination of a case and an activity that occurs at least twice. The divergence share is the fraction of these whose events do not all have the same set of objects of some other type.
+\item \textbf{Coupling}, defined for an ordered pair of types $(T, U)$, is the fraction of $U$-objects involved in events that have two or more $T$-objects.
+\end{itemize}
+
+We call a type $U$ a \emph{nested child} of $T$ if at least 95\% of its objects occur within a single $T$-case, each of those objects has a lifecycle of its own (two or more events), and a $T$-case contains on average at least 1.5 of them. We chose these three thresholds and the 1{,}000-event cut-off ourselves. They are fixed at the top of the code, and none was adjusted to make a result look better.
+
+\subsection{Consequence analysis}\label{sec:consequence}
+
+As reference we use the object-centric view. Each event is counted once there, and the directly-follows relation is built from consecutive events along the lifecycle of every object, of every type. Every analysed case notion is compared with this reference on four outputs. We also look at the model an analyst would discover from the flat log.
+
+\begin{itemize}
+\item \textbf{C1, activity ranking.} We compute Spearman's $\rho$ between the flat activity counts and two references: (a)~counts over the whole process and (b)~counts over the same covered events, each taken once. Measure (b) shows the effect of duplication on its own. Measure (a) adds narrowing on top. We also record what share of the activities can be seen at all, and a case notion counts as \emph{narrowed} if less than half of them are visible.
+\item \textbf{C2, directly-follows edges.} Here we look at how often event pairs are duplicated and how well edge frequencies agree in rank with and without the duplicates. Where nested children exist, we also compute the spurious edge mass: the share of adjacent pairs in the flat log whose edge type never appears inside any child.
+\item \textbf{C3, variants.} The number of distinct activity sequences per case.
+\item \textbf{C4, entity ranking.} For each other type with at least 30 objects we correlate ($\rho$) the true number of events per object with the number of rows that object would get in a denormalised flat export of $T$, using the objects that appear in that export.
+\item \textbf{C5, discovered model.} On each flat log we run the Inductive Miner with infrequent-behaviour filtering~\cite{leemans2014infrequent} (noise threshold 0.2), as implemented in pm4py~\cite{berti2023pm4py}. For the resulting model we report token-based replay fitness~\cite{berti2019tbr}, token-based precision following Mu\~noz-Gama and Carmona~\cite{munozgama2010precision}, the size of the process tree, its \emph{loop share} (how many of its visible activities sit under a loop operator) and how many of the process's activities it contains. Precision has to replay every prefix of every case, so the cost grows with the square of case length. We therefore compute it only when the squared case lengths sum to at most $2 \times 10^7$, and each case notion gets 15 minutes in all.
+\end{itemize}
+
+Ties in time are broken by the sorted event identifier, so the order of events is always the same.
+
+\subsection{Plausible case notions and sensitivity}\label{sec:plausible}
+
+Nobody would choose some object types as a case notion. A farm or a house in Age of Empires~II is involved in only a few activities, and every object type in the Bundestag log is its own kind of parliamentary procedure. If such a type is narrowed, that follows from how the log is built. We wanted to tell this apart from narrowing an analyst might actually walk into, and so we look at narrowing from two more angles. A log's \emph{widest} case notion is the one that covers the most events, which is where most analysts would begin. A case notion is \emph{plausible} if it covers half or more of the log's events. Both ideas were introduced after we had seen the first results. For that reason we report the coverage threshold from 30\% to 70\%, the narrowing threshold from 0.3 to 0.7, and the event cut-off raised from 1{,}000 to 2{,}000 and 5{,}000. Lowering the cut-off is not possible without a new analysis, since case notions below it were never analysed.
+
+\subsection{Verification}\label{sec:verification}
+
+We checked as much as we could. Every file downloaded from Zenodo is compared against its published size and MD5 and given a SHA-256 checksum. On a 6{,}000-event slice of Enron (four case notions), a brute-force Python version of the directly-follows pairs and of one entity ranking gives the same answers as the vectorised code. On CROP, four rules from an earlier rule engine were rewritten in SQL and produce identical results, and three counts were recomputed directly from the raw OULAD files. A complete re-run of the study takes a few minutes on a laptop and leaves every tracked result file byte-identical. Three bugs came to light through these checks and have been fixed: duplicated event rows in CROP (about 17\%), a Gerrit abandon message that was being missed, and inconsistent event ordering when timestamps tie. Finally, we wrote a second implementation of the distortion metrics that uses plain dictionaries and sets and avoids pandas entirely. It recomputes every metric of Section~\ref{sec:metrics} on the full versions of all seven logs. The results match the published ones exactly for every object type (87 case notions, counting those below the cut-off) and for all 294 ordered type pairs. This check is part of the one-command build. What we have not done is find an independent labeller, or ask another team to review the converters.
+
+\subsection{Uncertainty}\label{sec:uncertainty}
+
+Since every number comes from the complete data of a log, the main uncertainty lies in which events and which items the log happens to contain. We estimate it from 200 bootstrap replicates with a fixed seed. The counts of case notions (narrowed, plausible, and both at once) are recomputed after giving each event a Poisson(1) weight, which changes coverage and activity visibility. Rank correlations need a different resampling unit. For these we draw the ranked items with replacement: activities for C1, visible entities for C4. Our first attempt used event weights here as well, and it went wrong in an instructive way. An entity with only one event receives the same weight in its true count and in its row count, and this manufactures agreement that the data does not contain. Intervals run from the 2.5th to the 97.5th percentile. They capture sampling noise within the seven logs, not the choice of the logs themselves. The unweighted replicate reproduces every published value.
+
+\subsection{Use of generative AI}\label{sec:ai}
+
+The authors used Claude (Anthropic), a large language model, as an assistant in two ways. For the code, it helped write and review parts of the analysis, verification and figure-generation scripts. For the text, it helped draft, rephrase and edit parts of the manuscript. The research question, the choice of logs, the metrics and the interpretation are the authors' own. Every number in the paper is produced by the released code from the public data, and the authors checked the code and its results, reviewed all text, and take full responsibility for the content.
+
+\section{Results}\label{sec:results}
+
+\subsection{Three regimes of distortion}\label{sec:regimes}
+
+Distortion per log is given in Table~\ref{tab:distortion} and plotted in Fig.~\ref{fig:regimes}. Three groups stand out.
+
+\begin{table}[h]
+\caption{Flattening distortion per log, over analysed case notions. Dropped: median share of events a case notion drops. Copies: median and largest copies per event. Dup.: case notions with over 5\% duplication. Shared: type pairs in which at least half of one type's objects take part in events of two or more objects of the other}\label{tab:distortion}
+\footnotesize
+\begin{tabular*}{\textwidth}{@{\extracolsep\fill}llrrrrr}
+\toprule
+Log & Regime & Dropped & Copies med. & Copies max & Dup. & Shared \\
+\midrule
+CROP (Gerrit) & star & 0.0\% & 1.00 & 1.00 & 0 of 3 & 4 of 6 \\
+OULAD & star & 0.0\% & 1.00 & 1.00 & 0 of 4 & 7 of 12 \\
+German Bundestag & partitioned & 90.8\% & 1.00 & 1.27 & 2 of 9 & 2 of 13 \\
+Age of Empires II & partitioned & 86.3\% & 1.01 & 1.76 & 4 of 11 & 50 of 137 \\
+Ethereum (window) & partitioned & 68.9\% & 1.04 & 1.09 & 2 of 5 & 10 of 20 \\
+Angular commits & fan-out & 0.1\% & 44.06 & 81.65 & 2 of 2 & 2 of 2 \\
+Enron e-mail & fan-out & 23.1\% & 1.29 & 2.11 & 2 of 4 & 8 of 12 \\
+\botrule
+\end{tabular*}
+\end{table}
+
+\emph{Star logs (CROP, OULAD).} No event in these logs has two objects of one type. As a result there is no copying at all (1.00 copies per event), and the median case notion loses no events. By these two measures, the distortion is zero.
+
+\emph{Partitioned logs (Bundestag, Age of Empires~II, Ethereum).} Copying is modest here. No case notion exceeds 1.27 copies per event in the Bundestag, 1.76 in Age of Empires~II or 1.09 in Ethereum. The trouble is that each object type covers its own part of the log. The median case notion consequently loses between 69\% and 91\% of the events.
+
+\emph{Fan-out logs (Angular commits, Enron).} Here a single event relates to many objects of one type. Duplication peaks at 81.65 copies per event for the branch case notion in Angular, and at 2.11 in Enron.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.85\textwidth]{Fig1}
+\caption{Where each log sits on the two kinds of distortion (one dot per log). Horizontal: highest copies per event among its analysed case notions, on a log scale. Vertical: share of events lost by the median case notion}\label{fig:regimes}
+\end{figure}
+
+Coupling does not follow the three groups. Leave out the Bundestag (2 of 13 type pairs) and Age of Empires~II (50 of 137), and in every remaining log at least half of the type pairs are strongly shared, meaning that at least half of one type's objects take part in events with two or more objects of the other. In Angular, both pairs are. Cases in these logs overlap a great deal, yet a flat view handles them as if they were separate.
+
+\subsection{Consequences for standard outputs}\label{sec:consequences}
+
+\begin{table}[h]
+\caption{Consequences of flattening per log. Visible: median share of activities visible. Act.~$\rho$: activity rank correlation against the whole process (median / lowest). Dup.~$\rho$: lowest activity rank correlation from duplication alone. Edge dup.: largest duplication of directly-follows pairs. Entity~$\rho$: lowest entity-rank correlation from a denormalised export}\label{tab:consequences}
+\footnotesize
+\begin{tabular*}{\textwidth}{@{\extracolsep\fill}lrrrrrr}
+\toprule
+Log & Notions & Visible & Act.~$\rho$ & Dup.~$\rho$ & Edge dup. & Entity~$\rho$ \\
+\midrule
+CROP (Gerrit) & 3 & 1.00 & 1.00 / 1.00 & 1.00 & 1.00 & 1.00 \\
+OULAD & 4 & 1.00 & 1.00 / 0.87 & 1.00 & 1.00 & 0.98 \\
+German Bundestag & 9 & 0.10 & 0.17 / 0.00 & 1.00 & 1.26 & 0.34 \\
+Age of Empires II & 11 & 0.12 & 0.21 / $-$0.05 & 1.00 & 1.69 & $-$0.41 \\
+Ethereum (window) & 5 & 0.79 & 0.64 / 0.02 & 1.00 & 1.02 & $-$0.01 \\
+Angular commits & 2 & 0.98 & 0.88 / 0.81 & 0.81 & 74.05 & 0.88 \\
+Enron e-mail & 4 & 1.00 & 0.97 / 0.87 & 0.93 & 1.57 & 0.16 \\
+\botrule
+\end{tabular*}
+\end{table}
+
+\paragraph{Duplication alone rarely changes a ranking.} Take the flat activity ranking and set it against a ranking of the same events, each counted once. Just 2 of the 38 case notions drop below $\rho = 0.95$ (bootstrap interval 1 to 3). One is Angular files at 0.81 (interval 0.66 to 0.90); the other is the Enron ``to'' role at 0.93. We trust the Enron figure less, because with only nine activities its interval stretches from 0.53 to 1.00. For the two star logs, $\rho$ is exactly 1.0.
+
+\paragraph{Narrowing is the larger effect, but much of it is structural.} In 20 of the 38 flat logs, more than half of the process's activities never appear. Measured against the whole process, the median activity-rank correlation is 0.17 in the Bundestag (interval 0.14 to 0.29) and 0.21 in Age of Empires~II (0.15 to 0.29). These figures should be read carefully. Of the 20 narrowed case notions, 18 belong to just these two logs, where a type such as a written parliamentary question or a farm is effectively a sub-process of its own. Nobody should be surprised that a farm never sees the rest of the game. Both measures are plotted for every log in Fig.~\ref{fig:activity}.
+
+Restricting attention to plausible case notions (Section~\ref{sec:plausible}) does not make narrowing go away. Fifteen case notions cover at least half of their log, and two of those are narrowed. Villager, in Age of Empires~II, covers 52.8\% of the events yet shows only 17\% of the activities. OULAD's Assessment case notion is the more striking example. It covers 80\% of the events but shows one activity out of three. Every submission is there; every registration and every withdrawal is gone. The bigger issue, though, is that two of the logs have no plausible case notion whatsoever. In the Bundestag, the widest case notion covers 32.8\% of the events and shows 3\% of the 148 activities. In the Ethereum window it covers 37.4\%. Whatever object type an analyst picks in these two logs, the flat view will be partial. The other five logs behave very differently: their widest case notion covers 95\% or more of the events and shows at least 97\% of the activities.
+
+None of these counts hinges on a particular threshold. Moving the narrowing threshold through 0.3, 0.4, 0.5, 0.6 and 0.7 gives 17, 18, 20, 20 and 20 narrowed case notions out of 38. With coverage thresholds of 30\%, 40\%, 50\%, 60\% and 70\%, there are 21, 16, 15, 13 and 13 plausible case notions, and 5, 3, 2, 1 and 1 of them are narrowed. OULAD Assessment is narrowed at every one of these thresholds. If the event cut-off is raised to 2{,}000, 33 case notions remain and 15 are narrowed; at 5{,}000, 28 remain and 10 are narrowed. Resampling does not move the counts either. In all 200 bootstrap replicates we get 20 narrowed, 15 plausible, and 2 that are both, since no case notion sits close enough to a threshold to cross it.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.85\textwidth]{Fig2}
+\caption{How well flat activity rankings agree with the reference in each log. Per log, one dot gives the worst case notion when duplication is the only effect, and the other gives the median case notion compared with the whole process}\label{fig:activity}
+\end{figure}
+
+\paragraph{Careless counting can mislead.} Picture an analyst who ranks entities, say people, by how many rows each one occupies in a denormalised flat export. How close is that ranking to the true number of events per entity? Over the entities that appear in the export (Fig.~\ref{fig:entity}), the worst case gives $\rho = 0.16$ in Enron (interval 0.14 to 0.18), $-0.01$ in Ethereum ($-0.03$ to 0.02) and $-0.41$ in Age of Empires~II ($-0.67$ to $-0.26$). Not one of these intervals gets as high as 0.2. De-duplicating on the event identifier removes the problem, so this result is a warning against counting rows. It does not describe a loss that cannot be avoided.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.85\textwidth]{Fig3}
+\caption{Spearman correlation between true events per entity and rows per entity in a denormalised flat export, for each log, as the median over entity types and for the worst entity type}\label{fig:entity}
+\end{figure}
+
+\paragraph{Edges show a smaller effect.} The heaviest duplication of directly-follows pairs is in Angular, with 74 copies for the branch case notion. When nested children exist, some flat edges link two events only because flattening placed them side by side; in the data they are unrelated. Such spurious edges account for up to 27.7\% of adjacent pairs in Age of Empires~II and 16.6\% in OULAD.
+
+\paragraph{A discovered model looks healthy even when it is partial.} Mining finished for 35 of the 38 case notions (Table~\ref{tab:discovery}). Three did not finish. These were the Angular branch case notion, which has 2.27 million flat rows and ran into the 15-minute limit, and the Match and Session case notions of Age of Empires~II. Those two have only 10 and 20 cases, averaging about 3{,}500 and 1{,}700 events (the longest has 8{,}895), and the mining process failed on both before the time limit. For Match we traced the failure to a recursion error in pm4py's Inductive Miner while it simplifies the process tree; memory was not the problem. For the 35 that finished, replay fitness lies between 0.955 and 1.000, with a median of 0.994. All 20 narrowed case notions are among them, and every one passes with a fitness of at least 0.955. In 20 of the 35 models, fewer than half of the process's activities appear, and in 12 the figure is under 10\%. Fitness is computed against the flat log the model came from. It therefore has no way to notice what flattening removed, and a model built from 2\% of the activities scores just as well as a complete one. The noise filter then takes away a little more: 17 of the 35 models omit activities that the flat log did contain, as with Angular files (66\% of the activities in the model against 97\% in the flat log).
+
+\begin{table}[h]
+\caption{Process discovery on the flat logs (Inductive Miner, noise threshold 0.2). Mined: case notions that finished within the budget. Fitness: lowest token-based replay fitness. Precision: median precision over the case notions where it was computed (their number in brackets). Loops: models with at least 90\% of their activities under a loop. Partial: models containing fewer than half of the process's activities}\label{tab:discovery}
+\footnotesize
+\begin{tabular*}{\textwidth}{@{\extracolsep\fill}lrrrrr}
+\toprule
+Log & Mined & Fitness (min.) & Precision (med.) & Loops & Partial \\
+\midrule
+CROP (Gerrit) & 3 of 3 & 0.975 & 0.65 (1) & 3 & 0 \\
+OULAD & 4 of 4 & 0.980 & 0.98 (2) & 3 & 1 \\
+German Bundestag & 9 of 9 & 0.955 & 0.79 (9) & 1 & 9 \\
+Age of Empires II & 9 of 11 & 0.977 & 0.30 (9) & 2 & 9 \\
+Ethereum (window) & 5 of 5 & 0.979 & 0.07 (1) & 5 & 1 \\
+Angular commits & 1 of 2 & 0.987 & 0.60 (1) & 0 & 0 \\
+Enron e-mail & 4 of 4 & 0.984 & 0.99 (2) & 2 & 0 \\
+\botrule
+\end{tabular*}
+\end{table}
+
+\paragraph{Divergence turns into loops.} When a flat case gathers repeated events that belong to different objects of another type, the miner usually fits them by wrapping them in a loop. Across the 35 case notions, the loop share rises with the divergence share (Spearman $\rho = 0.66$). At least 90\% of the activities sit under a loop in 12 of the 17 case notions whose divergence share is 0.5 or more. Among the other 18 case notions, the same is true for only 4. Precision, which we could compute for 25 case notions, shows where this leads. Its median is 0.67, and the three lowest values (0.04 for the Player case notion of Age of Empires~II, 0.07 for Ethereum orders and 0.09 for Bundestag legislation) all come from models in which at least 95\% of the activities are under a loop. Such a model allows almost any order of events. Models also grow, and lose precision, as duplication increases: tree size correlates with copies per event at $\rho = 0.60$, and precision at $\rho = -0.57$ (25 case notions). With 35 case notions from seven logs, we read these correlations as tendencies and would not call them laws.
+
+
+\section{Discussion}\label{sec:discussion}
+
+Our expectation going in was that flattening would mostly duplicate events. The data disagreed. Heavy duplication appears in only two of the seven logs. A much more common problem is that a case notion covers just a slice of the process, and nothing in the flat log tells the analyst what is missing.
+
+A lot of this narrowing is structural, and an analyst who knows the log will expect it; a case notion built for one kind of procedure will not show the others. Why measure it, then? There are two reasons. Analysts do not always know a log's structure before they flatten it, and in two of our seven logs, no object type covers even half of the events. Narrowing also turns up in case notions that look like sensible choices. Someone looking at the OULAD Assessment view would see 80\% of the events and assume it was complete, but the view cannot show a single withdrawal. Process discovery does not raise the alarm either. In our data a model built from a sliver of the process still replays its own flat log almost perfectly, so the usual quality check passes exactly when it should not. If readers keep one habit from this paper, we would like it to be this one. Before trusting a flat result, ask which events and which activities the case notion never saw.
+
+In practice, this suggests three rules.
+
+\begin{enumerate}
+\item Next to any flat result, report what share of the events and of the activities the case notion covers. It costs two numbers, and it was the cheapest warning we found.
+\item Remove duplicates on the event identifier before counting anything, and count entities from the object-centric tables.
+\item When objects of one type are shared between the cases of another (see the coupling figures), do not treat those cases as independent.
+\end{enumerate}
+
+\paragraph{Implications for information systems that log review workflows.} An academic project portal is a good example. A single action there may involve a project, its team, several students, a guide, a review stage and a version of the report. Suppose such a log looks the way we expect. Flattening it on the project would then copy little. What it would hide is how one reviewer's effort is spread over many projects. That is the narrowing pattern, not the duplication pattern. We have not tested any such data and claim nothing about it. The natural next test would be a de-identified portal log.
+
+\section{Threats to validity}\label{sec:threats}
+
+\begin{itemize}
+\item \emph{Seven logs.} The domains differ, but the sample is purposive, picked for variety and availability rather than drawn at random. The three regimes describe these logs; we do not claim there are no others.
+\item \emph{Our choices.} Case notions are object types, plus roles in the case of Enron. We set the nested-child thresholds and the 1{,}000-event cut-off ourselves. The idea of a plausible case notion came after the first results, which is why we report it over a range of thresholds; the conclusion holds across that range.
+\item \emph{A window.} For Ethereum, the results rest on 300{,}000 of the 3.2 million events.
+\item \emph{A data-quality flag.} Some 72 Enron events (about 0.1\%) are dated before 1990, which is strange for a corpus from 1998 to 2002. We kept them.
+\item \emph{Checking.} Our independent implementations are independent of the code they test, but they were written by the same team. The second implementation of the distortion metrics now runs on the full logs. The activity-ranking numbers, on the other hand, are recomputed only by the bootstrap code, and that code loads the data the same way as the analysis it checks. No second person labelled the findings, and the hand review of classified CROP comments was done by one of us alone.
+\item \emph{One miner, one machine.} C5 uses one discovery algorithm with one noise threshold. Three of the 38 case notions could not be mined in our setup and are left out of Table~\ref{tab:discovery}, and precision could only be computed for 25. Other miners may well produce different models.
+\end{itemize}
+
+\section{Conclusion}\label{sec:conclusion}
+
+Most of what flattening does to these seven logs is not duplication. Heavy copying shows up only in the two fan-out logs. Narrowing is far more common: 20 of the 38 case notions show less than half of the process's activities. Most of those cases come from the structure of the log, yet 2 of the 15 case notions covering half or more of their log are narrowed too, and in two logs no case notion reaches half of the events at all. The usual checks do not catch this. A model mined from a narrowed flat log still reaches a replay fitness of 0.955 or more, and divergence shows up as loops that let almost anything happen. Counting rows in a denormalised export can even reverse an entity ranking. All of these numbers hold up under bootstrap resampling, and one command re-runs the pipeline, whose distortion metrics a second implementation confirms on all seven full logs. Several things remain to be done. The findings need an independent labeller, more real logs should be added, other discovery algorithms deserve a look, and the three case notions that could not be mined here should be revisited.
+
+\backmatter
+
+\bmhead{Acknowledgements}
+We thank Vellore Institute of Technology and its School of Computer Science and Engineering for the facilities and support that made this work possible. We are also grateful to the creators of the seven public event logs for making their data openly available.
+
+\section*{Statements and Declarations}
+
+\begin{itemize}
+\item \textbf{Funding.} No funding was received for conducting this study.
+\item \textbf{Competing interests.} The authors have no relevant financial or non-financial interests to disclose.
+\item \textbf{Ethics approval and consent to participate.} Not applicable. Only public, openly licensed data is used, and personal identifiers in the Enron and CROP logs are hashed when loaded and never reported.
+\item \textbf{Data availability.} All seven logs are public and licensed CC~BY~4.0 (OULAD as stated by its authors~\cite{kuzilek2017oulad}): CROP~\cite{data_crop}, OULAD~\cite{data_oulad}, German Bundestag~\cite{data_bundestag}, Age of Empires~II~\cite{data_aoe2}, Ethereum~\cite{data_ethereum}, Angular commits~\cite{data_angular} and Enron~\cite{data_enron}.
+\item \textbf{Code availability.} The code is openly available at \url{https://github.com/ssaakaash/ocel-research}. It downloads and verifies the data and regenerates every number and figure. One command (\texttt{make study}) runs the main study and the full-log check; a second (\texttt{make extended}) runs the bootstrap and the process-discovery comparison.
+\item \textbf{Author contributions.} Aakaash Sathya Saravanan, Mitisha Sharma and Tanmay Khambete contributed equally to this work. Conceptualization, methodology, software, validation, formal analysis, investigation, data curation, visualization and writing (original draft): Aakaash Sathya Saravanan, Mitisha Sharma and Tanmay Khambete. Supervision and writing (review and editing): Kalyanaraman P. All authors read and approved the final manuscript.
+\end{itemize}
+
+\bibliography{refs}
+
+\end{document}
