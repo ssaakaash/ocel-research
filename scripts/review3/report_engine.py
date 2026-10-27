@@ -21,7 +21,7 @@ def esc(t: str) -> str:
     return escape(t)
 
 
-def run(text: str, b=False, i=False, sz=24, hl=False, mono=False, sup=False, color=None, u=False) -> str:
+def run(text: str, b=False, i=False, sz=24, hl=False, mono=False, sup=False, color=None, u=False, sub=False) -> str:
     pr = (MONO if mono else TNR) + ("<w:b/><w:bCs/>" if b else "") + ("<w:i/><w:iCs/>" if i else "")
     if color:
         pr += f'<w:color w:val="{color}"/>'
@@ -32,10 +32,12 @@ def run(text: str, b=False, i=False, sz=24, hl=False, mono=False, sup=False, col
         pr += '<w:highlight w:val="yellow"/>'
     if sup:
         pr += '<w:vertAlign w:val="superscript"/>'
+    if sub:
+        pr += '<w:vertAlign w:val="subscript"/>'
     return f'<w:r><w:rPr>{pr}</w:rPr><w:t xml:space="preserve">{esc(text)}</w:t></w:r>'
 
 
-_TOKEN = re.compile(r"(\*\*.+?\*\*|//.+?//|`.+?`|\{\{.+?\}\})")
+_TOKEN = re.compile(r"(\*\*.+?\*\*|//.+?//|`.+?`|\{\{.+?\}\}|_\{.+?\})")
 
 
 def inline(text: str, sz=24, b=False, i=False) -> str:
@@ -52,6 +54,8 @@ def inline(text: str, sz=24, b=False, i=False) -> str:
             out.append(run(part[1:-1], mono=True, sz=max(sz - 2, 16), b=b))
         elif part.startswith("{{"):
             out.append(run(part[2:-2], b=b, i=i, sz=sz, hl=True))
+        elif part.startswith("_{"):
+            out.append(run(part[2:-1], b=b, i=i, sz=sz, sub=True))
         else:
             out.append(run(part, b=b, i=i, sz=sz))
     return "".join(out)
@@ -181,7 +185,7 @@ class Doc:
         self.add(para("", after=120, line=240))
 
     # ---------------------------------------------------------------- figures
-    def figure(self, file: str, caption: str, width_in: float = 6.0, alt: str | None = None):
+    def figure(self, file: str, caption: str, width_in: float = 6.0, alt: str | None = None, num: str | None = None):
         path = self.fig_dir / file
         pw, ph = png_size(path)
         width_in = min(width_in, BODY_IN)
@@ -191,7 +195,7 @@ class Doc:
         self.rels.append((rid, file))
         self.img_id += 1
         self.fig_n += 1
-        label = f"{self.chapter}.{self.fig_n}"
+        label = num or f"{self.chapter}.{self.fig_n}"
         bm = f"_Fig_{self.chapter}_{self.fig_n}"
         self.figs.append({"num": label, "title": caption, "bm": bm})
         desc = esc(alt or caption)
@@ -208,10 +212,10 @@ class Doc:
         self.add(para(cap, jc="center", before=0, after=200, line=240))
 
     # ---------------------------------------------------------------- tables
-    def table(self, caption: str, header: list[str], rows: list[list[str]], widths: list[float], sz=20, align=None, bold_first=False, keep=None):
+    def table(self, caption: str, header: list[str], rows: list[list[str]], widths: list[float], sz=20, align=None, bold_first=False, keep=None, num: str | None = None):
         """widths are relative; align is a list of 'left'/'center'/'right' per column."""
         self.tab_n += 1
-        label = f"{self.chapter}.{self.tab_n}"
+        label = num or f"{self.chapter}.{self.tab_n}"
         bm = f"_Tab_{self.chapter}_{self.tab_n}"
         self.tabs.append({"num": label, "title": caption, "bm": bm})
         cap = self.bookmark(run(f"Table {label}: ", b=True, sz=20) + run(caption, sz=20), bm)

@@ -342,7 +342,7 @@ def build_slides():
     s.text(0.5, 1.5, 7.9, 5.1, [para([run("cd realdata", 17, color="9AD0FF", font=MONO)], before=0, after=6)] + [
         para([run(f"{n}  ", 17, color="FFB86B", b=True, font=MONO), run(c, 17, color="F5F5F5", font=MONO)], before=14) for n, c, _ in code], fill="1F2328", rounded=True, anchor="ctr", inset=0.25, name="Terminal")
     s.text(8.65, 1.5, 4.18, 5.1, [card_title("What the panel will see"), *bullets([t for _, _, t in code], sz=15, before=11),
-           para([run("Full run: make study (5 min 11 s on our laptop)", 13, color=MUTED, i=True)], before=14)], fill=CARD, rounded=True, name="Explain")
+           para([run("Full run: make study (5 min 21 s on our laptop)", 13, color=MUTED, i=True)], before=14)], fill=CARD, rounded=True, name="Explain")
     s.notes = ("This is the part where, if the laptop is kind to us, we run it live. Five commands, about a minute in total. First, the download manifest, which should say all eight sources are already present, so nothing is downloaded again. "
                "Second, the self-check, our own code against a slow, plain Python version of itself, it should say passed. Third and fourth, we run the distortion and consequence analysis on the Enron e-mails, because that log has a real many-to-many structure and a nice, visible result. "
                "Last, we open the summary table. If anything misbehaves, we have the saved outputs for every step, so the story does not depend on the Wi-Fi.")
@@ -383,10 +383,11 @@ def build_slides():
         ["Reproducibility", "Re-running gives the same outputs", "All tracked results byte-identical"],
         ["SQL cross-check", "Predicate code matches independent SQL", "4 of 4 CROP rules exact"],
         ["Brute-force self-check", "Fast code equals plain Python", "Event pairs identical on 4 case notions"],
+        ["Distortion self-check", "Pandas metrics equal a plain-Python version", "60 case notions identical on 3 real slices"],
         ["Independent recomputation", "OULAD counts match raw CSVs", "15,348 / 415 / 29 exact"],
         ["Bugs our own checks found", "Verification is not a formality", "3 fixed: duplicate events, missed abandon form, tie-breaking"]],
-        sz=13, row_h=0.66, header_h=0.45)
-    s.text(0.5, 6.0, 12.33, 0.75, [para([run("What we did not do: ", 15, b=True, color=ORANGE), run("independent human labelling of the real-data findings; a second implementation of the distortion metrics; the converters are checked by us, not by a second team.", 15)], before=0)], fill=CARD, rounded=True, anchor="ctr", name="Limits")
+        sz=13, row_h=0.57, header_h=0.45)
+    s.text(0.5, 6.0, 12.33, 0.75, [para([run("What we did not do: ", 15, b=True, color=ORANGE), run("independent human labelling; the distortion check covers slices, not full logs; the activity rankings have no second implementation; the converters are checked by us only.", 15)], before=0)], fill=CARD, rounded=True, anchor="ctr", name="Limits")
     s.notes = ("We tested the project the way we would test someone else's. Downloads are checked against the published size and MD5 where the publisher gives one, and every file gets a SHA-256 on record. Re-running reproduces every result file byte for byte. "
                "Our fast code is compared with a slow, plain Python version, and our rule code with independent SQL, and the OULAD counts with a separate read of the raw files. "
                "And here is the part we are actually proud of: those checks found three real bugs of our own. Duplicate Gerrit comments, an abandon message we missed, and a tie-breaking problem in event order. We fixed all three and re-ran everything. "

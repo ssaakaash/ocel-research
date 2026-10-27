@@ -68,7 +68,7 @@ ABSTRACT = [
     "-0.01 (Ethereum) and -0.41 (Age of Empires II).",
 
     "We checked parts of the pipeline with an independent SQL implementation, a brute-force self-check, an independent recomputation of the OULAD counts and byte-identical re-runs. "
-    "Those checks caught three bugs of our own, which we fixed. The distortion metrics themselves have no second implementation yet, nobody outside the team has labelled the findings, and the capstone model is still a design that hasn't met portal data. "
+    "Those checks caught three bugs of our own, which we fixed. A plain-Python re-implementation of the distortion metrics agrees on slices of three logs but not yet on the full logs, nobody outside the team has labelled the findings, and the capstone model is still a design that hasn't met portal data. "
     "A journal manuscript is in preparation and hasn't been submitted.",
 ]
 

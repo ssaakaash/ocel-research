@@ -43,7 +43,33 @@ def main() -> None:
     t3 = table(["Log", "Notions", "Activities visible (median)", "Activity rank correlation vs whole process (median / lowest)", "Lowest, duplication only", "Largest edge duplication", "Lowest entity-rank correlation"],
                [[LABEL[k], C[k]["notions"], f(C[k]["activity_visible_share_median"]), f"{f(C[k]['activity_rank_rho_all_median'])} / {f(C[k]['activity_rank_rho_all_min'])}", f(C[k]["activity_rank_rho_dup_only_min"]),
                  f(C[k]["df_pair_duplication_max"]), f(C[k]["entity_rho_visible_min"])] for k in ORDER])
-    print("TABLE 1\n" + t1 + "\n\nTABLE 2\n" + t2 + "\n\nTABLE 3\n" + t3)
+    print("TABLE 1\n" + t1 + "\n\nTABLE 2\n" + t2 + "\n\nTABLE 3\n" + t3 + "\n\nNARROWING\n" + narrowing())
+
+
+def narrowing() -> str:
+    """Narrowing counts of section 4.2: plausible case notions and threshold sensitivity."""
+    with (RES / "consequence_by_notion.csv").open(encoding="utf-8") as h:
+        cons = list(csv.DictReader(h))
+    with (RES / "distortion_summary.csv").open(encoding="utf-8") as h:
+        cover = {(r["log"], r["case_type"]): 1 - float(r["deficiency"]) for r in csv.DictReader(h)}
+    for r in cons:
+        r["cover"], r["vis"] = cover[(r["log"], r["case_type"])], float(r["act_visible_share"])
+    out = []
+    out.append("Widest case notion per log (most events covered): events covered, activities visible, rho vs whole process")
+    for k in ORDER:
+        w = max((r for r in cons if r["log"] == k), key=lambda r: (r["cover"], r["vis"]))
+        out.append(f"  {LABEL[k]}: {w['case_type']}  {100 * w['cover']:.1f}%  {w['vis']:.2f}  {f(w['act_rank_rho_all'])}")
+    for c in (0.3, 0.4, 0.5, 0.6, 0.7):
+        p = [r for r in cons if r["cover"] >= c]
+        narrow = [f"{LABEL[r['log']]} {r['case_type']} ({r['vis']:.2f})" for r in p if r["vis"] < 0.5]
+        out.append(f"Notions covering >= {c:.0%} of events: {len(p)}; under half the activities visible: {len(narrow)} {narrow}")
+    out.append("Activity-visibility threshold t: notions with visible share < t (of %d)" % len(cons))
+    out.append("  " + ", ".join(f"t={t}: {sum(r['vis'] < t for r in cons)}" for t in (0.3, 0.4, 0.5, 0.6, 0.7)))
+    out.append("Event cut-off m (raised from 1,000): notions kept, of which under half the activities visible")
+    for m in (1000, 2000, 5000):
+        p = [r for r in cons if int(r["covered_events"]) >= m]
+        out.append(f"  m={m}: {len(p)}, {sum(r['vis'] < 0.5 for r in p)}")
+    return "\n".join(out)
 
 
 if __name__ == "__main__":

@@ -1,6 +1,6 @@
 cff-version: 1.2.0
-message: "If you use the COOC evaluation design or the predicate registry, please cite this software artifact."
-title: "Object-Centric Event Log Mining for Academic Capstone Processes"
+message: "If you use this code or its results, please cite this software artifact and the accompanying paper."
+title: "Flattening distortion and its consequences on real object-centric event logs"
 type: software
 version: 0.2.0
 date-released: 2026-09-02

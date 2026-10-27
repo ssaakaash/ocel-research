@@ -96,6 +96,7 @@ def ch5(D):
 
     D.h3("M6: Validation")
     D.p("`sql_crosscheck.py` re-implements four CROP rules in plain SQL on the OCEL SQLite file, opened read-only. `check_consequence.py` compares the fast consequence code with a slow plain-Python version on a real slice of the Enron log. "
+        "`check_distortion.py` does the same for the distortion metrics, using only dictionaries and sets, on 6,000-event slices of Enron, Bundestag and Age of Empires II. "
         "And the OULAD counts get an independent recomputation from the raw CSV files. Section 5.2 has the results.")
     D.h3("M7: Summaries")
     D.p("`summarize_distortion.py`, `summarize_log_level.py` and `summarize_consequence.py` combine the per-log JSON files into the CSV and Markdown tables used in Chapter 7, and `make study` runs the whole sequence.", jc="left")
@@ -108,6 +109,7 @@ def ch5(D):
              ["Reproducibility", "Re-running gives the same outputs", "Tracked result files were byte-identical after a re-run (checked with Git)"],
              ["SQL cross-check", "The predicate code matches independent SQL", "4 of 4 CROP rules match exactly: 522, 19,109, 164 and 423 flagged changes"],
              ["Brute-force self-check", "The fast consequence code equals plain Python", "Directly-follows pairs identical on 4 case notions; entity ranking identical"],
+             ["Distortion self-check", "The pandas distortion metrics equal a plain-Python version", "60 case notions and every type pair identical on 6,000-event slices of Enron, Bundestag and Age of Empires II"],
              ["Independent recomputation", "OULAD counts match the raw CSV files", "15,348 enrolments with a late submission, 415 submissions after unregistration, 29 flagged by the stage-order rule: all exact"],
              ["Bugs found by our own checks", "Verification is not a formality", "Three bugs found and fixed (see below)"]],
             [1.7, 2.3, 3.0], sz=18)
@@ -118,7 +120,7 @@ def ch5(D):
         "Tie-breaking: events with the same timestamp could be ordered differently in two code paths. Events are now ordered by timestamp and then by event identifier.",
     ])
     D.p("Now the part we didn't do. Nobody outside the team labelled the findings. We reviewed a stratified sample of classified CROP comments by hand and found no further misclassification, "
-        "but the reviewer was one of us, so it isn't an independent label set. The converters are checked by us, not by a second team, and the SQL cross-check tests the predicate code, not the CROP converter. And the distortion metrics and the activity-ranking numbers have no second implementation yet.")
+        "but the reviewer was one of us, so it isn't an independent label set. The converters are checked by us, not by a second team, and the SQL cross-check tests the predicate code, not the CROP converter. And the second implementation of the distortion metrics covers slices of three logs, not the full logs, while the activity-ranking numbers have no second implementation.")
 
 
 # ------------------------------------------------------------------------------------------------ chapter 6
@@ -167,7 +169,7 @@ def ch6(D, demo_dir: Path):
     D.h4("Command: head -4 results/consequence_by_log.md")
     D.p("The command prints a Markdown table with one row per log. The lines are too wide for a printed page, so we don't copy them here. "
         "The saved output is in `docs/review-3/demo/5_table.txt`, and Table 7.3 in Chapter 7 shows the same numbers.")
-    D.p("`make study` re-runs everything. When we ran it for this report it finished without error in 5 minutes 11 seconds and left every tracked result file unchanged (checked with Git).")
+    D.p("`make study` re-runs everything. When we ran it for this report it finished without error in 5 minutes 21 seconds and left every tracked result file unchanged (checked with Git).")
 
 # ------------------------------------------------------------------------------------------------ chapter 7
 def f(x, nd=2):
@@ -257,7 +259,7 @@ def ch7(D, res: Path):
              ["Software", "Nil (open-source libraries; `pm4py` is AGPL-3.0)", "Python 3.14 and the pinned packages in `requirements.txt`"],
              ["Hardware", "A laptop the team already owned (8 GiB memory)", "Any laptop with 8 GiB of memory or more"],
              ["Cloud or paid services", "None", "None"],
-             ["Run time", "Seconds to minutes per log", "About 4 to 10 seconds for the Enron log; `make study` for all seven logs took 5 minutes 11 seconds"]],
+             ["Run time", "Seconds to minutes per log", "About 4 to 10 seconds for the Enron log; `make study` for all seven logs took 5 minutes 21 seconds"]],
             [1.4, 3.0, 2.6], sz=18)
     D.p("The real cost is our time and the effort that went into verification. In money it's nil.")
 
@@ -275,7 +277,7 @@ def ch8(D):
     D.p("Number four, careless counting from a flat export can mislead badly. Worst-case entity rankings reach a rank correlation of 0.16 (Enron), -0.01 (Ethereum) and -0.41 (Age of Empires II).")
     D.p("Number five, the capstone model is a design. We couldn't test it on portal data, and we claim nothing about how real capstone teams behave.")
     D.h2("Limitations")
-    D.p("We have seven logs from five domains, and one of them is a window. The thresholds are ours. The checks are independent of the code under test but not of the team, nobody outside the team has labelled the findings, and the distortion metrics have no second implementation. "
+    D.p("We have seven logs from five domains, and one of them is a window. The thresholds are ours. The checks are independent of the code under test but not of the team, nobody outside the team has labelled the findings, the distortion metrics were cross-checked only on slices, and the activity-ranking numbers have no second implementation. "
         "The rule-based engine covers eleven rules on two logs, and we use it for no conclusion.")
     D.h2("Future Work")
     D.bullets([
