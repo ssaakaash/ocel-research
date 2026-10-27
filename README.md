@@ -64,3 +64,7 @@ Project guide: **Dr. Kalyanaraman P.**
 ## Responsible use
 
 Do not add real student, faculty, score, submission, or capstone-document data to this repository, and do not commit third-party raw data. See [SECURITY.md](SECURITY.md) before connecting the pipeline to institutional data.
+
+## Licence
+
+The code in this repository is released under the [GNU Affero General Public License v3.0](LICENSE) (AGPL-3.0), which matches the licence of `pm4py`, a dependency. The public datasets are not part of this repository and keep their own licences (CC BY 4.0; see `realdata/sources.json`).
