@@ -1,0 +1,2 @@
+consequence self-check passed: DF pairs identical for 4 case notions; entity ranking identical
+.venv/bin/python -I src/check_consequence.py  1.70s user 0.41s system 57% cpu 3.664 total

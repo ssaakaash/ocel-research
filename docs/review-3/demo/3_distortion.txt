@@ -1,0 +1,13 @@
+
+=== enron: events=96,175 e2o/event=3.498
+  flat[EMAILADDRESS:CC] def=0.778 conv=0.667 copies=  2.114 maxActInfl=  3.286 div=0.769 var/case=0.241 kids=[] CAS=None
+  flat[EMAILADDRESS:FROM] def=0.046 conv=0.000 copies=  1.000 maxActInfl=  1.000 div=0.802 var/case=0.2079 kids=[] CAS=None
+  flat[EMAILADDRESS:TO] def=0.060 conv=0.334 copies=  1.572 maxActInfl=  2.345 div=0.778 var/case=0.2526 kids=[] CAS=None
+  flat[MESSAGEID    ] def=0.401 conv=0.000 copies=  1.000 maxActInfl=  1.000 div=0.715 var/case=0.0046 kids=[] CAS=None
+  coupling EMAILADDRESS:TO objs in >=2 EMAILADDRESS:CC cases: 0.81 (mean 6.369)
+  coupling EMAILADDRESS:FROM objs in >=2 EMAILADDRESS:CC cases: 0.79 (mean 5.277)
+  coupling EMAILADDRESS:CC objs in >=2 EMAILADDRESS:TO cases: 0.75 (mean 5.878)
+  coupling EMAILADDRESS:TO objs in >=2 MESSAGEID cases: 0.69 (mean 11.962)
+  coupling    MESSAGEID objs in >=2 EMAILADDRESS:CC cases: 0.67 (mean 2.173)
+  coupling EMAILADDRESS:CC objs in >=2 MESSAGEID cases: 0.66 (mean 7.222)
+.venv/bin/python -I src/distortion.py enron  9.18s user 0.29s system 99% cpu 9.502 total

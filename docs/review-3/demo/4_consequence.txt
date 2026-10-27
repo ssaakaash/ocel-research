@@ -1,0 +1,7 @@
+
+=== enron: events=96,175 reference DF pairs=157,258 edge types=48
+  EMAILADDRESS:CC            act: visible=0.7778 rho(all)=0.8656 rho(dup)=1.0 | DF: dup=1.5675 rho(dup)=0.9844 top10(dup)=9 maxInfl10=0.357 spur=None | var/case=0.241 top10cov=0.5653 | entity rho min/med=0.0832/0.473
+  EMAILADDRESS:FROM          act: visible=1.0 rho(all)=1.0 rho(dup)=1.0 | DF: dup=1.0 rho(dup)=1.0 top10(dup)=10 maxInfl10=0.669 spur=None | var/case=0.2079 top10cov=0.623 | entity rho min/med=0.3863/0.962
+  EMAILADDRESS:TO            act: visible=1.0 rho(all)=0.9333 rho(dup)=0.9333 | DF: dup=1.3065 rho(dup)=0.9792 top10(dup)=9 maxInfl10=1.161 spur=None | var/case=0.2526 top10cov=0.5419 | entity rho min/med=0.1591/0.887
+  MESSAGEID                  act: visible=1.0 rho(all)=1.0 rho(dup)=1.0 | DF: dup=1.0014 rho(dup)=1.0 top10(dup)=10 maxInfl10=0.035 spur=None | var/case=0.0046 top10cov=0.9917 | entity rho min/med=0.8327/0.863
+.venv/bin/python -I src/consequence.py enron  3.06s user 0.35s system 82% cpu 4.133 total

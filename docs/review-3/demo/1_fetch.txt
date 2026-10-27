@@ -1,0 +1,9 @@
+[T1e_angular_commits] already present, skipping
+[T2a_oulad] already present, skipping
+[T2b_moodle_cadiz] already present, skipping
+[T3a_crop] already present, skipping
+[T4a_bundestag] already present, skipping
+[T4b_enron] already present, skipping
+[T4c_ethereum] already present, skipping
+[T4d_aoe2] already present, skipping
+python3 -I src/fetch_sources.py  0.04s user 0.02s system 58% cpu 0.109 total
