@@ -18,6 +18,7 @@ Executable COOC (Cross-Object Observability Coverage) experiments on public OCEL
 | `src/consequence.py`, `src/summarize_consequence.py` | Consequence analysis: activity rankings, directly-follows frequencies, spurious edges, variants, entity rankings (flat vs object-centric). |
 | `src/check_consequence.py` | Self-check of `consequence.py` against a plain-Python implementation on a real Enron slice. |
 | `src/summarize_distortion.py` | Combines per-log distortion JSON into `distortion_summary.{csv,md}`. |
+| `src/summarize_log_level.py` | One row per log (`log_level_summary.csv`): copies per event, dropped events, shared-object type pairs. |
 | `src/sql_crosscheck.py` | Independent stdlib-SQLite check of four CROP predicates. |
 | `raw/`, `ocel/` | Downloaded and derived data. **Git-ignored; not redistributed.** |
 | `results/` | CSV/JSON outputs; `results/profiles/*.json` dataset profiles. |
@@ -32,7 +33,7 @@ python3 -I src/extract_archives.py                # safe extraction into new dir
 .venv/bin/python -I src/convert_crop.py && .venv/bin/python -I src/convert_oulad.py
 .venv/bin/python -I src/profile_all.py
 .venv/bin/python -I src/run_cooc.py && .venv/bin/python -I src/analyze_cooc.py
-.venv/bin/python -I src/distortion.py && python3 -I src/summarize_distortion.py
+.venv/bin/python -I src/distortion.py && python3 -I src/summarize_distortion.py && python3 -I src/summarize_log_level.py
 .venv/bin/python -I src/check_consequence.py && .venv/bin/python -I src/consequence.py && python3 -I src/summarize_consequence.py
 python3 -I src/sql_crosscheck.py
 ```
