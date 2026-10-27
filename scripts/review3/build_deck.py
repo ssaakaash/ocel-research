@@ -7,6 +7,7 @@ Output: docs/review-3/Team1_Review3_OCEL.pptx
 
 from __future__ import annotations
 
+import os
 import re
 import shutil
 import struct
@@ -15,7 +16,7 @@ from pathlib import Path
 from xml.sax.saxutils import escape
 
 ROOT = Path(__file__).resolve().parents[2]
-TEMPLATE = Path("/Users/aakaash/Downloads/Review 3- 28-10- 2026.pptx")
+TEMPLATE = Path(os.environ.get("DECK_TEMPLATE", "/Users/aakaash/Downloads/Review 3- 28-10- 2026.pptx"))   # a deck built earlier works too: only its master, layouts and title slide are used
 FIG = ROOT / "docs" / "review-3" / "figures"
 OUT = ROOT / "docs" / "review-3" / "Team1_Review3_OCEL.pptx"
 WORK = Path("/private/tmp/claude-501/-Users-aakaash-Downloads-Project-1-Team1-Educational-Capstone-Research/3c16c160-aca5-4af9-a8d5-576345b4cc10/scratchpad/deck_work")
@@ -162,8 +163,26 @@ def stat(slide, x, y, w, value, label, color=BLUE):
     slide.text(x, y, w, 1.25, [para([run(value, 40, b=True, color=color)], algn="l", before=0), para([run(label, 14, color=MUTED)], before=0)], fill=CARD, rounded=True, anchor="ctr", inset=0.18, name="Stat")
 
 
+def discovery_text():
+    """Bullets and speaker notes for the process-discovery slide, read from realdata/results so they match the report."""
+    import json
+    D = json.loads((ROOT / "realdata" / "results" / "discovery_summary.json").read_text(encoding="utf-8"))
+    total = sum(len(json.loads(f.read_text(encoding="utf-8"))["notions"]) for f in (ROOT / "realdata" / "results" / "discovery").glob("*.json"))
+    rho = D["spearman"]["loop_share~divergence_share"]["rho"]
+    bul = [[run(f"{D['notions']} of {total} ", 15, b=True), run("case notions mined (Inductive Miner)", 15)],
+           [run(f"Fitness {D['fitness_min']:.3f} to 1.000 ", 15, b=True), run(f"for every model, yet {D['model_covers_under_half_of_activities']} show under half the activities", 15)],
+           [run("Divergence becomes loops: ", 15, b=True), run(f"loop share rises with divergence (rho {rho:.2f})", 15)],
+           [run(f"Precision as low as {D['precision_min']:.2f} ", 15, b=True), run("in models that loop over almost everything", 15)]]
+    notes = ("Discovery is what most people actually use process mining for, so we mined a model from every flat view. Look at the chart. Up is fitness, how well the model replays its own log. Right is how much of the real process the model even contains. "
+             f"Every single dot sits near the top, fitness {D['fitness_min']:.3f} or better, including the ones on the far left that show a tiny slice of the process. "
+             "So the standard quality check says everything is fine, exactly when the view is most partial. "
+             f"And where cases mix up events from different objects, the miner wraps them in loops, and precision drops to {D['precision_min']:.2f}. A model like that will accept almost anything.")
+    return bul, notes
+
+
 def build_slides():
     S = []
+    DISCOVERY_BULLETS, DISCOVERY_NOTES = discovery_text()
 
     # 1 ---- title (patched from the template slide)
     S.append(None)
@@ -173,12 +192,12 @@ def build_slides():
     s.text(0.5, 1.55, 7.2, 4.9, [para([run("PLACEHOLDER", 28, b=True, hl=True)], algn="ctr", before=0), para([run("insert the guide's approval mail screenshot here", 20, hl=True)], algn="ctr", before=10),
            para([run("(taken after the guide approves the points on the right)", 14, color=MUTED, i=True)], algn="ctr", before=14)], fill="FFFFFF", line=MUTED, dashed=True, anchor="ctr", name="Screenshot placeholder")
     s.text(8.0, 1.55, 4.83, 4.9, [card_title("The mail should confirm"),
-           *bullets(["Meeting with guide: frequent", "PowerPoint presentation", "Project demonstration", "Final project report", [run("Project outcome: ", 16), run("Ongoing", 16, b=True), run(" (manuscript in preparation)", 16)],
+           *bullets(["Meeting with guide: frequent", "PowerPoint presentation", "Project demonstration", "Final project report", [run("Project outcome: ", 16), run("Journal paper submitted", 16, b=True), run(" (JIIS, under review)", 16)],
                      [run("Turnitin plagiarism: ", 16), run("[fill in] %", 16, hl=True)], [run("Turnitin AI score: ", 16), run("[fill in]", 16, hl=True), run(" (limit 25%)", 16)],
                      [run("Project ID: ", 16), run("[fill in]", 16, hl=True)]], sz=16, before=7)], fill=CARD, rounded=True, name="Checklist")
     s.notes = ("Quick honesty first. This slide is meant to show our guide's approval mail, and we do not have that screenshot in the file yet, so it is marked as a placeholder, in yellow, on purpose. "
                "We would rather show an empty box than a made-up one. The right side lists the six things the mail has to confirm, including the Turnitin numbers, which we will fill in from the real report. "
-               "One thing we can already say truthfully: the project outcome is ongoing. Our journal manuscript is still being written.")
+               "One thing we can already say truthfully: the project outcome is a journal paper, submitted to the Journal of Intelligent Information Systems and now under review.")
     S.append(s)
 
     # 3 ---- aim
@@ -200,13 +219,13 @@ def build_slides():
     s.text(0.5, 1.55, 8.0, 5.2, [
         para([run("Process mining normally assigns each event to one case. A capstone event, however, concerns a project, a team, a guide, a report version and a score at once. Flattening it to a single case notion can duplicate events, drop others, or hide how cases share people and resources.", 17)], before=0, after=8),
         para([run("Production portal logs were unavailable, so we built a reproducible OCEL 2.0 pipeline and measured flattening on seven real public logs: code review, education, legislation, e-mail, blockchain and gameplay.", 17)], before=0, after=8),
-        para([run("Duplication from flattening turned out to be small except in fan-out logs. The larger effect is narrowing: one case notion shows only a slice of the process. Every number is re-computed by open code and checked by independent implementations.", 17)], before=0)], name="Abstract text")
+        para([run("Duplication from flattening turned out to be small except in fan-out logs. The larger effect is narrowing: one case notion shows only a slice of the process, and a model mined from that slice still scores a near-perfect fitness, so nothing warns the analyst. Every number is re-computed by open code, carries a bootstrap interval and is checked by independent implementations.", 17)], before=0)], name="Abstract text")
     stat(s, 8.9, 1.55, 3.93, "7", "real public logs, none synthetic")
     stat(s, 8.9, 3.05, 3.93, "38", "case notions compared against the object-centric reference", ORANGE)
     stat(s, 8.9, 4.55, 3.93, "0", "results from simulated or injected data", AQUA)
     s.notes = ("Here is the whole project in one breath. Process mining likes one case per event. Real workflows do not work like that. "
                "We built a pipeline around OCEL 2.0, which lets one event point at many objects, and we pointed it at seven real public logs: Gerrit code review, the Open University student data, Angular commits, the German Bundestag, Enron e-mails, Ethereum, and Age of Empires. "
-               "Our honest finding is a little less dramatic than we expected. Flattening rarely duplicates events, except in fan-out logs. The bigger effect is narrowing, you only see a slice. "
+               "Our honest finding is a little less dramatic than we expected. Flattening rarely duplicates events, except in fan-out logs. The bigger effect is narrowing, you only see a slice. And the model you mine from that slice still looks perfectly healthy. "
                "And one more thing worth saying out loud: none of these numbers come from synthetic data.")
     S.append(s)
 
@@ -259,7 +278,7 @@ def build_slides():
         "Model the capstone lifecycle as OCEL 2.0 from the documented portal behaviour.",
         "Build a reproducible pipeline: download, verify, convert, load, analyse.",
         "Measure flattening distortion on seven real logs without hand-picked rules.",
-        "Compare standard outputs (rankings, directly-follows, variants, entity counts) between flat and object-centric views.",
+        "Compare standard outputs (rankings, directly-follows, variants, entity counts, discovered models) between flat and object-centric views.",
         "Verify every result with independent checks and release the code."]], name="Objectives")
     s.text(8.2, 1.5, 4.63, 0.4, [para([run("Identified", 17, b=True, color=BLUE)], before=0)], name="Identified")
     s.text(8.2, 1.95, 4.63, 0.62, [para([run("Sustainable Development Goals", 13, color=MUTED)], before=0)], name="SDG label")
@@ -269,12 +288,12 @@ def build_slides():
     s.text(8.9, 3.0, 3.93, 0.62, [para([run("Industry, Innovation and Infrastructure", 15, b=True)], before=0)], anchor="ctr", inset=0.04, name="SDG9")
     s.text(8.2, 3.85, 4.63, 1.35, [para([run("Technology Readiness Level", 13, color=MUTED)], before=0), para([run("TRL 4: validated in the lab", 17, b=True)], before=2),
            para([run("Pipeline reproduces on 7 public logs; portal integration is TRL 2-3", 13, color=MUTED)], before=2)], fill=CARD, rounded=True, name="TRL")
-    s.text(8.2, 5.3, 4.63, 1.45, [para([run("Outcome", 13, color=MUTED)], before=0), para([run("Journal paper (Scopus): manuscript in preparation, not yet submitted", 16, b=True)], before=2),
+    s.text(8.2, 5.3, 4.63, 1.45, [para([run("Outcome", 13, color=MUTED)], before=0), para([run("Journal paper (Scopus, SCIE): submitted to JIIS, Springer; under review", 16, b=True)], before=2),
            para([run("Open, re-runnable code in the project repository", 13, color=MUTED)], before=2)], fill=CARD, rounded=True, name="Outcome")
     s.notes = ("Five objectives, in the order we did them. One, model the capstone lifecycle. Two, build a pipeline you can re-run. Three, measure the distortion without us picking the rules, because rules we pick can flatter our own idea. "
                "Four, compare what an analyst would actually look at, rankings, edge counts, variants. Five, check everything twice. "
                "On the right: the goals this touches are Quality Education and Industry, Innovation and Infrastructure. We rate the technology at level four, validated in the lab, and we say level two to three for plugging it into the real portal. "
-               "The outcome we are aiming at is a journal paper. It is in preparation. It is not submitted, and we are not going to pretend otherwise.")
+               "The outcome is a journal paper. We submitted it to the Journal of Intelligent Information Systems, a Springer journal indexed in Scopus, and it is under review. Under review is not accepted, and we are not going to pretend otherwise.")
     S.append(s)
 
     # 9 ---- framework (capstone OCEL model)
@@ -322,10 +341,10 @@ def build_slides():
         ["M1", "Acquire and verify", "fetch_sources.py, extract_archives.py", "Resumable download, size + MD5 check (Zenodo), SHA-256 record, safe extraction"],
         ["M2", "Convert and load", "convert_crop.py, convert_oulad.py, ocel_io.py", "Gerrit and OULAD to OCEL; load OCEL 2.x; hash identifiers"],
         ["M3", "Distortion metrics", "distortion.py", "Deficiency, convergence, divergence, coupling per object type"],
-        ["M4", "Consequence analysis", "consequence.py", "Flat vs object-centric rankings, edges, variants, entities"],
+        ["M4", "Consequence analysis", "consequence.py, discovery.py, bootstrap.py", "Flat vs object-centric rankings, edges, variants, entities, mined models; bootstrap intervals"],
         ["M5", "Predicate engine (appendix)", "cooc.py, registry.py, run_cooc.py", "11 natural rules on CROP and OULAD"],
-        ["M6", "Validation", "sql_crosscheck.py, check_consequence.py", "Independent SQL and brute-force re-implementations"],
-        ["M7", "Summaries", "summarize_distortion.py, summarize_log_level.py, summarize_consequence.py", "Tables for the report and the paper"]],
+        ["M6", "Validation", "sql_crosscheck.py, check_consequence.py, check_distortion.py", "Independent SQL, brute-force and full-log plain-Python re-implementations"],
+        ["M7", "Summaries", "summarize_*.py (distortion, log level, consequence, discovery)", "Tables for the report and the paper"]],
         sz=13, row_h=0.62, header_h=0.45)
     s.notes = ("Seven modules, one per box in the architecture. M1 gets the data safely. M2 turns it into OCEL. M3 and M4 are the heart of the project: M3 asks how much a flat view distorts, and M4 asks what an analyst would actually see differently. "
                "M5 is the rule engine from our earlier idea. We kept it in the appendix because with real data only, eleven rules on two logs is simply too few to conclude anything. "
@@ -376,6 +395,13 @@ def build_slides():
                "An analyst who de-duplicates by event id would avoid it, so this is about careless counting, not an unavoidable loss. We are saying that plainly.")
     S.append(s)
 
+    # 15b ---- results 3: process discovery
+    s = Slide(); s.title("Experiments and Results: Process Discovery")
+    s.picture(FIG / "fig_discovery.png", 0.4, 1.4, w=7.9, alt="Replay fitness against the share of activities in the discovered model")
+    s.text(8.5, 1.5, 4.33, 5.2, [card_title("What a miner gives you"), *bullets(DISCOVERY_BULLETS, sz=15, before=9)], fill=CARD, rounded=True, name="Takeaways")
+    s.notes = DISCOVERY_NOTES
+    S.append(s)
+
     # 16 ---- testing and validation
     s = Slide(); s.title("Testing and Validation")
     s.table(0.5, 1.5, [3.4, 5.6, 3.33], [["Check", "What it proves", "Result"],
@@ -383,13 +409,14 @@ def build_slides():
         ["Reproducibility", "Re-running gives the same outputs", "All tracked results byte-identical"],
         ["SQL cross-check", "Predicate code matches independent SQL", "4 of 4 CROP rules exact"],
         ["Brute-force self-check", "Fast code equals plain Python", "Event pairs identical on 4 case notions"],
-        ["Distortion self-check", "Pandas metrics equal a plain-Python version", "60 case notions identical on 3 real slices"],
+        ["Distortion self-check", "Pandas metrics equal a plain-Python version", "Identical on all 7 full logs: 87 notions, 294 type pairs"],
+        ["Bootstrap reproduction", "Resampling code matches the analysis", "38 of 38 case notions exact"],
         ["Independent recomputation", "OULAD counts match raw CSVs", "15,348 / 415 / 29 exact"],
         ["Bugs our own checks found", "Verification is not a formality", "3 fixed: duplicate events, missed abandon form, tie-breaking"]],
-        sz=13, row_h=0.57, header_h=0.45)
-    s.text(0.5, 6.0, 12.33, 0.75, [para([run("What we did not do: ", 15, b=True, color=ORANGE), run("independent human labelling; the distortion check covers slices, not full logs; the activity rankings have no second implementation; the converters are checked by us only.", 15)], before=0)], fill=CARD, rounded=True, anchor="ctr", name="Limits")
+        sz=13, row_h=0.47, header_h=0.42)
+    s.text(0.5, 6.25, 12.33, 0.7, [para([run("What we did not do: ", 15, b=True, color=ORANGE), run("independent human labelling; the activity rankings are re-checked only by the bootstrap code; the converters are checked by us only.", 15)], before=0)], fill=CARD, rounded=True, anchor="ctr", name="Limits")
     s.notes = ("We tested the project the way we would test someone else's. Downloads are checked against the published size and MD5 where the publisher gives one, and every file gets a SHA-256 on record. Re-running reproduces every result file byte for byte. "
-               "Our fast code is compared with a slow, plain Python version, and our rule code with independent SQL, and the OULAD counts with a separate read of the raw files. "
+               "Our fast code is compared with a slow, plain Python version, and that comparison now runs on all seven full logs, every object type, identical. Our rule code is checked against independent SQL, and the OULAD counts against a separate read of the raw files. "
                "And here is the part we are actually proud of: those checks found three real bugs of our own. Duplicate Gerrit comments, an abandon message we missed, and a tie-breaking problem in event order. We fixed all three and re-ran everything. "
                "What we have not done is get a second person to label the findings independently. That is on the limits list.")
     S.append(s)
@@ -399,18 +426,17 @@ def build_slides():
     s.text(0.5, 1.5, 6.05, 4.6, [card_title("Conclusion", sz=20), *bullets([
         "We built a reproducible, checked OCEL 2.0 pipeline on 7 real public logs.",
         "Flattening duplicates events only in fan-out logs; the common effect is narrowing.",
+        "Mined models look healthy (fitness 0.955 or more) even when they show a sliver of the process.",
         "Naive entity counts from flat exports can mislead badly.",
-        "The capstone model is a design; no portal data was available to test it."], sz=19, before=14)], fill=CARD, rounded=True, name="Conclusion")
+        "The capstone model is a design; no portal data was available to test it."], sz=18, before=12)], fill=CARD, rounded=True, name="Conclusion")
     s.text(6.78, 1.5, 6.05, 4.6, [card_title("Future work", ORANGE, sz=20), *bullets([
         "Independent two-rater labelling of the real-data findings.",
-        "Process-discovery quality and predictive-monitoring comparisons.",
-        "Two or three more real logs (for example BPI 2019).",
-        "A portal adapter once de-identified audit logs are approved.",
-        "Journal manuscript, venue still to be chosen."], sz=19, before=14)], fill=CARD, rounded=True, name="Future")
+        "Predictive-monitoring comparisons, and the discovery comparison with other miners.",
+        "Answer the JIIS reviewers and revise the paper."], sz=18, before=12)], fill=CARD, rounded=True, name="Future")
     s.notes = ("So, what do we conclude? That the pipeline works, that it is checked, and that on real data the story is narrowing more than duplication. "
-               "And one limit we repeat on purpose: the capstone model is a design. We could not test it on portal data. "
-               "Next steps, in order of importance: get someone independent to label our findings, add the harder comparisons like discovery quality and prediction, add a few more real logs, "
-               "and, if the university allows it, plug in the real audit log. Thank you. We are happy to take questions.")
+               "And here's the part that surprised us most: the models you mine from those narrow views still look great on paper, so the usual check never raises a flag. "
+               "One limit we repeat on purpose: the capstone model is a design. We could not test it on portal data. "
+               "Next steps: get someone independent to label our findings, try prediction and other miners, and answer whatever the journal reviewers send back. Thank you. We are happy to take questions.")
     S.append(s)
 
     # 18 ---- outcome
@@ -418,13 +444,13 @@ def build_slides():
     s.table(0.5, 1.5, [4.2, 8.13], [["Outcome type", "Status today"],
         ["Patent", "None filed"],
         ["International conference proceedings", "None submitted"],
-        ["Journal publication (Scopus-indexed)", "Manuscript in preparation (draft v0.3); not submitted; venue not yet chosen"],
+        ["Journal publication (Scopus-indexed)", "Submitted to the Journal of Intelligent Information Systems (Springer; Scopus, SCIE), 27 Oct 2026; under review"],
         ["Start-up", "None"],
         ["Others", "Open, re-runnable code and result tables in the project repository"]], sz=15, row_h=0.65, header_h=0.5)
-    s.text(0.5, 5.4, 12.33, 1.3, [para([run("Proof to upload: ", 15, b=True, color=BLUE), run("none yet, because nothing has been accepted or published. We will upload proof as soon as a submission receipt or acceptance exists.", 15)], before=0),
+    s.text(0.5, 5.4, 12.33, 1.3, [para([run("Proof to upload: ", 15, b=True, color=BLUE), run("the Springer submission acknowledgement e-mail, manuscript number ", 15), run("[fill in]", 15, hl=True), run(". Acceptance is not yet decided.", 15)], before=0),
            para([run("Outcome form (Google form, due 27 Oct 2026): ", 14, b=True, color=MUTED), run("[confirm submitted]", 14, hl=True)], before=8)], fill=CARD, rounded=True, anchor="ctr", name="Proof")
-    s.notes = ("This slide is short because the honest answer is short. No patent, no conference paper, no journal acceptance. What we do have is a manuscript draft, version zero point two, and a working, checked code base. "
-               "We would rather tell you that now than have you find it in Q and A. Once there is a real submission receipt, that is the proof we will upload.")
+    s.notes = ("This slide is short because the honest answer is short. No patent and no conference paper. We did submit the journal paper, to the Journal of Intelligent Information Systems, and the submission acknowledgement is our proof. "
+               "It is under review, not accepted, and we would rather say that clearly now than have it come up in Q and A. Alongside it, the whole code base is public and re-runs every number.")
     S.append(s)
 
     # 19 ---- references
@@ -440,9 +466,14 @@ def build_slides():
               '[9] M. Paixao, J. Krinke, D. Han, and M. Harman, "CROP: Linking code reviews to source code changes," in Proc. MSR, 2018.',
               '[10] H. Hassani et al., "Supervision of undergraduate final year projects in computing: A case study," Educ. Sci., vol. 8, no. 4, p. 210, 2018.',
               '[11] W. Premchaiswadi and P. Porouhan, "Process modeling and bottleneck mining in online peer-review systems," SpringerPlus, vol. 4, p. 441, 2015.',
-              '[12] Datasets (CC BY 4.0): Zenodo 16811928 (Bundestag), 21989732 (Enron), 21989580 (Ethereum), 13365584 (Age of Empires), 8430332 (Angular), 3599150 (CROP); UCI 10.24432/C5KK69 (OULAD).']
-    s.text(0.5, 1.45, 6.1, 5.3, [para([run(r, 14)], before=7) for r in refs_l], name="Refs left")
-    s.text(6.75, 1.45, 6.1, 5.3, [para([run(r, 14)], before=7) for r in refs_r], name="Refs right")
+              '[12] S. J. J. Leemans, D. Fahland, and W. M. P. van der Aalst, "Discovering block-structured process models from event logs containing infrequent behaviour," in BPM Workshops, LNBIP 171, Springer, 2014, pp. 66-78.',
+              '[13] A. Berti and W. M. P. van der Aalst, "Reviving token-based replay: Increasing speed while improving diagnostics," in ATAED, CEUR-WS 2371, 2019, pp. 87-103.',
+              '[14] J. Munoz-Gama and J. Carmona, "A fresh look at precision in process conformance," in BPM, LNCS 6336, Springer, 2010, pp. 211-226.',
+              '[15] A. Berti, S. van Zelst, and D. Schuster, "PM4Py: A process mining library for Python," Softw. Impacts, vol. 17, p. 100556, 2023.',
+              '[16] Datasets (CC BY 4.0): Zenodo 16811928 (Bundestag), 21989732 (Enron), 21989580 (Ethereum), 13365584 (Age of Empires), 8430332 (Angular), 3599150 (CROP); UCI 10.24432/C5KK69 (OULAD).']
+    refs_l, refs_r = refs_l + refs_r[:2], refs_r[2:]
+    s.text(0.5, 1.4, 6.1, 5.5, [para([run(r, 12)], before=5) for r in refs_l], name="Refs left")
+    s.text(6.75, 1.4, 6.1, 5.5, [para([run(r, 12)], before=5) for r in refs_r], name="Refs right")
     s.notes = ("References in IEEE style. Everything on this slide was checked against its publisher record or its arXiv entry before it went on the slide. The last line lists the datasets, all openly licensed. Thank you.")
     S.append(s)
     return S

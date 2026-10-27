@@ -6,55 +6,55 @@ from __future__ import annotations
 def ch1(D):
     D.chapter_start("Introduction")
     D.h2("Background")
-    D.p("Think about what happens when a student leader clicks submit on a capstone report. One click, and that single event touches the project, the team, three students, "
-        "the guide who will verify it and the report version going in. Ask a process-mining tool to draw the process and it asks back: which one of these is the case?")
-    D.p("That question is the reason this project exists. Classic process mining starts from an event log where every event has a case identifier, an activity name and a timestamp, "
-        "and everything built on top of it (discovery, conformance checking, bottleneck analysis) assumes that each event belongs to exactly one case.")
-    D.p("Pick the project as the case and the project's story stays together, but the guide's workload across all projects disappears. Pick the student and the same submission shows up three times, "
-        "once per team member. We like to think of it as a group photo. A flat view cuts one person out of the picture. We can cut out everybody, one after another, "
-        "but the pile of cut-outs never tells us who was standing next to whom.")
-    D.p("The literature has names for the damage. Copy one event into several cases and you get //convergence//. Mix up repeated events that really belong to different other objects "
-        "and you get //divergence// [1]. And events that have no object of the chosen type simply vanish from the flat log, which is called //deficiency//.")
-    D.p("Object-centric event logs skip the choice. One event can point at any number of objects, each with a type, and objects can be linked to each other too. "
-        "OCEL 2.0 [2] turns this into a standard: JSON, XML and SQLite formats, a qualifier on every link, and object attributes that can change over time.")
-    D.p("People have started to show why this matters. Keeping the object graph helps machine-learning tasks on process data more than flattened features do [3], "
+    D.p("Consider what happens when a student leader submits a capstone report. That single event concerns the project, the team, three students, "
+        "the guide who will verify it and the report version being submitted. A process-mining tool, however, needs to know which one of these is the case.")
+    D.p("This question motivates the project. Classical process mining starts from an event log in which every event has a case identifier, an activity name and a timestamp, "
+        "and the techniques built on top of it (discovery, conformance checking, bottleneck analysis) assume that each event belongs to exactly one case.")
+    D.p("If the project is chosen as the case, each project's history stays together, but the guide's workload across all projects disappears. If the student is chosen, the same submission appears three times, "
+        "once per team member. A useful comparison is a group photograph. A flat view cuts one person out of the picture. Every person can be cut out in turn, "
+        "but the resulting set of cut-outs no longer shows who was standing next to whom.")
+    D.p("The literature names these distortions. When one event is copied into several cases, the result is //convergence//. When repeated events that belong to different objects of another type are merged into one case, "
+        "the result is //divergence// [1]. Events that have no object of the chosen type are dropped from the flat log altogether, which is called //deficiency//.")
+    D.p("Object-centric event logs avoid this choice. One event can refer to any number of objects, each with a type, and objects can also be linked to each other. "
+        "OCEL 2.0 [2] standardises this structure, with JSON, XML and SQLite formats, a qualifier on every link, and object attributes that can change over time.")
+    D.p("Several studies show why this structure matters. Keeping the object graph improves machine-learning tasks on process data compared with flattened features [3], "
         "and Adams and van der Aalst [4] address convergence, divergence and deficiency together. One-to-many links produced false directly-follows relations in a food-company case study [5], "
-        "and object-centric data has quality problems of its own [6]. In education, Miri et al. [7] turned Moodle activity into OCEL and found that group and resource links stay invisible in a student-centric log.")
-    D.p("What we couldn't find was a study that counts these effects across several real logs. Everyone agrees flattening hurts. Nobody tells you by how much. "
-        "Public data has caught up, though: the Open University Learning Analytics Dataset (OULAD) [8] covers students, courses and assessments, and CROP [9] links Gerrit code reviews to code changes, a close cousin of a report review.")
-    D.p("A capstone has the same shape. Hassani et al. [10] describe a department supervising more than 250 final-year computing projects, and Premchaiswadi and Porouhan [11] mined an online peer-review process "
-        "and found bottlenecks and rule violations in how reviewers were handled. The Educational Capstone Portal, whose architecture is documented in our project repository, handles registration, team formation, "
-        "report compilation, three review stages, faculty decisions and scoring, and it writes an audit-log row for every state change. That is about as object-centric as a process gets.")
-    D.p("We set out to study exactly that process, and then hit a wall. We couldn't get portal logs, and we found no public capstone or thesis-management event log anywhere. "
-        "So we changed what we claim. The capstone stays as a documented OCEL 2.0 design, and the measuring happens on seven real public logs [12]. "
-        "This report keeps the two parts apart so nobody has to guess which is which.")
+        "and object-centric data has quality problems of its own [6]. In education, Miri et al. [7] converted Moodle activity into OCEL and found that group and resource links remain invisible in a student-centric log.")
+    D.p("What we could not find was a study that measures these effects across several real logs. The problem is widely acknowledged, but its size has not been reported. "
+        "Suitable public data does exist: the Open University Learning Analytics Dataset (OULAD) [8] covers students, courses and assessments, and CROP [9] links Gerrit code reviews to code changes, a process closely related to report review.")
+    D.p("A capstone has the same structure. Hassani et al. [10] describe a department supervising more than 250 final-year computing projects, and Premchaiswadi and Porouhan [11] mined an online peer-review process "
+        "and found bottlenecks and rule violations in reviewer handling. The Educational Capstone Portal, whose architecture is documented in our project repository, handles registration, team formation, "
+        "report compilation, three review stages, faculty decisions and scoring, and it writes an audit-log row for every state change. Its process is therefore strongly object-centric.")
+    D.p("We set out to study that process directly, but portal logs could not be obtained, and we found no public capstone or thesis-management event log. "
+        "We therefore narrowed what we claim. The capstone is presented as a documented OCEL 2.0 design, and the measurements are made on seven real public logs [16]. "
+        "This report keeps the two parts clearly separate.")
 
     D.h2("Motivations")
-    D.p("Number one, flattening happens quietly. Tools do it by default, and they rarely tell the analyst how much was copied, dropped or mixed up.")
-    D.p("Number two, the evidence is thin. Convergence and divergence get explained with toy examples or a single case study. We found nothing that reports how often and how badly they show up on several real logs.")
-    D.p("Number three, capstones are coordination work. The questions people actually ask (is one guide overloaded, which team keeps resubmitting) cut across cases, so a case-centric view is the wrong shape for them.")
-    D.p("Number four, we can only claim what we can reach. Portal data isn't available to us, so a re-runnable measurement on public logs is the strongest evidence we can produce.")
+    D.p("First, flattening happens without notice. Tools apply it by default and rarely report how many events were copied, dropped or merged.")
+    D.p("Second, the evidence is thin. Convergence and divergence are usually explained with small examples or a single case study, and we found no work that reports how often and how strongly they occur across several real logs.")
+    D.p("Third, capstones are coordination work. The questions that matter in practice (whether one guide is overloaded, or which team resubmits repeatedly) cut across cases, so a case-centric view does not fit them.")
+    D.p("Fourth, our claims are limited to the data we can access. Portal data is not available to us, so a re-runnable measurement on public logs is the strongest evidence we can provide.")
 
     D.h2("Scope of the Project")
-    D.p("Table 1.1 says what the project covers and what it doesn't. We'd rather write the limits down ourselves than have a reader dig them out.")
+    D.p("Table 1.1 states what the project covers and what it does not, so that its limits are explicit from the start.")
     D.table("Scope of the project",
             ["In scope", "Out of scope"],
             [["An OCEL 2.0 model of the capstone lifecycle, designed from the portal documentation", "Any claim about how real capstone teams behave; no portal data was used"],
-             ["A re-runnable pipeline: download, verify, convert, load, analyse", "Process-discovery quality and predictive monitoring on flat versus object-centric logs"],
+             ["A re-runnable pipeline: download, verify, convert, load, analyse", "Predictive monitoring on flat versus object-centric logs"],
              ["Flattening distortion for 38 case notions on seven real public logs", "Independent human labelling of the findings by a second rater"],
-             ["A consequence analysis: activity rankings, directly-follows edges, variants and entity rankings, flat versus object-centric", "Integrating a portal adapter; this is future work"],
+             ["A consequence analysis: activity rankings, directly-follows edges, variants, entity rankings and discovered models, flat versus object-centric", "Integrating a portal adapter; this is future work"],
              ["Independent checks of our own code, and a documented list of bugs they found", "Synthetic or simulated data of any kind"]],
             [1, 1])
-    D.p("Two more things. A rule-based engine from our earlier work stays in the appendix, since eleven rules on two logs can't support a conclusion. "
-        "And a Moodle log from the University of Cádiz was downloaded as an eighth source but isn't used in any result.")
-    D.p("Chapter 2 covers the literature and the plan, Chapter 3 requirements and feasibility, Chapter 4 the design, Chapter 5 modules and testing, Chapter 6 the demonstration, "
-        "Chapter 7 results and cost, Chapter 8 the conclusion, Chapter 9 the references. Appendix A has sample code.")
+    D.p("Two further points apply. A rule-based engine from our earlier work is kept at appendix level, since eleven rules on two logs cannot support a conclusion. "
+        "In addition, a Moodle log from the University of Cádiz was downloaded as an eighth source but is not used in any result.")
+    D.p("The report is organised as follows. Chapter 2 covers the literature and the plan, Chapter 3 the requirements and feasibility, Chapter 4 the design, Chapter 5 the modules and testing, Chapter 6 the demonstration, "
+        "Chapter 7 the results and cost, Chapter 8 the conclusion and Chapter 9 the references. Appendix A contains sample code.")
 
 
 def ch2(D):
     D.chapter_start("Project Description and Goals")
     D.h2("Literature Review")
-    D.p("We read in four groups: the flattening problem itself, the OCEL format, what flattening does to results and to data quality, and the education and capstone papers. "
+    D.p("The literature falls into four groups: the flattening problem itself, the OCEL format, what flattening does to results and to data quality, and the education and capstone papers. "
         "Table 2.1 sums up the ones that matter most for our questions. The full list is in Chapter 9.")
     D.table("Summary of the reviewed literature",
             ["Ref.", "Objective", "Method", "Strength and limitation", "Finding"],
@@ -67,22 +67,22 @@ def ch2(D):
              ["Premchaiswadi, Porouhan (2015) [11]", "Mine a peer-review process in an online system", "Event log from review handling; discovery and conformance", "Real review workflow. One case notion", "Bottlenecks and rule violations found in reviewer handling"],
              ["Hassani et al. (2018) [10]", "Manage more than 250 computing final-year projects", "Case study of supervision, panels and rubrics", "Real capstone practice. No event data", "Capstones need coordinated supervision, submission and assessment"]],
             [1.25, 1.35, 1.5, 1.6, 1.5], sz=17)
-    D.p("Start with the problem. van der Aalst [1] explained why one-case-per-event logs misrepresent processes with several interacting entities, and Adams and van der Aalst [4] "
-        "went on to cover convergence, divergence and deficiency together. Both papers are conceptual. Neither tells you how often these effects turn up in real data.")
+    D.p("On the flattening problem itself, van der Aalst [1] explained why one-case-per-event logs misrepresent processes with several interacting entities, and Adams and van der Aalst [4] "
+        "went on to cover convergence, divergence and deficiency together. Both papers are conceptual, and neither reports how often these effects occur in real data.")
     D.p("OCEL 2.0 [2] is the format we build on. It stores events, objects, event-to-object (E2O) links and object-to-object (O2O) links, each with qualifiers, in JSON, XML or SQLite. "
         "Our own converters write the SQLite form, and we read the JSON and XML forms of the public logs.")
     D.p("On consequences, Waibel et al. [5] used a causal event graph to show that one-to-many links produce false directly-follows edges, but only on one company's data. "
-        "Kabierski et al. [6] sorted the quality issues of object-centric data into classes. They describe the kinds of problems and don't count them. Adams et al. [3] showed that keeping the object graph helps predictive tasks.")
-    D.p("For education, Miri et al. [7] is our closest neighbour, since they ran object-centric mining on Moodle data. So no, we're not the first to use OCEL in education, and we say so. "
+        "Kabierski et al. [6] classified the quality issues of object-centric data; they describe the kinds of problems but do not count them. Adams et al. [3] showed that keeping the object graph helps predictive tasks.")
+    D.p("In education, Miri et al. [7] is the closest related work, since they applied object-centric mining to Moodle data. This project is therefore not the first use of OCEL in education. "
         "Premchaiswadi and Porouhan [11] mined an online peer-review process with a single case notion, and Hassani et al. [10] describe how a department supervises a large number of final-year projects, with no event data.")
 
     D.h2("Research Gap")
-    D.p("Read the table as a whole and three gaps show up.")
-    D.p("The first is that flattening problems are named but not measured. Convergence and divergence appear as toy or single-case examples, and most object-centric evidence we found uses simulated logs.")
-    D.p("The second is that education and capstone work stays on learning-platform data. Object-centric educational mining uses Moodle activity. "
+    D.p("Taken together, the reviewed work leaves three gaps.")
+    D.p("First, flattening problems are named but not measured. Convergence and divergence appear in small or single-case examples, and most object-centric evidence we found uses simulated logs.")
+    D.p("Second, work on education and capstones relies on learning-platform data. Object-centric educational mining uses Moodle activity. "
         "A review lifecycle with submit, review, reject, resubmit and score has no public object-centric dataset.")
-    D.p("The third is the awkward one. Capstone portal logs can't be had. Searches of Zenodo, 4TU and the web found no public capstone or thesis-management event log, so we can't test the capstone claim directly.")
-    D.p("Our way in is to measure on real review-like and multi-entity logs, give the capstone an OCEL 2.0 model, and write down the limits.")
+    D.p("Third, capstone portal logs are not available. Searches of Zenodo, 4TU and the web found no public capstone or thesis-management event log, so we cannot test the capstone claim directly.")
+    D.p("Our approach is therefore to measure flattening on real review-like and multi-entity logs, to give the capstone an OCEL 2.0 model, and to state the limits explicitly.")
 
     D.h2("Objectives")
     D.p("The project has five objectives, in the order we worked on them.")
@@ -90,22 +90,22 @@ def ch2(D):
         "O1. Model the capstone lifecycle as OCEL 2.0 from the documented portal behaviour.",
         "O2. Build a reproducible pipeline: download, verify, convert, load and analyse.",
         "O3. Measure flattening distortion on seven real logs without hand-picked rules.",
-        "O4. Compare standard outputs (activity rankings, directly-follows edges, variants, entity counts) between flat and object-centric views.",
+        "O4. Compare standard outputs (activity rankings, directly-follows edges, variants, entity counts and discovered process models) between flat and object-centric views.",
         "O5. Verify every result with independent checks and keep the code re-runnable.",
     ])
-    D.p("The work touches two of the United Nations Sustainable Development Goals: Goal 4, Quality Education, since it is about how academic review processes get recorded and understood, "
+    D.p("The work touches two of the United Nations Sustainable Development Goals: Goal 4, Quality Education, since it concerns how academic review processes are recorded and understood, "
         "and Goal 9, Industry, Innovation and Infrastructure, since it adds open tooling for object-centric process data. "
         "On the Technology Readiness Level scale we put the pipeline at TRL 4 (validated in the laboratory, on seven public logs) and portal integration at TRL 2 to 3. Those levels are our own estimate.")
 
     D.h2("Problem Statement")
     D.p("We have an object-centric event log with several object types, and we pick one type as the case notion. Two questions follow. "
-        "How much does the flat log differ from the object-centric one, meaning how many events get copied, how many get dropped and how many get mixed up? "
-        "And do those differences change what an analyst reads off a chart: activity rankings, directly-follows edges, process variants, entity rankings? "
-        "We have to answer both on real data only, with checks that don't depend on our own code, and we have to specify the capstone lifecycle in OCEL 2.0 even though no portal data exists.")
+        "How much does the flat log differ from the object-centric one, that is, how many events are copied, dropped or merged? "
+        "And do those differences change what an analyst reads from the standard outputs: activity rankings, directly-follows edges, process variants, entity rankings and discovered models? "
+        "Both questions must be answered on real data only, with checks that do not depend on our own code, and the capstone lifecycle must be specified in OCEL 2.0 even though no portal data exists.")
 
     D.h2("Project Plan")
-    D.p("Figure 2.1 shows the calendar. A word on Review 2 first. We presented a prototype there that was evaluated on synthetic data. The team then decided to use real data only, "
-        "so that prototype and its results are out of this work, and the plan below reflects what happened after that decision.")
+    D.p("Figure 2.1 shows the project calendar. At Review 2 we presented a prototype that was evaluated on synthetic data. The team then decided to use real data only, "
+        "so that prototype and its results are excluded from this work, and the plan below reflects the work done after that decision.")
     D.figure("fig_timeline.png", "Project calendar, August to December 2026 (grey bars are not part of the delivered work)", 5.9)
     D.table("Work packages and status",
             ["Work package", "Content", "Status"],
@@ -115,7 +115,9 @@ def ch2(D):
              ["WP4", "Convert CROP and OULAD to OCEL 2.0; profile all seven logs", "Completed"],
              ["WP5", "Distortion metrics and consequence analysis", "Completed"],
              ["WP6", "Independent verification, report and presentation", "Completed"],
-             ["WP7", "Independent labelling of the findings; more logs; journal manuscript", "Planned. The manuscript is in preparation and has not been submitted"]],
+             ["WP7", "Process-discovery comparison, bootstrap intervals and full-log verification", "Completed"],
+             ["WP8", "Journal manuscript", "Submitted to the Journal of Intelligent Information Systems (Springer), October 2026; under review"],
+             ["WP9", "Independent labelling of the findings", "Planned"]],
             [0.9, 4.2, 2.6])
 
 
@@ -148,11 +150,11 @@ def ch3(D):
 
     D.h2("Feasibility Study")
     D.h3("Technical Feasibility")
-    D.p("Everything is Python with open libraries, and it runs on one laptop. The one real squeeze was Ethereum. Its 3.2 million events don't fit in 8 GiB of memory, "
-        "so we analyse a contiguous window of 300,000 events and say so wherever that log appears. For Enron, the distortion analysis took about 9.5 seconds and the consequence analysis about 4. "
-        "Speed was never the risk. Getting the numbers right was, which is why Chapter 5 spends most of its space on verification.")
+    D.p("The pipeline is written in Python with open-source libraries and runs on a single laptop. The only memory constraint was the Ethereum log, whose 3.2 million events do not fit in 8 GiB of memory, "
+        "so we analyse a contiguous window of 300,000 events and state this wherever that log appears. For Enron, the distortion analysis took about 9.5 seconds and the consequence analysis about 4. "
+        "Run time was not a risk; correctness was, which is why Chapter 5 devotes most of its space to verification.")
     D.h3("Economic Feasibility")
-    D.p("We bought nothing: no data, no software, no cloud time. Table 3.3 lists the items. The only cost we can't put a number on is our own time.")
+    D.p("No data, software or cloud time was purchased. Table 3.3 lists the items. The only cost that cannot be quantified is the team's own time.")
     D.table("Cost items",
             ["Item", "Source", "Incremental cost"],
             [["Datasets (seven logs)", "Zenodo and UCI repositories, CC BY 4.0", "Nil"],
@@ -161,12 +163,12 @@ def ch3(D):
              ["Storage", "About 1.3 GB of downloaded and extracted files and 132 MB of derived OCEL files", "Nil"],
              ["Cloud or paid services", "None used", "Nil"]],
             [2.2, 3.4, 1.4])
-    D.p("One licence catch. The `pm4py` library is released under AGPL-3.0, and we use it as a reference implementation of flattening. "
-        "If we release the code, we either pick a compatible licence or swap `pm4py` for a small SQLite loader.")
+    D.p("One licensing point needs attention. The `pm4py` library is released under AGPL-3.0, and we use it as a reference implementation of flattening and for process discovery. "
+        "The code is public on GitHub and is released under AGPL-3.0, which is compatible with `pm4py`.")
     D.h3("Social Feasibility")
     D.p("Two logs contain data about people. Enron has real e-mail addresses, and CROP has developer names that its authors had already pseudonymised. "
         "We hash identifiers again when a log loads and never print raw values. No VIT student, guide or portal record was used. "
-        "Anyone who analyses multi-entity workflows, academic review included, can see beforehand what a flat view will hide.")
+        "The method lets anyone who analyses multi-entity workflows, including academic review, see in advance what a flat view will hide.")
 
     D.h2("System Specification")
     D.h3("Hardware Specification")
@@ -193,19 +195,19 @@ def ch3(D):
 def ch4(D):
     D.chapter_start("Design Approach and Details")
     D.h2("System Architecture")
-    D.p("Figure 4.1 reads left to right. Seven public logs come in on the left. The first stage downloads each file, checks it against the publisher's record where one exists, and writes down a SHA-256. "
+    D.p("Figure 4.1 reads from left to right. The seven public logs enter on the left. The first stage downloads each file, checks it against the publisher's record where one exists, and records a SHA-256 checksum. "
         "A second stage extracts archives safely. Then the conversion stage turns CROP and OULAD into OCEL 2.0, and every log ends up in the same four tables: events, objects, event-to-object links and object-to-object links.")
     D.figure("fig_architecture.png", "System architecture of the flattening study", 6.3)
     D.p("Three engines read those tables. The distortion engine computes deficiency, convergence, divergence and coupling for each case notion. The consequence engine compares flat and object-centric outputs. "
-        "The rule-based engine is the appendix-level part. A validation stage re-implements the key computations independently, and everything ends up as CSV, JSON and Markdown files that the report and the paper are written from. "
-        "The dashed box at the top isn't built. It marks the spot where an adapter from the portal's audit log would plug in, if de-identified logs ever get approved.")
+        "The rule-based engine is the appendix-level part. A validation stage re-implements the key computations independently, and all results are written as CSV, JSON and Markdown files from which the report and the paper are produced. "
+        "The dashed box at the top has not been built. It marks where an adapter for the portal's audit log would connect, should de-identified logs be approved.")
 
     D.h2("Design")
     D.h3("Data Flow Diagram")
-    D.p("Figure 4.2 is the level-0 diagram: one process, two outside parties. Public data publishers send in dataset archives and licences. "
-        "The researchers and the guide send run commands and settings, and get tables, figures and validation status back.")
+    D.p("Figure 4.2 is the level-0 diagram, with one process and two external entities. Public data publishers supply dataset archives and licences. "
+        "The researchers and the guide supply run commands and settings, and receive tables, figures and validation status.")
     D.figure("fig_dfd0.png", "Data flow diagram, level 0", 5.6)
-    D.p("Figure 4.3 opens that process into six. Process 1.0 acquires and verifies archives into store D1. Process 2.0 extracts and converts them into the OCEL logs of store D2. "
+    D.p("Figure 4.3 decomposes that process into six sub-processes. Process 1.0 acquires and verifies archives into store D1. Process 2.0 extracts and converts them into the OCEL logs of store D2. "
         "Processes 3.0 (distortion metrics) and 4.0 (consequence analysis) read D2 and write the metric tables of store D3. Process 5.0 validates, and process 6.0 summarises the results for the researchers.")
     D.figure("fig_dfd1.png", "Data flow diagram, level 1", 6.2)
     D.h3("Use Case Diagram")
@@ -213,9 +215,9 @@ def ch4(D):
         "The guide or panel reviews the results and approves them.")
     D.figure("fig_usecase.png", "Use case diagram", 5.6)
     D.h3("Class Diagram")
-    D.p("Figure 4.5 shows the main data structures. `Ocel` holds the four tables of a loaded log. `Prepared` wraps an `Ocel` with integer-coded arrays, which is what makes rankings and directly-follows counts fast. "
-        "`View` and `Predicate` belong to the rule-based engine, where a predicate gets evaluated on a view of the log (native, flat or denormalised flat). "
-        "One thing to flag: in the code, the loader and the registry are modules of functions, not classes. We drew them as classes so their jobs are easy to see.")
+    D.p("Figure 4.5 shows the main data structures. `Ocel` holds the four tables of a loaded log. `Prepared` wraps an `Ocel` with integer-coded arrays, which makes the rankings and directly-follows counts fast to compute. "
+        "`View` and `Predicate` belong to the rule-based engine, where a predicate is evaluated on a view of the log (native, flat or denormalised flat). "
+        "Note that in the code the loader and the registry are modules of functions, not classes; they are drawn as classes to make their roles clear.")
     D.figure("fig_class.png", "Class diagram of the main structures", 6.0)
     D.h3("Sequence Diagram")
     D.p("Figure 4.6 follows one full run. The researcher starts the download, which verifies and records each file. Conversion writes OCEL 2.0 SQLite. "
@@ -223,8 +225,8 @@ def ch4(D):
     D.figure("fig_sequence.png", "Sequence diagram of one end-to-end run", 6.2)
 
     D.h2("OCEL 2.0 Model of the Capstone Lifecycle (Design Only)")
-    D.p("This section describes the model we designed for the portal, and it's a design, not a result. We derived it from the portal's documentation (the audit-trail, submission-system and scoring-system documents in the repository), "
-        "and we haven't filled it with portal data because there isn't any.")
+    D.p("This section describes the model we designed for the portal, and it is a design, not a result. We derived it from the portal's documentation (the audit-trail, submission-system and scoring-system documents in the repository), "
+        "and it has not been populated with portal data because none is available.")
     D.table("Object types of the capstone model",
             ["Object type", "Meaning", "Example relations (qualifiers)"],
             [["Student", "A team member; the leader may submit", "member-of (team)"],
@@ -241,5 +243,5 @@ def ch4(D):
         "`STUDENT_SUBMITTED`, `FACULTY_STARTED_VERIFICATION`, `FACULTY_ACCEPTED` and `FACULTY_REJECTED`. Each row carries a project identifier, the acting student or faculty member and a timestamp. "
         "In the model, an event relates to its project, to the acting student or faculty member, and, through joins on the project, to the team, the report version and the stage.", jc="left")
     D.p("A few documented facts shape the model. A score is written once and then locked. A rejection uses up one of three attempts and increments the report version. "
-        "Compilation failures are free retries and don't use an attempt. The documentation lists the automatic move from stage R1 to R2 to R3 as a known gap, "
-        "so the stage relation is part of the design, but the current system doesn't fully populate it.")
+        "Compilation failures are free retries and do not use an attempt. The documentation lists the automatic move from stage R1 to R2 to R3 as a known gap, "
+        "so the stage relation is part of the design, but the current system does not fully populate it.")

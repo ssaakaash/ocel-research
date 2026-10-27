@@ -50,30 +50,31 @@ SECT_BODY = ('<w:sectPr><w:headerReference w:type="default" r:id="rId11"/><w:foo
              '<w:pgMar w:top="1418" w:right="1134" w:bottom="1418" w:left="1701" w:header="709" w:footer="709" w:gutter="0"/><w:pgNumType w:start="1"/><w:cols w:space="720"/></w:sectPr>')
 
 ABSTRACT = [
-    "Imagine one click on a capstone portal. A student leader submits a report, and that single event touches a project, a team, three students, a guide and a report version. "
-    "Process mining wants every event in exactly one case, so something has to give. Flatten the event to one case notion and it can be copied into several cases (convergence), "
-    "dropped altogether (deficiency) or mixed up with repeated events that belong to other objects (divergence). Object-centric event logs, in the OCEL 2.0 standard, keep the many-to-many links instead.",
+    "When a student leader submits a report on a capstone portal, that single event concerns a project, a team, three students, a guide and a report version. "
+    "Process mining, however, requires every event to belong to exactly one case. When the event is flattened to one case notion, it can be copied into several cases (convergence), "
+    "dropped altogether (deficiency) or merged with repeated events that belong to other objects (divergence). Object-centric event logs, in the OCEL 2.0 standard, keep the many-to-many links instead.",
 
-    "We began this project to study capstone review processes with OCEL 2.0, and then we couldn't get portal logs. We also found no public capstone or thesis-management event log. "
-    "So we changed what we claim. The capstone stays as a documented OCEL 2.0 design, and we measured flattening on seven real public logs: Gerrit code review (CROP), "
+    "We began this project to study capstone review processes with OCEL 2.0, but portal logs could not be obtained. We also found no public capstone or thesis-management event log. "
+    "We therefore narrowed our claims. The capstone is presented as a documented OCEL 2.0 design, and we measured flattening on seven real public logs: Gerrit code review (CROP), "
     "Open University learning analytics (OULAD), Angular commits, German Bundestag procedures, Enron e-mail, an Ethereum window and Age of Empires II matches. No synthetic or simulated data was used anywhere.",
 
     "We built a reproducible pipeline that downloads and checks each source, converts the Gerrit and OULAD data to OCEL 2.0, computes flattening distortion for 38 case notions, "
-    "and compares what an analyst would read off a flat view against the object-centric one: activity rankings, directly-follows edges, process variants and entity rankings.",
+    "and compares what an analyst would read off a flat view against the object-centric one: activity rankings, directly-follows edges, process variants, entity rankings and the process model a miner discovers.",
 
     "The logs fall into three groups. In star logs (CROP, OULAD) every event touches one object of each type, so flattening copies nothing. In partitioned logs (Bundestag, Age of Empires II, Ethereum) "
     "one case notion drops 69% to 91% of the events in the median. In fan-out logs (Angular, Enron) flattening does duplicate events, up to 81.65 copies of one event in Angular. "
     "Duplication alone rarely changes an activity ranking, since only 2 of 38 case notions fall below a rank correlation of 0.95. The bigger effect is narrowing: in 20 of 38 case notions "
-    "the flat log shows fewer than half of the process's activities. Counting rows in a denormalised flat export can also wreck an entity ranking, with worst-case rank correlations of 0.16 (Enron), "
+    "the flat log shows fewer than half of the process's activities, and 2 of the 15 case notions that cover at least half of their log are among them. A model discovered from a narrowed flat log still reaches a replay fitness of 0.955 or more, "
+    "so the usual quality check gives no warning. Counting rows in a denormalised flat export can also invert an entity ranking, with worst-case rank correlations of 0.16 (Enron), "
     "-0.01 (Ethereum) and -0.41 (Age of Empires II).",
 
     "We checked parts of the pipeline with an independent SQL implementation, a brute-force self-check, an independent recomputation of the OULAD counts and byte-identical re-runs. "
-    "Those checks caught three bugs of our own, which we fixed. A plain-Python re-implementation of the distortion metrics agrees on slices of three logs but not yet on the full logs, nobody outside the team has labelled the findings, and the capstone model is still a design that hasn't met portal data. "
-    "A journal manuscript is in preparation and hasn't been submitted.",
+    "A plain-Python re-implementation reproduces the distortion metrics exactly on all seven full logs. Those checks caught three bugs of our own, which we fixed. No one outside the team has labelled the findings, and the capstone model is still a design that has not met portal data. "
+    "The measurement work is under review at the Journal of Intelligent Information Systems.",
 ]
 
 ABBREVIATIONS = [
-    ("AGPL", "GNU Affero General Public Licence"), ("AoE2", "Age of Empires II"), ("CC BY", "Creative Commons Attribution"), ("COOC", "Cross-Object Observability Coverage"),
+    ("AGPL", "GNU Affero General Public Licence"), ("AoE2", "Age of Empires II"), ("CC BY", "Creative Commons Attribution"), ("COOC", "Cross-Object Observability Coverage"), ("CROP", "Code Review Open Platform (Gerrit code-review dataset)"),
     ("CSV", "Comma-Separated Values"), ("DF", "Directly-Follows"), ("DFD", "Data Flow Diagram"), ("E2O", "Event-to-Object"), ("HTTP", "Hypertext Transfer Protocol"),
     ("JSON", "JavaScript Object Notation"), ("MD5", "Message-Digest Algorithm 5"), ("MSR", "Mining Software Repositories"), ("O2O", "Object-to-Object"),
     ("OCEL", "Object-Centric Event Log"), ("OULAD", "Open University Learning Analytics Dataset"), ("SCOPE", "School of Computer Science and Engineering"),
@@ -123,7 +124,7 @@ def edit_front(body):
         set_runs(ps[16 + 2 * k], run(reg, b=True, sz=26))
         set_runs(ps[17 + 2 * k], run(name.upper(), b=True, sz=26))
     set_runs(ps[25], run(GUIDE, b=True, sz=26))
-    set_runs(ps[26], run("[Designation of the guide]", sz=26, hl=True))
+    set_runs(ps[26], run("Professor Grade 1", sz=26))
     # declaration
     set_runs(ps[36], inline(f"We hereby declare that the project entitled **{TITLE}** submitted by us, for the award of the degree of //Bachelor of Technology in Computer Science and Engineering// to VIT "
                             f"is a record of bonafide work carried out by us under the supervision of {GUIDE}", sz=24))
@@ -143,15 +144,15 @@ def edit_front(body):
     set_runs(ps[56], inline(f"This is to certify that the project entitled **{TITLE}** submitted by **{names}**, School of Computer Science and Engineering, VIT, for the award of the degree of "
                             "//Bachelor of Technology in Computer Science and Engineering//, is a record of bonafide work carried out by them under my supervision during Fall Semester 2026-2027, "
                             "as per the VIT code of academic and research ethics.", sz=24))
-    set_runs(ps[82], run("[Name of the Head of the Department]", b=True, sz=24, hl=True))
-    set_runs(ps[83], run("B.Tech. Computer Science and Engineering", b=True, sz=24))
+    set_runs(ps[82], run("Dr. Boominathan P", b=True, sz=24))
+    set_runs(ps[83], run("Computer Science and Engineering", b=True, sz=24))
     # acknowledgements
     set_runs(ps[88], inline("We are deeply grateful to the management of Vellore Institute of Technology (VIT) for giving us the opportunity and the resources to take up this project. "
                             "Their commitment to a conducive learning environment has been important to our academic journey, and the support and infrastructure provided by VIT let us explore and develop our ideas.", sz=24))
     set_runs(ps[90], inline("Our sincere thanks to Dr. Jaisankar N, the Dean of the School of Computer Science and Engineering (SCOPE), for the Dean's unwavering support and encouragement. "
                             "The Dean's leadership and vision have inspired us to strive for excellence, and the dedication to academic excellence and innovation has been a constant source of motivation. "
                             "We appreciate the effort that goes into creating an environment that nurtures creativity and critical thinking.", sz=24))
-    set_runs(ps[92], inline("We express our profound appreciation to {{[Name of the Head of the Department]}}, the Head of the {{[Department name]}}, for their insightful guidance and continuous support. "
+    set_runs(ps[92], inline("We express our profound appreciation to Dr. Boominathan P, the Head of the Department of Computer Science and Engineering, for their insightful guidance and continuous support. "
                             "Their expertise and advice shaped the direction of our project, and the collaborative, supportive atmosphere they keep made learning easier for us.", sz=24))
     set_runs(ps[94], inline(f"We are immensely thankful to our project guide, {GUIDE}, for their dedicated mentorship and valuable feedback. "
                             "Their patience, knowledge and encouragement carried us through this project, and the time they spent sharing expertise and giving thoughtful guidance helped us refine our ideas and methods.", sz=24))
@@ -195,7 +196,8 @@ def front_pages(D: Doc, labels: dict) -> str:
     g = lambda k: labels.get(k, "0")
     # table of contents
     out.append(centered_heading("TABLE OF CONTENTS", page_break=False))
-    rows = [["", "Abstract", pageref("_Toc_abstract", g("_Toc_abstract"), sz=22, b=True)]]
+    roman = lambda n: next(r for v, r in [(10, "x"), (9, "ix"), (8, "viii"), (7, "vii"), (6, "vi"), (5, "v"), (4, "iv"), (3, "iii"), (2, "ii"), (1, "i")] if str(v) == str(n)) if str(n).isdigit() and 1 <= int(n) <= 10 else n
+    rows = [["", "Abstract", f"**{roman(g('_Toc_abstract'))}**"]]   # plain text: a PAGEREF field would be re-rendered in arabic numerals by LibreOffice
     for e in D.toc:
         lvl = e["level"]
         pad = " " * (0 if lvl == 1 else 4 if lvl == 2 else 9)
@@ -207,7 +209,6 @@ def front_pages(D: Doc, labels: dict) -> str:
     # list of figures
     out.append(centered_heading("LIST OF FIGURES", bm="_Toc_lof", page_break=True))
     out.append(plain_table([[f["num"], f["title"], pageref(f["bm"], g(f["bm"]), sz=22)] for f in D.figs], [1300, 6800, 1250], sz=22, jcs=["center", "left", "center"], header=["Figure No.", "Title", "Page No."]))
-    out.append(para(run("In the chapters, figure captions are below the figure and table captions are above the table, in font size 10.", i=True, sz=20), before=200, after=0, jc="left"))
     out.append(centered_heading("LIST OF TABLES", bm="_Toc_lot", page_break=True))
     out.append(plain_table([[t["num"], t["title"], pageref(t["bm"], g(t["bm"]), sz=22)] for t in D.tabs], [1300, 6800, 1250], sz=22, jcs=["center", "left", "center"], header=["Table No.", "Title", "Page No."]))
     out.append(centered_heading("LIST OF ABBREVIATIONS", bm="_Toc_abbr", page_break=True))

@@ -223,10 +223,11 @@ def timeline():
     fig, ax = plt.subplots(figsize=(8.6, 4.0))
     phases = [("Literature review and scope", 0.0, 1.6, BLUE), ("Platform study and OCEL schema", 0.8, 2.4, BLUE), ("Review 2 prototype (since removed)", 2.0, 3.1, GRAY),
               ("Re-scope to real data only", 3.3, 3.9, ORANGE), ("Download, convert, profile 7 logs", 3.5, 4.6, ORANGE), ("Distortion and consequence analysis", 3.9, 4.8, ORANGE),
-              ("Verification, report and deck", 4.5, 5.0, AQUA), ("Journal manuscript (planned)", 5.0, 7.0, GRAY)]
+              ("Verification, report and deck", 4.5, 5.0, AQUA), ("Discovery, bootstrap and full-log checks", 4.7, 5.0, AQUA),
+              ("Journal manuscript, submitted to JIIS", 4.75, 5.0, AQUA), ("Peer review at JIIS (expected)", 5.0, 7.0, GRAY)]
     for i, (t, a, b, c) in enumerate(phases):
         y = len(phases) - i
-        ax.barh(y, b - a, left=a, height=0.52, color=c, alpha=0.9 if "planned" not in t and "removed" not in t else 0.45, ec="none")
+        ax.barh(y, b - a, left=a, height=0.52, color=c, alpha=0.9 if "expected" not in t and "removed" not in t else 0.45, ec="none")
         ax.text(b + 0.08 if b < 6 else a - 0.08, y, t, va="center", ha="left" if b < 6 else "right", fontsize=9.6)
     ax.set_xticks([0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5]); ax.set_xticklabels(["Aug", "early Sep", "late Sep", "early Oct", "late Oct", "Nov", "Dec"], fontsize=9.5)
     ax.set_yticks([]); ax.set_xlim(0, 7.2); ax.set_ylim(0.2, len(phases) + 0.9)
@@ -311,9 +312,37 @@ def bars(name, series, xlabel, fmt="{:.1f}%", color=BLUE, xmax=None, figsize=(7.
     save(fig, name)
 
 
+def discovery():
+    """Replay fitness against the share of the process's activities the discovered model contains, one dot per case notion."""
+    import json
+    reg = {"crop": "star", "oulad": "star", "bundestag": "partitioned", "aoe2": "partitioned", "ethereum": "partitioned", "angular_commits": "fan-out", "enron": "fan-out"}
+    col = {"star": BLUE, "partitioned": ORANGE, "fan-out": AQUA}
+    pts = []
+    for f in sorted((RES / "discovery").glob("*.json")):
+        d = json.loads(f.read_text(encoding="utf-8"))
+        pts += [(reg[d["log"]], n["activity_coverage"], n["fitness"]) for n in d["notions"] if n.get("completed", True)]
+    fig, ax = plt.subplots(figsize=(7.8, 4.6))
+    style_axes(ax)
+    ax.axvspan(0, 0.5, color=FILL_O, zorder=0)
+    ax.text(0.25, 0.9425, "model shows fewer than half\nof the process's activities", ha="center", va="bottom", fontsize=9.6, color=ORANGE)
+    for r in ("star", "partitioned", "fan-out"):
+        xs = [x for g, x, _ in pts if g == r]; ys = [y for g, _, y in pts if g == r]
+        ax.scatter(xs, ys, s=70, color=col[r], ec=SURFACE, lw=1.3, zorder=3, label=f"{r} logs")
+    lo = min(y for _, _, y in pts)
+    ax.axhline(lo, color=MUTED, lw=1, ls="--", zorder=1)
+    ax.text(0.99, lo - 0.0012, f"lowest fitness, {lo:.3f}", fontsize=9.4, color=MUTED, va="top", ha="right")
+    ax.set_xlim(0, 1.03); ax.set_ylim(0.94, 1.006)
+    ax.set_xlabel("Share of the process's activities in the discovered model", fontsize=10.5)
+    ax.set_ylabel("Replay fitness on the flat log", fontsize=10.5)
+    ax.legend(loc="lower center", bbox_to_anchor=(0.5, 1.0), ncol=3, frameon=False, fontsize=9.6)
+    fig.tight_layout()
+    save(fig, "fig_discovery.png")
+
+
 def main():
     architecture(); dfd0(); dfd1(); usecase(); classdiagram(); sequence(); capstone_schema(); timeline()
     regimes()
+    discovery()
     dumbbell("fig_rank_activity.png", "activity_rank_rho_dup_only_min", "activity_rank_rho_all_median", "duplication alone (worst case notion)", "versus the whole process (median case notion)",
              "Spearman rank correlation of the activity-frequency ranking", (-0.15, 1.12))
     dumbbell("fig_rank_entity.png", "entity_rho_visible_median", "entity_rho_visible_min", "median over entity types", "worst entity type", "Spearman rank correlation of entity rankings from a denormalised export", (-0.5, 1.15))

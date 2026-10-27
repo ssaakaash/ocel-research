@@ -10,9 +10,9 @@ For every analysed case notion T (at least 1,000 covered events) the flat log of
   size                 process-tree nodes, and places, transitions (visible and silent) and arcs of the Petri net
   loop_share           share of the model's activities that sit inside a loop operator (1.0 for a "flower" model)
   activity_coverage    share of the log's activities that appear as visible transitions
-Each case notion runs in a child process with a budget of TIME_BUDGET seconds; a notion that does not finish (the
-Inductive Miner and token replay both slow down on cases of tens of thousands of events) is recorded with
-"completed": false and no metrics.
+Each case notion runs in a child process with a budget of TIME_BUDGET seconds and a raised recursion limit; a notion
+that does not finish (the Inductive Miner and token replay both slow down on cases of tens of thousands of events) is
+recorded with "completed": false, the reason in "stopped_by", and no metrics.
 An object-centric Petri net (one net per object type, merged) contains every activity by construction, so
 activity_coverage is also the share of the object-centric model that the flat model shows. Across notions, Spearman
 correlations relate fitness, precision and size to the distortion metrics in results/distortion/.
@@ -41,7 +41,9 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "results" / "discovery"
 NOISE = 0.2
 PRECISION_BUDGET = 20_000_000   # sum of squared case lengths
-TIME_BUDGET = 900               # seconds per case notion
+TIME_BUDGET = 3600              # seconds per case notion
+RECURSION_LIMIT = 100_000       # pm4py folds the process tree with copy.deepcopy, which nests deeper than Python's
+                                # default 1,000 on cases of thousands of events (AoE2 Match and Session)
 KEYS = {"case_id_key": "case_id", "activity_key": "activity", "timestamp_key": "timestamp"}
 
 
@@ -63,6 +65,7 @@ def tree_stats(tree) -> tuple[int, set, set]:
 
 def mine(flat, out) -> None:
     """Discover and score one flat log; runs in a child process and puts the metrics on queue ``out``."""
+    sys.setrecursionlimit(RECURSION_LIMIT)
     tree = pm4py.discover_process_tree_inductive(flat, noise_threshold=NOISE, **KEYS)
     net, im, fm = pm4py.convert_to_petri_net(tree)
     nodes, visible, looped = tree_stats(tree)
