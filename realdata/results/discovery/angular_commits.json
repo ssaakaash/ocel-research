@@ -2,14 +2,15 @@
   "log": "angular_commits",
   "activities": 67,
   "noise_threshold": 0.2,
-  "time_budget_s": 900,
+  "time_budget_s": 3600,
   "notions": [
     {
       "case_type": "branches",
       "flat_rows": 2271272,
       "cases": 139,
       "completed": false,
-      "seconds": 901.4
+      "stopped_by": "time budget",
+      "seconds": 3601.2
     },
     {
       "case_type": "files",
@@ -26,7 +27,7 @@
       "arcs": 278,
       "loop_share": 0.4318,
       "activity_coverage": 0.6567,
-      "seconds": 461.4
+      "seconds": 266.0
     }
   ]
 }

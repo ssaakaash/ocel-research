@@ -5,6 +5,7 @@ It only emits WordprocessingML strings. build_report.py splices them into the VI
 
 from __future__ import annotations
 
+import json
 import re
 import struct
 from pathlib import Path
@@ -38,6 +39,38 @@ def run(text: str, b=False, i=False, sz=24, hl=False, mono=False, sup=False, col
 
 
 _TOKEN = re.compile(r"(\*\*.+?\*\*|//.+?//|`.+?`|\{\{.+?\}\}|_\{.+?\})")
+
+
+def plain(text: str) -> str:
+    """The text of a mini-markup string without its markup."""
+    out = []
+    for part in _TOKEN.split(text):
+        if not part:
+            continue
+        if part.startswith(("**", "//", "{{")):
+            out.append(part[2:-2])
+        elif part.startswith("`"):
+            out.append(part[1:-1])
+        elif part.startswith("_{"):
+            out.append(part[2:-1])
+        else:
+            out.append(part)
+    return "".join(out)
+
+
+# Reworded body paragraphs (the team's own wording), keyed by the plain text of the paragraph they replace. A paragraph whose
+# generated text changes no longer matches its key and falls back to the generated text; HUMANISED_USED records what matched.
+HUMANISED_FILE = Path(__file__).resolve().parent / "report_humanised.json"
+HUMANISED = json.loads(HUMANISED_FILE.read_text(encoding="utf-8")) if HUMANISED_FILE.exists() else {}
+HUMANISED_USED: set[str] = set()
+
+
+def humanised(text: str) -> str:
+    key = plain(text)
+    if key in HUMANISED:
+        HUMANISED_USED.add(key)
+        return HUMANISED[key]
+    return text
 
 
 def inline(text: str, sz=24, b=False, i=False) -> str:
@@ -127,7 +160,7 @@ class Doc:
     # ---------------------------------------------------------------- text
     def p(self, text: str, **kw):
         kw.setdefault("jc", "both")
-        self.add(para(inline(text), **kw))
+        self.add(para(inline(humanised(text)), **kw))
 
     def pb(self):
         self.add('<w:p><w:r><w:br w:type="page"/></w:r></w:p>')
@@ -170,12 +203,12 @@ class Doc:
     def bullets(self, items: list[str], num_id: int = 90):
         for it in items:
             self.add(f'<w:p><w:pPr><w:numPr><w:ilvl w:val="0"/><w:numId w:val="{num_id}"/></w:numPr>'
-                     f'<w:spacing w:before="0" w:after="60" w:line="276" w:lineRule="auto"/><w:ind w:left="720" w:hanging="360"/><w:jc w:val="both"/></w:pPr>{inline(it)}</w:p>')
+                     f'<w:spacing w:before="0" w:after="60" w:line="276" w:lineRule="auto"/><w:ind w:left="720" w:hanging="360"/><w:jc w:val="both"/></w:pPr>{inline(humanised(it))}</w:p>')
 
     def numbered(self, items: list[str], num_id: int):
         for it in items:
             self.add(f'<w:p><w:pPr><w:numPr><w:ilvl w:val="0"/><w:numId w:val="{num_id}"/></w:numPr>'
-                     f'<w:spacing w:before="0" w:after="60" w:line="276" w:lineRule="auto"/><w:ind w:left="720" w:hanging="360"/><w:jc w:val="both"/></w:pPr>{inline(it)}</w:p>')
+                     f'<w:spacing w:before="0" w:after="60" w:line="276" w:lineRule="auto"/><w:ind w:left="720" w:hanging="360"/><w:jc w:val="both"/></w:pPr>{inline(humanised(it))}</w:p>')
 
     def code(self, lines: list[str], sz=17):
         n = len(lines)

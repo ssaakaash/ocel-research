@@ -185,7 +185,7 @@ def ch6(D, demo_dir: Path):
     D.h4("Command: head -4 results/consequence_by_log.md")
     D.p("The command prints a Markdown table with one row per log. The lines are too wide for a printed page, so we do not copy them here. "
         "The saved output is in `docs/review-3/demo/5_table.txt`, and Table 7.3 in Chapter 7 shows the same numbers.")
-    D.p("`make study` re-runs everything. When we ran it for this report it finished without error in 5 minutes 21 seconds and left every tracked result file unchanged (checked with Git).")
+    D.p("`make study` re-runs everything. When we ran it for this report it finished without error in 6 minutes 6 seconds and left every tracked result file unchanged (checked with Git).")
 
 # ------------------------------------------------------------------------------------------------ chapter 7
 def f(x, nd=2):
@@ -293,7 +293,7 @@ def ch7(D, res: Path):
              ["Software", "Nil (open-source libraries; `pm4py` is AGPL-3.0)", "Python 3.14 and the pinned packages in `requirements.txt`"],
              ["Hardware", "A laptop the team already owned (8 GiB memory)", "Any laptop with 8 GiB of memory or more"],
              ["Cloud or paid services", "None", "None"],
-             ["Run time", "Seconds to minutes per log", "About 4 to 10 seconds for the Enron log; `make study` for all seven logs took 5 minutes 21 seconds"]],
+             ["Run time", "Seconds to minutes per log", "About 4 to 10 seconds for the Enron log; `make study` for all seven logs took 6 minutes 6 seconds"]],
             [1.4, 3.0, 2.6], sz=18)
     D.p("The main cost is the team's time, much of it spent on verification. The monetary cost is nil.")
 
@@ -328,9 +328,10 @@ def discovery_section(D, res: Path):
     narrowed = [r for r in rows if float(r["act_visible_share"]) < 0.5]
     prec = sorted(((float(r["precision"]), r) for r in rows if r["precision"] not in ("", "None")), key=lambda t: t[0])
     D.h2("Process Discovery on Flat Logs")
-    D.p(f"Process discovery is the most common use of process mining, so we discovered a model from every flat log (C5 in Section 5.1). It finished for {S['notions']} of the {sum(per.values())} case notions. "
-        + (f"The remaining {len(S['not_completed'])} did not finish: {pretty_unfinished(S['not_completed'])}. " if S["not_completed"] else "")
-        + "Table 7.4 summarises the results per log.")
+    D.p(f"Process discovery is the most typical use of process mining, so we discovered a model from every flat log (C5 in Section 5.1); it finished for {S['notions']} of the {sum(per.values())} case notions, "
+        "and Table 7.4 summarises the results per log."
+        + ((f" One case notion did not finish: {pretty_unfinished(S['not_completed'])}." if len(S["not_completed"]) == 1 else
+            f" The remaining {len(S['not_completed'])} did not finish: {pretty_unfinished(S['not_completed'])}.") if S["not_completed"] else ""))
     tab = []
     for k in ORDER:
         rs = [r for r in rows if r["log"] == k]
@@ -343,15 +344,16 @@ def discovery_section(D, res: Path):
     D.table("Process discovery on the flat logs (Inductive Miner, noise threshold 0.2)",
             ["Log", "Mined", "Lowest fitness", "Median precision (notions)", "Models with 90% or more of activities in loops", "Models with under half of the activities"],
             tab, [1.5, 0.8, 0.9, 1.2, 1.4, 1.3], sz=17, align=["left", "center", "right", "right", "center", "center"])
-    D.p(f"First, every model appears to be of high quality. Replay fitness runs from {S['fitness_min']:.3f} to 1.000, with a median of {S['fitness_median']:.3f}. "
-        f"All {len(narrowed)} narrowed case notions are in that range, yet {S['model_covers_under_half_of_activities']} of the models contain fewer than half of the process's activities. "
-        "Fitness is measured against the flat log from which the model was discovered, so it cannot reflect what flattening removed. Figure 7.6 illustrates this: the points on the left represent models of a small fraction of the process, and they score as well as the complete ones.")
+    D.p(f"First, every model appears to be of high quality. Replay fitness runs from {S['fitness_min']:.3f} to 1.000, with a median of {S['fitness_median']:.3f}, and all {len(narrowed)} narrowed case notions are in that range; "
+        f"yet {S['model_covers_under_half_of_activities']} of the models contain fewer than half of the process's activities. "
+        "Fitness is measured against the flat log from which the model was discovered, so it cannot reflect what flattening removed. Figure 7.6 reveals this: the points on the left represent models of a small fraction of the process, and they score as well as the complete ones.")
     D.figure("fig_discovery.png", "Replay fitness against the share of the process's activities in the discovered model, one dot per case notion", 5.6)
     lp = S["spearman"]["loop_share~divergence_share"]["rho"]
-    D.p(f"Second, divergence appears as loops. When a flat case collects repeated events that belong to different objects, the miner tends to place them inside a loop. Across case notions the loop share rises with the divergence share (Spearman rank correlation {lp:.2f}). "
-        f"At least 90% of the activities sit under a loop in {S['high_divergence_with_loop_share_ge_0.9']} of the {S['high_divergence_notions']} case notions with a divergence share of 0.5 or more, "
-        f"and in only {S['low_divergence_with_loop_share_ge_0.9']} of the rest. Precision, which could be computed for {S['precision_computed']} case notions, shows the consequence. "
-        f"Its median is {S['precision_median']:.2f}, and the lowest values ({', '.join(f'{p:.2f} for {notion_name(r)}' for p, r in prec[:3])}) all come from models in which nearly every activity is inside a loop, so the models accept almost any order of events.")
+    D.p(f"Second, divergence appears as loops. Across case notions the loop share rises with the divergence share (Spearman rank correlation {lp:.2f}), and at least 90% of the activities sit under a loop "
+        f"in {S['high_divergence_with_loop_share_ge_0.9']} of the {S['high_divergence_notions']} case notions with a divergence share of 0.5 or more, and in only {S['low_divergence_with_loop_share_ge_0.9']} of the rest. "
+        "When a flat case collects repeated events that belong to different objects, the miner tends to place them inside a loop. "
+        f"Precision, which could be computed for {S['precision_computed']} case notions, reveals the result: its median is {S['precision_median']:.2f}, and the lowest values "
+        f"({', '.join(f'{p:.2f} for {notion_name(r)}' for p, r in prec[:3])}) all come from models in which nearly every activity is inside a loop, so the models accept almost any order of events.")
     D.p("Given the number of case notions and the seven logs, we interpret these correlations as tendencies rather than general laws.")
 
 

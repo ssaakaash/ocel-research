@@ -361,7 +361,7 @@ def build_slides():
     s.text(0.5, 1.5, 7.9, 5.1, [para([run("cd realdata", 17, color="9AD0FF", font=MONO)], before=0, after=6)] + [
         para([run(f"{n}  ", 17, color="FFB86B", b=True, font=MONO), run(c, 17, color="F5F5F5", font=MONO)], before=14) for n, c, _ in code], fill="1F2328", rounded=True, anchor="ctr", inset=0.25, name="Terminal")
     s.text(8.65, 1.5, 4.18, 5.1, [card_title("What the panel will see"), *bullets([t for _, _, t in code], sz=15, before=11),
-           para([run("Full run: make study (5 min 21 s on our laptop)", 13, color=MUTED, i=True)], before=14)], fill=CARD, rounded=True, name="Explain")
+           para([run("Full run: make study (6 min 6 s on our laptop)", 13, color=MUTED, i=True)], before=14)], fill=CARD, rounded=True, name="Explain")
     s.notes = ("This is the part where, if the laptop is kind to us, we run it live. Five commands, about a minute in total. First, the download manifest, which should say all eight sources are already present, so nothing is downloaded again. "
                "Second, the self-check, our own code against a slow, plain Python version of itself, it should say passed. Third and fourth, we run the distortion and consequence analysis on the Enron e-mails, because that log has a real many-to-many structure and a nice, visible result. "
                "Last, we open the summary table. If anything misbehaves, we have the saved outputs for every step, so the story does not depend on the Wi-Fi.")

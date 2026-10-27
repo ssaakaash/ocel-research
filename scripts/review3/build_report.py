@@ -28,6 +28,7 @@ from PIL import Image
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import report_chapters_1_4 as A  # noqa: E402
 import report_chapters_5_9 as B  # noqa: E402
+import report_engine as E  # noqa: E402
 from report_engine import Doc, TNR, esc, inline, pageref, para, plain_table, run  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -385,6 +386,8 @@ def main() -> None:
             Path(keep).mkdir(parents=True, exist_ok=True)
             shutil.copy(work_dir / "_render" / "pass2.pdf", Path(keep) / (OUT.stem + ".pdf"))
         print("wrote", OUT, f"({OUT.stat().st_size / 1e6:.2f} MB)")
+        unused = sorted(set(E.HUMANISED) - E.HUMANISED_USED)
+        print(f"reworded paragraphs applied: {len(E.HUMANISED_USED)} of {len(E.HUMANISED)}" + (f"; not matched (generated text changed): {[u[:60] for u in unused]}" if unused else ""))
     finally:
         shutil.rmtree(work_dir, ignore_errors=True)
 

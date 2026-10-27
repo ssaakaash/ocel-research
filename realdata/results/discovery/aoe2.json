@@ -2,7 +2,7 @@
   "log": "aoe2",
   "activities": 333,
   "noise_threshold": 0.2,
-  "time_budget_s": 900,
+  "time_budget_s": 3600,
   "notions": [
     {
       "case_type": "Archery Range",
@@ -19,7 +19,7 @@
       "arcs": 92,
       "loop_share": 0.5714,
       "activity_coverage": 0.042,
-      "seconds": 1.0
+      "seconds": 0.8
     },
     {
       "case_type": "Barracks",
@@ -36,7 +36,7 @@
       "arcs": 156,
       "loop_share": 0.6923,
       "activity_coverage": 0.0781,
-      "seconds": 16.6
+      "seconds": 11.9
     },
     {
       "case_type": "Castle",
@@ -53,7 +53,7 @@
       "arcs": 166,
       "loop_share": 0.5769,
       "activity_coverage": 0.0781,
-      "seconds": 0.8
+      "seconds": 0.7
     },
     {
       "case_type": "Farm",
@@ -93,8 +93,18 @@
       "case_type": "Match",
       "flat_rows": 34860,
       "cases": 10,
-      "completed": false,
-      "seconds": 632.6
+      "completed": true,
+      "sum_squared_case_length": 178570352,
+      "fitness": 0.9952,
+      "precision": null,
+      "tree_nodes": 1100,
+      "places": 566,
+      "transitions": 853,
+      "silent_transitions": 521,
+      "arcs": 1858,
+      "loop_share": 1.0,
+      "activity_coverage": 0.997,
+      "seconds": 2168.6
     },
     {
       "case_type": "Player",
@@ -102,7 +112,7 @@
       "cases": 20,
       "completed": true,
       "sum_squared_case_length": 13842465,
-      "fitness": 0.9956,
+      "fitness": 0.9957,
       "precision": 0.0409,
       "tree_nodes": 474,
       "places": 228,
@@ -111,14 +121,24 @@
       "arcs": 788,
       "loop_share": 0.9773,
       "activity_coverage": 0.3964,
-      "seconds": 573.9
+      "seconds": 535.4
     },
     {
       "case_type": "Session",
       "flat_rows": 34860,
       "cases": 20,
-      "completed": false,
-      "seconds": 477.1
+      "completed": true,
+      "sum_squared_case_length": 90822588,
+      "fitness": 0.9821,
+      "precision": null,
+      "tree_nodes": 1085,
+      "places": 549,
+      "transitions": 823,
+      "silent_transitions": 498,
+      "arcs": 1792,
+      "loop_share": 0.9969,
+      "activity_coverage": 0.976,
+      "seconds": 705.6
     },
     {
       "case_type": "Stable",
@@ -152,7 +172,7 @@
       "arcs": 138,
       "loop_share": 0.55,
       "activity_coverage": 0.0601,
-      "seconds": 17.4
+      "seconds": 15.0
     },
     {
       "case_type": "Villager",
@@ -169,7 +189,7 @@
       "arcs": 314,
       "loop_share": 0.9286,
       "activity_coverage": 0.1682,
-      "seconds": 43.4
+      "seconds": 41.5
     }
   ]
 }
