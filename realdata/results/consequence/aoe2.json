@@ -1,0 +1,1466 @@
+{
+  "log": "aoe2",
+  "events_used": 34860,
+  "activities": 333,
+  "reference_pairs": 73885,
+  "reference_edge_types": 4901,
+  "notions": [
+    {
+      "case_type": "Archery Range",
+      "covered_events": 2345,
+      "C1_activity_rank_rho": 0.0955,
+      "C1_top3_overlap": 0,
+      "C1_activities_visible_share": 0.0631,
+      "C1_dup_only_rho": 1.0,
+      "C1_dup_only_top3_overlap": 3,
+      "C2_pairs": 2390,
+      "C2_perspective_coverage_of_reference": 0.0318,
+      "C2_pair_duplication": 1.0175,
+      "C2_dup_only_edge_rho": 0.9999,
+      "C2_dup_only_top10_edge_overlap": 10,
+      "C2_edge_freq_rho": 0.0957,
+      "C2_top10_edge_overlap": 0,
+      "C2_max_inflation_top10_edges": null,
+      "C3_variants": {
+        "cases": 48,
+        "variants": 32,
+        "variants_per_case": 0.6667,
+        "top10_variant_coverage": 0.5417
+      },
+      "C4_entity_rankings": [
+        {
+          "entity_type": "Barracks",
+          "objects": 67,
+          "rho": null,
+          "top10_overlap": 1,
+          "objects_invisible_share": 1.0,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": null,
+          "max_count_inflation": null
+        },
+        {
+          "entity_type": "Castle",
+          "objects": 39,
+          "rho": null,
+          "top10_overlap": 3,
+          "objects_invisible_share": 1.0,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": null,
+          "max_count_inflation": null
+        },
+        {
+          "entity_type": "Farm",
+          "objects": 869,
+          "rho": null,
+          "top10_overlap": 10,
+          "objects_invisible_share": 1.0,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": null,
+          "max_count_inflation": null
+        },
+        {
+          "entity_type": "House",
+          "objects": 504,
+          "rho": null,
+          "top10_overlap": 10,
+          "objects_invisible_share": 1.0,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": null,
+          "max_count_inflation": null
+        },
+        {
+          "entity_type": "Stable",
+          "objects": 68,
+          "rho": null,
+          "top10_overlap": 2,
+          "objects_invisible_share": 1.0,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": null,
+          "max_count_inflation": null
+        },
+        {
+          "entity_type": "Town Center",
+          "objects": 66,
+          "rho": null,
+          "top10_overlap": 3,
+          "objects_invisible_share": 1.0,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": null,
+          "max_count_inflation": null
+        },
+        {
+          "entity_type": "Villager",
+          "objects": 2992,
+          "rho": 0.2328,
+          "top10_overlap": 0,
+          "objects_invisible_share": 0.9679,
+          "rho_visible_only": 0.093,
+          "top10_overlap_visible_only": 0,
+          "max_count_inflation": 0.667
+        }
+      ]
+    },
+    {
+      "case_type": "Barracks",
+      "covered_events": 4764,
+      "C1_activity_rank_rho": -0.0458,
+      "C1_top3_overlap": 0,
+      "C1_activities_visible_share": 0.1351,
+      "C1_dup_only_rho": 1.0,
+      "C1_dup_only_top3_overlap": 3,
+      "C2_pairs": 5422,
+      "C2_perspective_coverage_of_reference": 0.0691,
+      "C2_pair_duplication": 1.0621,
+      "C2_dup_only_edge_rho": 1.0,
+      "C2_dup_only_top10_edge_overlap": 10,
+      "C2_edge_freq_rho": 0.0182,
+      "C2_top10_edge_overlap": 2,
+      "C2_max_inflation_top10_edges": 0.669,
+      "C3_variants": {
+        "cases": 67,
+        "variants": 41,
+        "variants_per_case": 0.6119,
+        "top10_variant_coverage": 0.5373
+      },
+      "C4_entity_rankings": [
+        {
+          "entity_type": "Archery Range",
+          "objects": 48,
+          "rho": null,
+          "top10_overlap": 6,
+          "objects_invisible_share": 1.0,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": null,
+          "max_count_inflation": null
+        },
+        {
+          "entity_type": "Castle",
+          "objects": 39,
+          "rho": null,
+          "top10_overlap": 3,
+          "objects_invisible_share": 1.0,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": null,
+          "max_count_inflation": null
+        },
+        {
+          "entity_type": "Farm",
+          "objects": 869,
+          "rho": null,
+          "top10_overlap": 10,
+          "objects_invisible_share": 1.0,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": null,
+          "max_count_inflation": null
+        },
+        {
+          "entity_type": "House",
+          "objects": 504,
+          "rho": null,
+          "top10_overlap": 10,
+          "objects_invisible_share": 1.0,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": null,
+          "max_count_inflation": null
+        },
+        {
+          "entity_type": "Stable",
+          "objects": 68,
+          "rho": null,
+          "top10_overlap": 2,
+          "objects_invisible_share": 1.0,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": null,
+          "max_count_inflation": null
+        },
+        {
+          "entity_type": "Town Center",
+          "objects": 66,
+          "rho": null,
+          "top10_overlap": 3,
+          "objects_invisible_share": 1.0,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": null,
+          "max_count_inflation": null
+        },
+        {
+          "entity_type": "Villager",
+          "objects": 2992,
+          "rho": 0.2036,
+          "top10_overlap": 2,
+          "objects_invisible_share": 0.9716,
+          "rho_visible_only": 0.0331,
+          "top10_overlap_visible_only": 3,
+          "max_count_inflation": 0.714
+        }
+      ]
+    },
+    {
+      "case_type": "Castle",
+      "covered_events": 1111,
+      "C1_activity_rank_rho": 0.0595,
+      "C1_top3_overlap": 0,
+      "C1_activities_visible_share": 0.1021,
+      "C1_dup_only_rho": 1.0,
+      "C1_dup_only_top3_overlap": 3,
+      "C2_pairs": 1161,
+      "C2_perspective_coverage_of_reference": 0.0155,
+      "C2_pair_duplication": 1.0122,
+      "C2_dup_only_edge_rho": 1.0,
+      "C2_dup_only_top10_edge_overlap": 10,
+      "C2_edge_freq_rho": 0.0928,
+      "C2_top10_edge_overlap": 0,
+      "C2_max_inflation_top10_edges": null,
+      "C3_variants": {
+        "cases": 39,
+        "variants": 23,
+        "variants_per_case": 0.5897,
+        "top10_variant_coverage": 0.6667
+      },
+      "C4_entity_rankings": [
+        {
+          "entity_type": "Archery Range",
+          "objects": 48,
+          "rho": null,
+          "top10_overlap": 6,
+          "objects_invisible_share": 1.0,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": null,
+          "max_count_inflation": null
+        },
+        {
+          "entity_type": "Barracks",
+          "objects": 67,
+          "rho": null,
+          "top10_overlap": 1,
+          "objects_invisible_share": 1.0,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": null,
+          "max_count_inflation": null
+        },
+        {
+          "entity_type": "Farm",
+          "objects": 869,
+          "rho": null,
+          "top10_overlap": 10,
+          "objects_invisible_share": 1.0,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": null,
+          "max_count_inflation": null
+        },
+        {
+          "entity_type": "House",
+          "objects": 504,
+          "rho": null,
+          "top10_overlap": 10,
+          "objects_invisible_share": 1.0,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": null,
+          "max_count_inflation": null
+        },
+        {
+          "entity_type": "Stable",
+          "objects": 68,
+          "rho": null,
+          "top10_overlap": 2,
+          "objects_invisible_share": 1.0,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": null,
+          "max_count_inflation": null
+        },
+        {
+          "entity_type": "Town Center",
+          "objects": 66,
+          "rho": null,
+          "top10_overlap": 3,
+          "objects_invisible_share": 1.0,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": null,
+          "max_count_inflation": null
+        },
+        {
+          "entity_type": "Villager",
+          "objects": 2992,
+          "rho": 0.2846,
+          "top10_overlap": 0,
+          "objects_invisible_share": 0.9238,
+          "rho_visible_only": 0.112,
+          "top10_overlap_visible_only": 0,
+          "max_count_inflation": 0.5
+        }
+      ]
+    },
+    {
+      "case_type": "Farm",
+      "covered_events": 2607,
+      "C1_activity_rank_rho": 0.157,
+      "C1_top3_overlap": 0,
+      "C1_activities_visible_share": 0.009,
+      "C1_dup_only_rho": 1.0,
+      "C1_dup_only_top3_overlap": 3,
+      "C2_pairs": 1738,
+      "C2_perspective_coverage_of_reference": 0.0235,
+      "C2_pair_duplication": 1.0,
+      "C2_dup_only_edge_rho": null,
+      "C2_dup_only_top10_edge_overlap": 2,
+      "C2_edge_freq_rho": 0.0375,
+      "C2_top10_edge_overlap": 0,
+      "C2_max_inflation_top10_edges": null,
+      "C3_variants": {
+        "cases": 869,
+        "variants": 1,
+        "variants_per_case": 0.0012,
+        "top10_variant_coverage": 1.0
+      },
+      "C4_entity_rankings": [
+        {
+          "entity_type": "Archery Range",
+          "objects": 48,
+          "rho": null,
+          "top10_overlap": 6,
+          "objects_invisible_share": 1.0,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": null,
+          "max_count_inflation": null
+        },
+        {
+          "entity_type": "Barracks",
+          "objects": 67,
+          "rho": null,
+          "top10_overlap": 1,
+          "objects_invisible_share": 1.0,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": null,
+          "max_count_inflation": null
+        },
+        {
+          "entity_type": "Castle",
+          "objects": 39,
+          "rho": null,
+          "top10_overlap": 3,
+          "objects_invisible_share": 1.0,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": null,
+          "max_count_inflation": null
+        },
+        {
+          "entity_type": "House",
+          "objects": 504,
+          "rho": null,
+          "top10_overlap": 10,
+          "objects_invisible_share": 1.0,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": null,
+          "max_count_inflation": null
+        },
+        {
+          "entity_type": "Stable",
+          "objects": 68,
+          "rho": null,
+          "top10_overlap": 2,
+          "objects_invisible_share": 1.0,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": null,
+          "max_count_inflation": null
+        },
+        {
+          "entity_type": "Town Center",
+          "objects": 66,
+          "rho": null,
+          "top10_overlap": 3,
+          "objects_invisible_share": 1.0,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": null,
+          "max_count_inflation": null
+        },
+        {
+          "entity_type": "Villager",
+          "objects": 2992,
+          "rho": 0.6613,
+          "top10_overlap": 2,
+          "objects_invisible_share": 0.7436,
+          "rho_visible_only": 0.7866,
+          "top10_overlap_visible_only": 2,
+          "max_count_inflation": 1.0
+        }
+      ]
+    },
+    {
+      "case_type": "House",
+      "covered_events": 1008,
+      "C1_activity_rank_rho": 0.1241,
+      "C1_top3_overlap": 0,
+      "C1_activities_visible_share": 0.006,
+      "C1_dup_only_rho": 1.0,
+      "C1_dup_only_top3_overlap": 3,
+      "C2_pairs": 504,
+      "C2_perspective_coverage_of_reference": 0.0068,
+      "C2_pair_duplication": 1.0,
+      "C2_dup_only_edge_rho": null,
+      "C2_dup_only_top10_edge_overlap": 1,
+      "C2_edge_freq_rho": 0.0265,
+      "C2_top10_edge_overlap": 0,
+      "C2_max_inflation_top10_edges": null,
+      "C3_variants": {
+        "cases": 504,
+        "variants": 1,
+        "variants_per_case": 0.002,
+        "top10_variant_coverage": 1.0
+      },
+      "C4_entity_rankings": [
+        {
+          "entity_type": "Archery Range",
+          "objects": 48,
+          "rho": null,
+          "top10_overlap": 6,
+          "objects_invisible_share": 1.0,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": null,
+          "max_count_inflation": null
+        },
+        {
+          "entity_type": "Barracks",
+          "objects": 67,
+          "rho": null,
+          "top10_overlap": 1,
+          "objects_invisible_share": 1.0,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": null,
+          "max_count_inflation": null
+        },
+        {
+          "entity_type": "Castle",
+          "objects": 39,
+          "rho": null,
+          "top10_overlap": 3,
+          "objects_invisible_share": 1.0,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": null,
+          "max_count_inflation": null
+        },
+        {
+          "entity_type": "Farm",
+          "objects": 869,
+          "rho": null,
+          "top10_overlap": 10,
+          "objects_invisible_share": 1.0,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": null,
+          "max_count_inflation": null
+        },
+        {
+          "entity_type": "Stable",
+          "objects": 68,
+          "rho": null,
+          "top10_overlap": 2,
+          "objects_invisible_share": 1.0,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": null,
+          "max_count_inflation": null
+        },
+        {
+          "entity_type": "Town Center",
+          "objects": 66,
+          "rho": null,
+          "top10_overlap": 3,
+          "objects_invisible_share": 1.0,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": null,
+          "max_count_inflation": null
+        },
+        {
+          "entity_type": "Villager",
+          "objects": 2992,
+          "rho": 0.46,
+          "top10_overlap": 1,
+          "objects_invisible_share": 0.8787,
+          "rho_visible_only": 0.3662,
+          "top10_overlap_visible_only": 1,
+          "max_count_inflation": 0.818
+        }
+      ]
+    },
+    {
+      "case_type": "Match",
+      "covered_events": 34860,
+      "C1_activity_rank_rho": 1.0,
+      "C1_top3_overlap": 3,
+      "C1_activities_visible_share": 1.0,
+      "C1_dup_only_rho": 1.0,
+      "C1_dup_only_top3_overlap": 3,
+      "C2_pairs": 34850,
+      "C2_perspective_coverage_of_reference": 0.4717,
+      "C2_pair_duplication": 1.0,
+      "C2_dup_only_edge_rho": 1.0,
+      "C2_dup_only_top10_edge_overlap": 10,
+      "C2_edge_freq_rho": 0.6857,
+      "C2_top10_edge_overlap": 5,
+      "C2_max_inflation_top10_edges": 1.0,
+      "C2_spurious_edge_mass_vs_children": 0.0287,
+      "C2_spurious_pairs_evaluated": 34850,
+      "nested_children": [
+        "Archery Range",
+        "Barracks",
+        "Blacksmith",
+        "Castle",
+        "Dock",
+        "Farm",
+        "Fish Trap",
+        "Gate",
+        "House",
+        "Lumber Camp",
+        "Market",
+        "Mill",
+        "Mining Camp",
+        "Monastery",
+        "Outpost",
+        "Palisade Gate",
+        "Player",
+        "Session",
+        "Siege Workshop",
+        "Stable",
+        "Town Center",
+        "Villager"
+      ],
+      "C3_variants": {
+        "cases": 10,
+        "variants": 10,
+        "variants_per_case": 1.0,
+        "top10_variant_coverage": 1.0
+      },
+      "C3_children_variants": {
+        "Archery Range": {
+          "cases": 48,
+          "variants": 32,
+          "variants_per_case": 0.6667,
+          "top10_variant_coverage": 0.5417
+        },
+        "Barracks": {
+          "cases": 67,
+          "variants": 41,
+          "variants_per_case": 0.6119,
+          "top10_variant_coverage": 0.5373
+        },
+        "Blacksmith": {
+          "cases": 24,
+          "variants": 18,
+          "variants_per_case": 0.75,
+          "top10_variant_coverage": 0.6667
+        },
+        "Castle": {
+          "cases": 39,
+          "variants": 23,
+          "variants_per_case": 0.5897,
+          "top10_variant_coverage": 0.6667
+        },
+        "Dock": {
+          "cases": 3,
+          "variants": 3,
+          "variants_per_case": 1.0,
+          "top10_variant_coverage": 1.0
+        },
+        "Farm": {
+          "cases": 869,
+          "variants": 1,
+          "variants_per_case": 0.0012,
+          "top10_variant_coverage": 1.0
+        },
+        "Fish Trap": {
+          "cases": 8,
+          "variants": 1,
+          "variants_per_case": 0.125,
+          "top10_variant_coverage": 1.0
+        },
+        "Gate": {
+          "cases": 10,
+          "variants": 1,
+          "variants_per_case": 0.1,
+          "top10_variant_coverage": 1.0
+        },
+        "House": {
+          "cases": 504,
+          "variants": 1,
+          "variants_per_case": 0.002,
+          "top10_variant_coverage": 1.0
+        },
+        "Lumber Camp": {
+          "cases": 86,
+          "variants": 2,
+          "variants_per_case": 0.0233,
+          "top10_variant_coverage": 1.0
+        },
+        "Market": {
+          "cases": 17,
+          "variants": 2,
+          "variants_per_case": 0.1176,
+          "top10_variant_coverage": 1.0
+        },
+        "Mill": {
+          "cases": 52,
+          "variants": 3,
+          "variants_per_case": 0.0577,
+          "top10_variant_coverage": 1.0
+        },
+        "Mining Camp": {
+          "cases": 87,
+          "variants": 6,
+          "variants_per_case": 0.069,
+          "top10_variant_coverage": 1.0
+        },
+        "Monastery": {
+          "cases": 16,
+          "variants": 16,
+          "variants_per_case": 1.0,
+          "top10_variant_coverage": 0.625
+        },
+        "Outpost": {
+          "cases": 12,
+          "variants": 1,
+          "variants_per_case": 0.0833,
+          "top10_variant_coverage": 1.0
+        },
+        "Palisade Gate": {
+          "cases": 11,
+          "variants": 1,
+          "variants_per_case": 0.0909,
+          "top10_variant_coverage": 1.0
+        },
+        "Player": {
+          "cases": 20,
+          "variants": 20,
+          "variants_per_case": 1.0,
+          "top10_variant_coverage": 0.5
+        },
+        "Session": {
+          "cases": 20,
+          "variants": 20,
+          "variants_per_case": 1.0,
+          "top10_variant_coverage": 0.5
+        },
+        "Siege Workshop": {
+          "cases": 14,
+          "variants": 11,
+          "variants_per_case": 0.7857,
+          "top10_variant_coverage": 0.9286
+        },
+        "Stable": {
+          "cases": 68,
+          "variants": 52,
+          "variants_per_case": 0.7647,
+          "top10_variant_coverage": 0.3824
+        },
+        "Town Center": {
+          "cases": 66,
+          "variants": 66,
+          "variants_per_case": 1.0,
+          "top10_variant_coverage": 0.1515
+        },
+        "Villager": {
+          "cases": 2992,
+          "variants": 1110,
+          "variants_per_case": 0.371,
+          "top10_variant_coverage": 0.5017
+        }
+      },
+      "C4_entity_rankings": [
+        {
+          "entity_type": "Archery Range",
+          "objects": 48,
+          "rho": 1.0,
+          "top10_overlap": 10,
+          "objects_invisible_share": 0.0,
+          "rho_visible_only": 1.0,
+          "top10_overlap_visible_only": 10,
+          "max_count_inflation": 1.0
+        },
+        {
+          "entity_type": "Barracks",
+          "objects": 67,
+          "rho": 1.0,
+          "top10_overlap": 10,
+          "objects_invisible_share": 0.0,
+          "rho_visible_only": 1.0,
+          "top10_overlap_visible_only": 10,
+          "max_count_inflation": 1.0
+        },
+        {
+          "entity_type": "Castle",
+          "objects": 39,
+          "rho": 1.0,
+          "top10_overlap": 10,
+          "objects_invisible_share": 0.0,
+          "rho_visible_only": 1.0,
+          "top10_overlap_visible_only": 10,
+          "max_count_inflation": 1.0
+        },
+        {
+          "entity_type": "Farm",
+          "objects": 869,
+          "rho": null,
+          "top10_overlap": 10,
+          "objects_invisible_share": 0.0,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": 10,
+          "max_count_inflation": 1.0
+        },
+        {
+          "entity_type": "House",
+          "objects": 504,
+          "rho": null,
+          "top10_overlap": 10,
+          "objects_invisible_share": 0.0,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": 10,
+          "max_count_inflation": 1.0
+        },
+        {
+          "entity_type": "Stable",
+          "objects": 68,
+          "rho": 1.0,
+          "top10_overlap": 10,
+          "objects_invisible_share": 0.0,
+          "rho_visible_only": 1.0,
+          "top10_overlap_visible_only": 10,
+          "max_count_inflation": 1.0
+        },
+        {
+          "entity_type": "Town Center",
+          "objects": 66,
+          "rho": 1.0,
+          "top10_overlap": 10,
+          "objects_invisible_share": 0.0,
+          "rho_visible_only": 1.0,
+          "top10_overlap_visible_only": 10,
+          "max_count_inflation": 1.0
+        },
+        {
+          "entity_type": "Villager",
+          "objects": 2992,
+          "rho": 1.0,
+          "top10_overlap": 10,
+          "objects_invisible_share": 0.0,
+          "rho_visible_only": 1.0,
+          "top10_overlap_visible_only": 10,
+          "max_count_inflation": 1.0
+        }
+      ]
+    },
+    {
+      "case_type": "Player",
+      "covered_events": 14461,
+      "C1_activity_rank_rho": 0.2805,
+      "C1_top3_overlap": 1,
+      "C1_activities_visible_share": 0.4024,
+      "C1_dup_only_rho": 1.0,
+      "C1_dup_only_top3_overlap": 3,
+      "C2_pairs": 14441,
+      "C2_perspective_coverage_of_reference": 0.1955,
+      "C2_pair_duplication": 1.0,
+      "C2_dup_only_edge_rho": 1.0,
+      "C2_dup_only_top10_edge_overlap": 10,
+      "C2_edge_freq_rho": 0.198,
+      "C2_top10_edge_overlap": 2,
+      "C2_max_inflation_top10_edges": 0.852,
+      "C2_spurious_edge_mass_vs_children": 0.2772,
+      "C2_spurious_pairs_evaluated": 5230,
+      "nested_children": [
+        "Archery Range",
+        "Barracks",
+        "Castle",
+        "Dock",
+        "Farm",
+        "Fish Trap",
+        "Gate",
+        "House",
+        "Lumber Camp",
+        "Mill",
+        "Mining Camp",
+        "Outpost",
+        "Palisade Gate",
+        "Siege Workshop",
+        "Stable"
+      ],
+      "C3_variants": {
+        "cases": 20,
+        "variants": 20,
+        "variants_per_case": 1.0,
+        "top10_variant_coverage": 0.5
+      },
+      "C3_children_variants": {
+        "Archery Range": {
+          "cases": 48,
+          "variants": 32,
+          "variants_per_case": 0.6667,
+          "top10_variant_coverage": 0.5417
+        },
+        "Barracks": {
+          "cases": 67,
+          "variants": 41,
+          "variants_per_case": 0.6119,
+          "top10_variant_coverage": 0.5373
+        },
+        "Castle": {
+          "cases": 39,
+          "variants": 23,
+          "variants_per_case": 0.5897,
+          "top10_variant_coverage": 0.6667
+        },
+        "Dock": {
+          "cases": 3,
+          "variants": 3,
+          "variants_per_case": 1.0,
+          "top10_variant_coverage": 1.0
+        },
+        "Farm": {
+          "cases": 869,
+          "variants": 1,
+          "variants_per_case": 0.0012,
+          "top10_variant_coverage": 1.0
+        },
+        "Fish Trap": {
+          "cases": 8,
+          "variants": 1,
+          "variants_per_case": 0.125,
+          "top10_variant_coverage": 1.0
+        },
+        "Gate": {
+          "cases": 10,
+          "variants": 1,
+          "variants_per_case": 0.1,
+          "top10_variant_coverage": 1.0
+        },
+        "House": {
+          "cases": 504,
+          "variants": 1,
+          "variants_per_case": 0.002,
+          "top10_variant_coverage": 1.0
+        },
+        "Lumber Camp": {
+          "cases": 86,
+          "variants": 2,
+          "variants_per_case": 0.0233,
+          "top10_variant_coverage": 1.0
+        },
+        "Mill": {
+          "cases": 52,
+          "variants": 3,
+          "variants_per_case": 0.0577,
+          "top10_variant_coverage": 1.0
+        },
+        "Mining Camp": {
+          "cases": 87,
+          "variants": 6,
+          "variants_per_case": 0.069,
+          "top10_variant_coverage": 1.0
+        },
+        "Outpost": {
+          "cases": 12,
+          "variants": 1,
+          "variants_per_case": 0.0833,
+          "top10_variant_coverage": 1.0
+        },
+        "Palisade Gate": {
+          "cases": 11,
+          "variants": 1,
+          "variants_per_case": 0.0909,
+          "top10_variant_coverage": 1.0
+        },
+        "Siege Workshop": {
+          "cases": 14,
+          "variants": 11,
+          "variants_per_case": 0.7857,
+          "top10_variant_coverage": 0.9286
+        },
+        "Stable": {
+          "cases": 68,
+          "variants": 52,
+          "variants_per_case": 0.7647,
+          "top10_variant_coverage": 0.3824
+        }
+      },
+      "C4_entity_rankings": [
+        {
+          "entity_type": "Archery Range",
+          "objects": 48,
+          "rho": 0.9894,
+          "top10_overlap": 10,
+          "objects_invisible_share": 0.0,
+          "rho_visible_only": 0.9894,
+          "top10_overlap_visible_only": 10,
+          "max_count_inflation": 0.667
+        },
+        {
+          "entity_type": "Barracks",
+          "objects": 67,
+          "rho": 0.985,
+          "top10_overlap": 8,
+          "objects_invisible_share": 0.0,
+          "rho_visible_only": 0.985,
+          "top10_overlap_visible_only": 8,
+          "max_count_inflation": 0.729
+        },
+        {
+          "entity_type": "Castle",
+          "objects": 39,
+          "rho": 0.9916,
+          "top10_overlap": 9,
+          "objects_invisible_share": 0.0,
+          "rho_visible_only": 0.9916,
+          "top10_overlap_visible_only": 9,
+          "max_count_inflation": 0.875
+        },
+        {
+          "entity_type": "Farm",
+          "objects": 869,
+          "rho": null,
+          "top10_overlap": 10,
+          "objects_invisible_share": 0.0,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": 10,
+          "max_count_inflation": 0.333
+        },
+        {
+          "entity_type": "House",
+          "objects": 504,
+          "rho": null,
+          "top10_overlap": 10,
+          "objects_invisible_share": 0.0,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": 10,
+          "max_count_inflation": 0.5
+        },
+        {
+          "entity_type": "Stable",
+          "objects": 68,
+          "rho": 0.9763,
+          "top10_overlap": 9,
+          "objects_invisible_share": 0.0,
+          "rho_visible_only": 0.9763,
+          "top10_overlap_visible_only": 9,
+          "max_count_inflation": 0.783
+        },
+        {
+          "entity_type": "Town Center",
+          "objects": 66,
+          "rho": 0.9716,
+          "top10_overlap": 9,
+          "objects_invisible_share": 0.0,
+          "rho_visible_only": 0.9716,
+          "top10_overlap_visible_only": 9,
+          "max_count_inflation": 1.0
+        },
+        {
+          "entity_type": "Villager",
+          "objects": 2992,
+          "rho": 0.9878,
+          "top10_overlap": 2,
+          "objects_invisible_share": 0.0,
+          "rho_visible_only": 0.9878,
+          "top10_overlap_visible_only": 2,
+          "max_count_inflation": 1.0
+        }
+      ]
+    },
+    {
+      "case_type": "Session",
+      "covered_events": 34860,
+      "C1_activity_rank_rho": 1.0,
+      "C1_top3_overlap": 3,
+      "C1_activities_visible_share": 1.0,
+      "C1_dup_only_rho": 1.0,
+      "C1_dup_only_top3_overlap": 3,
+      "C2_pairs": 34840,
+      "C2_perspective_coverage_of_reference": 0.4715,
+      "C2_pair_duplication": 1.0,
+      "C2_dup_only_edge_rho": 1.0,
+      "C2_dup_only_top10_edge_overlap": 10,
+      "C2_edge_freq_rho": 0.6667,
+      "C2_top10_edge_overlap": 5,
+      "C2_max_inflation_top10_edges": 1.0,
+      "C2_spurious_edge_mass_vs_children": 0.2412,
+      "C2_spurious_pairs_evaluated": 13588,
+      "nested_children": [
+        "Archery Range",
+        "Barracks",
+        "Castle",
+        "Dock",
+        "Farm",
+        "Fish Trap",
+        "Gate",
+        "House",
+        "Lumber Camp",
+        "Mill",
+        "Mining Camp",
+        "Outpost",
+        "Palisade Gate",
+        "Siege Workshop",
+        "Stable"
+      ],
+      "C3_variants": {
+        "cases": 20,
+        "variants": 20,
+        "variants_per_case": 1.0,
+        "top10_variant_coverage": 0.5
+      },
+      "C3_children_variants": {
+        "Archery Range": {
+          "cases": 48,
+          "variants": 32,
+          "variants_per_case": 0.6667,
+          "top10_variant_coverage": 0.5417
+        },
+        "Barracks": {
+          "cases": 67,
+          "variants": 41,
+          "variants_per_case": 0.6119,
+          "top10_variant_coverage": 0.5373
+        },
+        "Castle": {
+          "cases": 39,
+          "variants": 23,
+          "variants_per_case": 0.5897,
+          "top10_variant_coverage": 0.6667
+        },
+        "Dock": {
+          "cases": 3,
+          "variants": 3,
+          "variants_per_case": 1.0,
+          "top10_variant_coverage": 1.0
+        },
+        "Farm": {
+          "cases": 869,
+          "variants": 1,
+          "variants_per_case": 0.0012,
+          "top10_variant_coverage": 1.0
+        },
+        "Fish Trap": {
+          "cases": 8,
+          "variants": 1,
+          "variants_per_case": 0.125,
+          "top10_variant_coverage": 1.0
+        },
+        "Gate": {
+          "cases": 10,
+          "variants": 1,
+          "variants_per_case": 0.1,
+          "top10_variant_coverage": 1.0
+        },
+        "House": {
+          "cases": 504,
+          "variants": 1,
+          "variants_per_case": 0.002,
+          "top10_variant_coverage": 1.0
+        },
+        "Lumber Camp": {
+          "cases": 86,
+          "variants": 2,
+          "variants_per_case": 0.0233,
+          "top10_variant_coverage": 1.0
+        },
+        "Mill": {
+          "cases": 52,
+          "variants": 3,
+          "variants_per_case": 0.0577,
+          "top10_variant_coverage": 1.0
+        },
+        "Mining Camp": {
+          "cases": 87,
+          "variants": 6,
+          "variants_per_case": 0.069,
+          "top10_variant_coverage": 1.0
+        },
+        "Outpost": {
+          "cases": 12,
+          "variants": 1,
+          "variants_per_case": 0.0833,
+          "top10_variant_coverage": 1.0
+        },
+        "Palisade Gate": {
+          "cases": 11,
+          "variants": 1,
+          "variants_per_case": 0.0909,
+          "top10_variant_coverage": 1.0
+        },
+        "Siege Workshop": {
+          "cases": 14,
+          "variants": 11,
+          "variants_per_case": 0.7857,
+          "top10_variant_coverage": 0.9286
+        },
+        "Stable": {
+          "cases": 68,
+          "variants": 52,
+          "variants_per_case": 0.7647,
+          "top10_variant_coverage": 0.3824
+        }
+      },
+      "C4_entity_rankings": [
+        {
+          "entity_type": "Archery Range",
+          "objects": 48,
+          "rho": 1.0,
+          "top10_overlap": 10,
+          "objects_invisible_share": 0.0,
+          "rho_visible_only": 1.0,
+          "top10_overlap_visible_only": 10,
+          "max_count_inflation": 1.0
+        },
+        {
+          "entity_type": "Barracks",
+          "objects": 67,
+          "rho": 1.0,
+          "top10_overlap": 10,
+          "objects_invisible_share": 0.0,
+          "rho_visible_only": 1.0,
+          "top10_overlap_visible_only": 10,
+          "max_count_inflation": 1.0
+        },
+        {
+          "entity_type": "Castle",
+          "objects": 39,
+          "rho": 1.0,
+          "top10_overlap": 10,
+          "objects_invisible_share": 0.0,
+          "rho_visible_only": 1.0,
+          "top10_overlap_visible_only": 10,
+          "max_count_inflation": 1.0
+        },
+        {
+          "entity_type": "Farm",
+          "objects": 869,
+          "rho": null,
+          "top10_overlap": 10,
+          "objects_invisible_share": 0.0,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": 10,
+          "max_count_inflation": 1.0
+        },
+        {
+          "entity_type": "House",
+          "objects": 504,
+          "rho": null,
+          "top10_overlap": 10,
+          "objects_invisible_share": 0.0,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": 10,
+          "max_count_inflation": 1.0
+        },
+        {
+          "entity_type": "Stable",
+          "objects": 68,
+          "rho": 1.0,
+          "top10_overlap": 10,
+          "objects_invisible_share": 0.0,
+          "rho_visible_only": 1.0,
+          "top10_overlap_visible_only": 10,
+          "max_count_inflation": 1.0
+        },
+        {
+          "entity_type": "Town Center",
+          "objects": 66,
+          "rho": 1.0,
+          "top10_overlap": 10,
+          "objects_invisible_share": 0.0,
+          "rho_visible_only": 1.0,
+          "top10_overlap_visible_only": 10,
+          "max_count_inflation": 1.0
+        },
+        {
+          "entity_type": "Villager",
+          "objects": 2992,
+          "rho": 1.0,
+          "top10_overlap": 10,
+          "objects_invisible_share": 0.0,
+          "rho_visible_only": 1.0,
+          "top10_overlap_visible_only": 10,
+          "max_count_inflation": 1.0
+        }
+      ]
+    },
+    {
+      "case_type": "Stable",
+      "covered_events": 3869,
+      "C1_activity_rank_rho": 0.2141,
+      "C1_top3_overlap": 0,
+      "C1_activities_visible_share": 0.0811,
+      "C1_dup_only_rho": 1.0,
+      "C1_dup_only_top3_overlap": 2,
+      "C2_pairs": 4299,
+      "C2_perspective_coverage_of_reference": 0.0557,
+      "C2_pair_duplication": 1.0437,
+      "C2_dup_only_edge_rho": 1.0,
+      "C2_dup_only_top10_edge_overlap": 10,
+      "C2_edge_freq_rho": 0.0995,
+      "C2_top10_edge_overlap": 0,
+      "C2_max_inflation_top10_edges": null,
+      "C3_variants": {
+        "cases": 68,
+        "variants": 52,
+        "variants_per_case": 0.7647,
+        "top10_variant_coverage": 0.3824
+      },
+      "C4_entity_rankings": [
+        {
+          "entity_type": "Archery Range",
+          "objects": 48,
+          "rho": null,
+          "top10_overlap": 6,
+          "objects_invisible_share": 1.0,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": null,
+          "max_count_inflation": null
+        },
+        {
+          "entity_type": "Barracks",
+          "objects": 67,
+          "rho": null,
+          "top10_overlap": 1,
+          "objects_invisible_share": 1.0,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": null,
+          "max_count_inflation": null
+        },
+        {
+          "entity_type": "Castle",
+          "objects": 39,
+          "rho": null,
+          "top10_overlap": 3,
+          "objects_invisible_share": 1.0,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": null,
+          "max_count_inflation": null
+        },
+        {
+          "entity_type": "Farm",
+          "objects": 869,
+          "rho": null,
+          "top10_overlap": 10,
+          "objects_invisible_share": 1.0,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": null,
+          "max_count_inflation": null
+        },
+        {
+          "entity_type": "House",
+          "objects": 504,
+          "rho": null,
+          "top10_overlap": 10,
+          "objects_invisible_share": 1.0,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": null,
+          "max_count_inflation": null
+        },
+        {
+          "entity_type": "Town Center",
+          "objects": 66,
+          "rho": null,
+          "top10_overlap": 3,
+          "objects_invisible_share": 1.0,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": null,
+          "max_count_inflation": null
+        },
+        {
+          "entity_type": "Villager",
+          "objects": 2992,
+          "rho": 0.2189,
+          "top10_overlap": 0,
+          "objects_invisible_share": 0.9719,
+          "rho_visible_only": 0.1573,
+          "top10_overlap_visible_only": 0,
+          "max_count_inflation": 0.75
+        }
+      ]
+    },
+    {
+      "case_type": "Town Center",
+      "covered_events": 13867,
+      "C1_activity_rank_rho": 0.291,
+      "C1_top3_overlap": 3,
+      "C1_activities_visible_share": 0.1201,
+      "C1_dup_only_rho": 1.0,
+      "C1_dup_only_top3_overlap": 3,
+      "C2_pairs": 13883,
+      "C2_perspective_coverage_of_reference": 0.1876,
+      "C2_pair_duplication": 1.0014,
+      "C2_dup_only_edge_rho": 0.9989,
+      "C2_dup_only_top10_edge_overlap": 10,
+      "C2_edge_freq_rho": 0.2158,
+      "C2_top10_edge_overlap": 6,
+      "C2_max_inflation_top10_edges": 1.0,
+      "C3_variants": {
+        "cases": 66,
+        "variants": 66,
+        "variants_per_case": 1.0,
+        "top10_variant_coverage": 0.1515
+      },
+      "C4_entity_rankings": [
+        {
+          "entity_type": "Archery Range",
+          "objects": 48,
+          "rho": null,
+          "top10_overlap": 6,
+          "objects_invisible_share": 1.0,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": null,
+          "max_count_inflation": null
+        },
+        {
+          "entity_type": "Barracks",
+          "objects": 67,
+          "rho": null,
+          "top10_overlap": 1,
+          "objects_invisible_share": 1.0,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": null,
+          "max_count_inflation": null
+        },
+        {
+          "entity_type": "Castle",
+          "objects": 39,
+          "rho": null,
+          "top10_overlap": 3,
+          "objects_invisible_share": 1.0,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": null,
+          "max_count_inflation": null
+        },
+        {
+          "entity_type": "Farm",
+          "objects": 869,
+          "rho": null,
+          "top10_overlap": 10,
+          "objects_invisible_share": 1.0,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": null,
+          "max_count_inflation": null
+        },
+        {
+          "entity_type": "House",
+          "objects": 504,
+          "rho": null,
+          "top10_overlap": 10,
+          "objects_invisible_share": 1.0,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": null,
+          "max_count_inflation": null
+        },
+        {
+          "entity_type": "Stable",
+          "objects": 68,
+          "rho": null,
+          "top10_overlap": 2,
+          "objects_invisible_share": 1.0,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": null,
+          "max_count_inflation": null
+        },
+        {
+          "entity_type": "Villager",
+          "objects": 2992,
+          "rho": 0.3564,
+          "top10_overlap": 0,
+          "objects_invisible_share": 0.0023,
+          "rho_visible_only": 0.3521,
+          "top10_overlap_visible_only": 0,
+          "max_count_inflation": 1.0
+        }
+      ]
+    },
+    {
+      "case_type": "Villager",
+      "covered_events": 18408,
+      "C1_activity_rank_rho": 0.3766,
+      "C1_top3_overlap": 1,
+      "C1_activities_visible_share": 0.1682,
+      "C1_dup_only_rho": 0.9996,
+      "C1_dup_only_top3_overlap": 1,
+      "C2_pairs": 29358,
+      "C2_perspective_coverage_of_reference": 0.2354,
+      "C2_pair_duplication": 1.6881,
+      "C2_dup_only_edge_rho": 0.8788,
+      "C2_dup_only_top10_edge_overlap": 8,
+      "C2_edge_freq_rho": 0.3042,
+      "C2_top10_edge_overlap": 3,
+      "C2_max_inflation_top10_edges": 0.999,
+      "C3_variants": {
+        "cases": 2992,
+        "variants": 1110,
+        "variants_per_case": 0.371,
+        "top10_variant_coverage": 0.5017
+      },
+      "C4_entity_rankings": [
+        {
+          "entity_type": "Archery Range",
+          "objects": 48,
+          "rho": -0.3395,
+          "top10_overlap": 0,
+          "objects_invisible_share": 0.0208,
+          "rho_visible_only": -0.4089,
+          "top10_overlap_visible_only": 0,
+          "max_count_inflation": 35.0
+        },
+        {
+          "entity_type": "Barracks",
+          "objects": 67,
+          "rho": -0.0215,
+          "top10_overlap": 0,
+          "objects_invisible_share": 0.0149,
+          "rho_visible_only": 0.0025,
+          "top10_overlap_visible_only": 0,
+          "max_count_inflation": 6.0
+        },
+        {
+          "entity_type": "Castle",
+          "objects": 39,
+          "rho": -0.3101,
+          "top10_overlap": 1,
+          "objects_invisible_share": 0.0,
+          "rho_visible_only": -0.3101,
+          "top10_overlap_visible_only": 1,
+          "max_count_inflation": 13.0
+        },
+        {
+          "entity_type": "Farm",
+          "objects": 869,
+          "rho": null,
+          "top10_overlap": 0,
+          "objects_invisible_share": 0.0334,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": 0,
+          "max_count_inflation": 16.0
+        },
+        {
+          "entity_type": "House",
+          "objects": 504,
+          "rho": null,
+          "top10_overlap": 0,
+          "objects_invisible_share": 0.0,
+          "rho_visible_only": null,
+          "top10_overlap_visible_only": 0,
+          "max_count_inflation": 25.0
+        },
+        {
+          "entity_type": "Stable",
+          "objects": 68,
+          "rho": -0.138,
+          "top10_overlap": 0,
+          "objects_invisible_share": 0.0,
+          "rho_visible_only": -0.138,
+          "top10_overlap_visible_only": 0,
+          "max_count_inflation": 5.0
+        },
+        {
+          "entity_type": "Town Center",
+          "objects": 66,
+          "rho": 0.9726,
+          "top10_overlap": 8,
+          "objects_invisible_share": 0.0303,
+          "rho_visible_only": 0.9699,
+          "top10_overlap_visible_only": 8,
+          "max_count_inflation": 14.0
+        }
+      ]
+    }
+  ]
+}

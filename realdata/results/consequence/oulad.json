@@ -1,0 +1,219 @@
+{
+  "log": "oulad",
+  "events_used": 216532,
+  "activities": 3,
+  "reference_pairs": 443017,
+  "reference_edge_types": 9,
+  "notions": [
+    {
+      "case_type": "Assessment",
+      "covered_events": 173912,
+      "C1_activity_rank_rho": 0.866,
+      "C1_top3_overlap": 3,
+      "C1_activities_visible_share": 0.3333,
+      "C1_dup_only_rho": 1.0,
+      "C1_dup_only_top3_overlap": 3,
+      "C2_pairs": 173724,
+      "C2_perspective_coverage_of_reference": 0.3921,
+      "C2_pair_duplication": 1.0,
+      "C2_dup_only_edge_rho": null,
+      "C2_dup_only_top10_edge_overlap": 1,
+      "C2_edge_freq_rho": 0.5477,
+      "C2_top10_edge_overlap": 9,
+      "C2_max_inflation_top10_edges": 0.492,
+      "C3_variants": {
+        "cases": 188,
+        "variants": 180,
+        "variants_per_case": 0.9574,
+        "top10_variant_coverage": 0.0957
+      },
+      "C4_entity_rankings": [
+        {
+          "entity_type": "Enrollment",
+          "objects": 32587,
+          "rho": 0.9925,
+          "top10_overlap": 10,
+          "objects_invisible_share": 0.207,
+          "rho_visible_only": 0.9953,
+          "top10_overlap_visible_only": 10,
+          "max_count_inflation": 0.933
+        },
+        {
+          "entity_type": "Student",
+          "objects": 28780,
+          "rho": 0.9847,
+          "top10_overlap": 5,
+          "objects_invisible_share": 0.188,
+          "rho_visible_only": 0.9844,
+          "top10_overlap_visible_only": 5,
+          "max_count_inflation": 0.933
+        }
+      ]
+    },
+    {
+      "case_type": "Enrollment",
+      "covered_events": 216532,
+      "C1_activity_rank_rho": 1.0,
+      "C1_top3_overlap": 3,
+      "C1_activities_visible_share": 1.0,
+      "C1_dup_only_rho": 1.0,
+      "C1_dup_only_top3_overlap": 3,
+      "C2_pairs": 183945,
+      "C2_perspective_coverage_of_reference": 0.4152,
+      "C2_pair_duplication": 1.0,
+      "C2_dup_only_edge_rho": 1.0,
+      "C2_dup_only_top10_edge_overlap": 6,
+      "C2_edge_freq_rho": 0.5594,
+      "C2_top10_edge_overlap": 9,
+      "C2_max_inflation_top10_edges": 0.949,
+      "C3_variants": {
+        "cases": 32587,
+        "variants": 85,
+        "variants_per_case": 0.0026,
+        "top10_variant_coverage": 0.758
+      },
+      "C4_entity_rankings": [
+        {
+          "entity_type": "Assessment",
+          "objects": 188,
+          "rho": 1.0,
+          "top10_overlap": 10,
+          "objects_invisible_share": 0.0,
+          "rho_visible_only": 1.0,
+          "top10_overlap_visible_only": 10,
+          "max_count_inflation": 1.0
+        },
+        {
+          "entity_type": "Student",
+          "objects": 28780,
+          "rho": 1.0,
+          "top10_overlap": 10,
+          "objects_invisible_share": 0.0,
+          "rho_visible_only": 1.0,
+          "top10_overlap_visible_only": 10,
+          "max_count_inflation": 1.0
+        }
+      ]
+    },
+    {
+      "case_type": "Presentation",
+      "covered_events": 216532,
+      "C1_activity_rank_rho": 1.0,
+      "C1_top3_overlap": 3,
+      "C1_activities_visible_share": 1.0,
+      "C1_dup_only_rho": 1.0,
+      "C1_dup_only_top3_overlap": 3,
+      "C2_pairs": 216510,
+      "C2_perspective_coverage_of_reference": 0.4887,
+      "C2_pair_duplication": 1.0,
+      "C2_dup_only_edge_rho": 1.0,
+      "C2_dup_only_top10_edge_overlap": 9,
+      "C2_edge_freq_rho": 0.6667,
+      "C2_top10_edge_overlap": 9,
+      "C2_max_inflation_top10_edges": 0.957,
+      "C2_spurious_edge_mass_vs_children": 0.166,
+      "C2_spurious_pairs_evaluated": 216510,
+      "nested_children": [
+        "Assessment",
+        "Enrollment"
+      ],
+      "C3_variants": {
+        "cases": 22,
+        "variants": 22,
+        "variants_per_case": 1.0,
+        "top10_variant_coverage": 0.4545
+      },
+      "C3_children_variants": {
+        "Assessment": {
+          "cases": 188,
+          "variants": 180,
+          "variants_per_case": 0.9574,
+          "top10_variant_coverage": 0.0957
+        },
+        "Enrollment": {
+          "cases": 32587,
+          "variants": 85,
+          "variants_per_case": 0.0026,
+          "top10_variant_coverage": 0.758
+        }
+      },
+      "C4_entity_rankings": [
+        {
+          "entity_type": "Assessment",
+          "objects": 188,
+          "rho": 1.0,
+          "top10_overlap": 10,
+          "objects_invisible_share": 0.0,
+          "rho_visible_only": 1.0,
+          "top10_overlap_visible_only": 10,
+          "max_count_inflation": 1.0
+        },
+        {
+          "entity_type": "Enrollment",
+          "objects": 32587,
+          "rho": 1.0,
+          "top10_overlap": 10,
+          "objects_invisible_share": 0.0,
+          "rho_visible_only": 1.0,
+          "top10_overlap_visible_only": 10,
+          "max_count_inflation": 1.0
+        },
+        {
+          "entity_type": "Student",
+          "objects": 28780,
+          "rho": 1.0,
+          "top10_overlap": 10,
+          "objects_invisible_share": 0.0,
+          "rho_visible_only": 1.0,
+          "top10_overlap_visible_only": 10,
+          "max_count_inflation": 1.0
+        }
+      ]
+    },
+    {
+      "case_type": "Student",
+      "covered_events": 216532,
+      "C1_activity_rank_rho": 1.0,
+      "C1_top3_overlap": 3,
+      "C1_activities_visible_share": 1.0,
+      "C1_dup_only_rho": 1.0,
+      "C1_dup_only_top3_overlap": 3,
+      "C2_pairs": 187752,
+      "C2_perspective_coverage_of_reference": 0.4238,
+      "C2_pair_duplication": 1.0,
+      "C2_dup_only_edge_rho": 1.0,
+      "C2_dup_only_top10_edge_overlap": 9,
+      "C2_edge_freq_rho": 0.7333,
+      "C2_top10_edge_overlap": 9,
+      "C2_max_inflation_top10_edges": 0.915,
+      "C3_variants": {
+        "cases": 28780,
+        "variants": 942,
+        "variants_per_case": 0.0327,
+        "top10_variant_coverage": 0.6786
+      },
+      "C4_entity_rankings": [
+        {
+          "entity_type": "Assessment",
+          "objects": 188,
+          "rho": 1.0,
+          "top10_overlap": 10,
+          "objects_invisible_share": 0.0,
+          "rho_visible_only": 1.0,
+          "top10_overlap_visible_only": 10,
+          "max_count_inflation": 1.0
+        },
+        {
+          "entity_type": "Enrollment",
+          "objects": 32587,
+          "rho": 1.0,
+          "top10_overlap": 10,
+          "objects_invisible_share": 0.0,
+          "rho_visible_only": 1.0,
+          "top10_overlap_visible_only": 10,
+          "max_count_inflation": 1.0
+        }
+      ]
+    }
+  ]
+}

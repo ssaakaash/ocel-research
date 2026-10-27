@@ -1,0 +1,229 @@
+{
+  "log": "enron",
+  "events_used": 96175,
+  "activities": 9,
+  "reference_pairs": 157258,
+  "reference_edge_types": 48,
+  "notions": [
+    {
+      "case_type": "EMAILADDRESS:CC",
+      "covered_events": 21309,
+      "C1_activity_rank_rho": 0.8656,
+      "C1_top3_overlap": 3,
+      "C1_activities_visible_share": 0.7778,
+      "C1_dup_only_rho": 1.0,
+      "C1_dup_only_top3_overlap": 3,
+      "C2_pairs": 41041,
+      "C2_perspective_coverage_of_reference": 0.1665,
+      "C2_pair_duplication": 1.5675,
+      "C2_dup_only_edge_rho": 0.9844,
+      "C2_dup_only_top10_edge_overlap": 9,
+      "C2_edge_freq_rho": 0.7365,
+      "C2_top10_edge_overlap": 9,
+      "C2_max_inflation_top10_edges": 0.357,
+      "C3_variants": {
+        "cases": 3996,
+        "variants": 963,
+        "variants_per_case": 0.241,
+        "top10_variant_coverage": 0.5653
+      },
+      "C4_entity_rankings": [
+        {
+          "entity_type": "EMAILADDRESS:FROM",
+          "objects": 5257,
+          "rho": 0.4734,
+          "top10_overlap": 6,
+          "objects_invisible_share": 0.6104,
+          "rho_visible_only": 0.7121,
+          "top10_overlap_visible_only": 6,
+          "max_count_inflation": 4.75
+        },
+        {
+          "entity_type": "EMAILADDRESS:TO",
+          "objects": 7907,
+          "rho": 0.4943,
+          "top10_overlap": 5,
+          "objects_invisible_share": 0.5433,
+          "rho_visible_only": 0.7354,
+          "top10_overlap_visible_only": 5,
+          "max_count_inflation": 5.0
+        },
+        {
+          "entity_type": "MESSAGEID",
+          "objects": 53381,
+          "rho": 0.0832,
+          "top10_overlap": 5,
+          "objects_invisible_share": 0.7849,
+          "rho_visible_only": 0.1589,
+          "top10_overlap_visible_only": 5,
+          "max_count_inflation": 5.0
+        }
+      ]
+    },
+    {
+      "case_type": "EMAILADDRESS:FROM",
+      "covered_events": 91720,
+      "C1_activity_rank_rho": 1.0,
+      "C1_top3_overlap": 3,
+      "C1_activities_visible_share": 1.0,
+      "C1_dup_only_rho": 1.0,
+      "C1_dup_only_top3_overlap": 3,
+      "C2_pairs": 86463,
+      "C2_perspective_coverage_of_reference": 0.5498,
+      "C2_pair_duplication": 1.0,
+      "C2_dup_only_edge_rho": 1.0,
+      "C2_dup_only_top10_edge_overlap": 10,
+      "C2_edge_freq_rho": 0.8909,
+      "C2_top10_edge_overlap": 9,
+      "C2_max_inflation_top10_edges": 0.669,
+      "C3_variants": {
+        "cases": 5257,
+        "variants": 1093,
+        "variants_per_case": 0.2079,
+        "top10_variant_coverage": 0.623
+      },
+      "C4_entity_rankings": [
+        {
+          "entity_type": "EMAILADDRESS:CC",
+          "objects": 3996,
+          "rho": 0.9634,
+          "top10_overlap": 6,
+          "objects_invisible_share": 0.032,
+          "rho_visible_only": 0.986,
+          "top10_overlap_visible_only": 7,
+          "max_count_inflation": 1.0
+        },
+        {
+          "entity_type": "EMAILADDRESS:TO",
+          "objects": 7907,
+          "rho": 0.9622,
+          "top10_overlap": 10,
+          "objects_invisible_share": 0.0306,
+          "rho_visible_only": 0.9933,
+          "top10_overlap_visible_only": 10,
+          "max_count_inflation": 1.0
+        },
+        {
+          "entity_type": "MESSAGEID",
+          "objects": 53381,
+          "rho": 0.3863,
+          "top10_overlap": 10,
+          "objects_invisible_share": 0.0448,
+          "rho_visible_only": 0.9875,
+          "top10_overlap_visible_only": 10,
+          "max_count_inflation": 1.0
+        }
+      ]
+    },
+    {
+      "case_type": "EMAILADDRESS:TO",
+      "covered_events": 90394,
+      "C1_activity_rank_rho": 0.9333,
+      "C1_top3_overlap": 3,
+      "C1_activities_visible_share": 1.0,
+      "C1_dup_only_rho": 0.9333,
+      "C1_dup_only_top3_overlap": 3,
+      "C2_pairs": 134210,
+      "C2_perspective_coverage_of_reference": 0.6532,
+      "C2_pair_duplication": 1.3065,
+      "C2_dup_only_edge_rho": 0.9792,
+      "C2_dup_only_top10_edge_overlap": 9,
+      "C2_edge_freq_rho": 0.9084,
+      "C2_top10_edge_overlap": 9,
+      "C2_max_inflation_top10_edges": 1.161,
+      "C3_variants": {
+        "cases": 7907,
+        "variants": 1997,
+        "variants_per_case": 0.2526,
+        "top10_variant_coverage": 0.5419
+      },
+      "C4_entity_rankings": [
+        {
+          "entity_type": "EMAILADDRESS:CC",
+          "objects": 3996,
+          "rho": 0.8874,
+          "top10_overlap": 9,
+          "objects_invisible_share": 0.0208,
+          "rho_visible_only": 0.8995,
+          "top10_overlap_visible_only": 9,
+          "max_count_inflation": 5.0
+        },
+        {
+          "entity_type": "EMAILADDRESS:FROM",
+          "objects": 5257,
+          "rho": 0.8899,
+          "top10_overlap": 8,
+          "objects_invisible_share": 0.031,
+          "rho_visible_only": 0.9245,
+          "top10_overlap_visible_only": 8,
+          "max_count_inflation": 5.0
+        },
+        {
+          "entity_type": "MESSAGEID",
+          "objects": 53381,
+          "rho": 0.1591,
+          "top10_overlap": 8,
+          "objects_invisible_share": 0.0734,
+          "rho_visible_only": 0.1977,
+          "top10_overlap_visible_only": 8,
+          "max_count_inflation": 19.0
+        }
+      ]
+    },
+    {
+      "case_type": "MESSAGEID",
+      "covered_events": 57570,
+      "C1_activity_rank_rho": 1.0,
+      "C1_top3_overlap": 3,
+      "C1_activities_visible_share": 1.0,
+      "C1_dup_only_rho": 1.0,
+      "C1_dup_only_top3_overlap": 3,
+      "C2_pairs": 4199,
+      "C2_perspective_coverage_of_reference": 0.0267,
+      "C2_pair_duplication": 1.0014,
+      "C2_dup_only_edge_rho": 1.0,
+      "C2_dup_only_top10_edge_overlap": 10,
+      "C2_edge_freq_rho": 0.7399,
+      "C2_top10_edge_overlap": 10,
+      "C2_max_inflation_top10_edges": 0.035,
+      "C3_variants": {
+        "cases": 53381,
+        "variants": 246,
+        "variants_per_case": 0.0046,
+        "top10_variant_coverage": 0.9917
+      },
+      "C4_entity_rankings": [
+        {
+          "entity_type": "EMAILADDRESS:CC",
+          "objects": 3996,
+          "rho": 0.8327,
+          "top10_overlap": 9,
+          "objects_invisible_share": 0.1356,
+          "rho_visible_only": 0.8785,
+          "top10_overlap_visible_only": 9,
+          "max_count_inflation": 1.0
+        },
+        {
+          "entity_type": "EMAILADDRESS:FROM",
+          "objects": 5257,
+          "rho": 0.8777,
+          "top10_overlap": 10,
+          "objects_invisible_share": 0.1545,
+          "rho_visible_only": 0.9095,
+          "top10_overlap_visible_only": 10,
+          "max_count_inflation": 1.333
+        },
+        {
+          "entity_type": "EMAILADDRESS:TO",
+          "objects": 7907,
+          "rho": 0.8625,
+          "top10_overlap": 9,
+          "objects_invisible_share": 0.1348,
+          "rho_visible_only": 0.9141,
+          "top10_overlap_visible_only": 9,
+          "max_count_inflation": 1.0
+        }
+      ]
+    }
+  ]
+}

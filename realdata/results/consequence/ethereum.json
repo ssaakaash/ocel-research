@@ -1,0 +1,347 @@
+{
+  "log": "ethereum",
+  "events_used": 300000,
+  "activities": 195,
+  "reference_pairs": 372807,
+  "reference_edge_types": 4371,
+  "notions": [
+    {
+      "case_type": "CONTRACT",
+      "covered_events": 81688,
+      "C1_activity_rank_rho": 0.0173,
+      "C1_top3_overlap": 2,
+      "C1_activities_visible_share": 0.2103,
+      "C1_dup_only_rho": 1.0,
+      "C1_dup_only_top3_overlap": 3,
+      "C2_pairs": 80666,
+      "C2_perspective_coverage_of_reference": 0.2164,
+      "C2_pair_duplication": 1.0,
+      "C2_dup_only_edge_rho": 1.0,
+      "C2_dup_only_top10_edge_overlap": 10,
+      "C2_edge_freq_rho": 0.2229,
+      "C2_top10_edge_overlap": 2,
+      "C2_max_inflation_top10_edges": 0.867,
+      "C2_spurious_edge_mass_vs_children": 0.0236,
+      "C2_spurious_pairs_evaluated": 29464,
+      "nested_children": [
+        "TOKEN"
+      ],
+      "C3_variants": {
+        "cases": 1022,
+        "variants": 261,
+        "variants_per_case": 0.2554,
+        "top10_variant_coverage": 0.5734
+      },
+      "C3_children_variants": {
+        "TOKEN": {
+          "cases": 922,
+          "variants": 239,
+          "variants_per_case": 0.2592,
+          "top10_variant_coverage": 0.5868
+        }
+      },
+      "C4_entity_rankings": [
+        {
+          "entity_type": "EOA",
+          "objects": 9871,
+          "rho": 0.5596,
+          "top10_overlap": 4,
+          "objects_invisible_share": 0.1098,
+          "rho_visible_only": 0.991,
+          "top10_overlap_visible_only": 4,
+          "max_count_inflation": 1.0
+        },
+        {
+          "entity_type": "MARKET",
+          "objects": 1259,
+          "rho": 0.6444,
+          "top10_overlap": 6,
+          "objects_invisible_share": 0.2772,
+          "rho_visible_only": 0.8941,
+          "top10_overlap_visible_only": 6,
+          "max_count_inflation": 1.0
+        },
+        {
+          "entity_type": "ORDER",
+          "objects": 4699,
+          "rho": 0.0201,
+          "top10_overlap": 0,
+          "objects_invisible_share": 0.2703,
+          "rho_visible_only": -0.006,
+          "top10_overlap_visible_only": 0,
+          "max_count_inflation": 1.0
+        },
+        {
+          "entity_type": "TOKEN",
+          "objects": 922,
+          "rho": 1.0,
+          "top10_overlap": 10,
+          "objects_invisible_share": 0.0,
+          "rho_visible_only": 1.0,
+          "top10_overlap_visible_only": 10,
+          "max_count_inflation": 1.0
+        }
+      ]
+    },
+    {
+      "case_type": "EOA",
+      "covered_events": 60948,
+      "C1_activity_rank_rho": 0.6836,
+      "C1_top3_overlap": 0,
+      "C1_activities_visible_share": 0.7897,
+      "C1_dup_only_rho": 0.9996,
+      "C1_dup_only_top3_overlap": 3,
+      "C2_pairs": 56007,
+      "C2_perspective_coverage_of_reference": 0.1501,
+      "C2_pair_duplication": 1.0006,
+      "C2_dup_only_edge_rho": 1.0,
+      "C2_dup_only_top10_edge_overlap": 10,
+      "C2_edge_freq_rho": 0.5137,
+      "C2_top10_edge_overlap": 3,
+      "C2_max_inflation_top10_edges": 1.0,
+      "C3_variants": {
+        "cases": 9871,
+        "variants": 997,
+        "variants_per_case": 0.101,
+        "top10_variant_coverage": 0.5905
+      },
+      "C4_entity_rankings": [
+        {
+          "entity_type": "CONTRACT",
+          "objects": 1022,
+          "rho": 0.8658,
+          "top10_overlap": 7,
+          "objects_invisible_share": 0.1115,
+          "rho_visible_only": 0.8569,
+          "top10_overlap_visible_only": 7,
+          "max_count_inflation": 2.0
+        },
+        {
+          "entity_type": "MARKET",
+          "objects": 1259,
+          "rho": 0.8539,
+          "top10_overlap": 8,
+          "objects_invisible_share": 0.3407,
+          "rho_visible_only": 0.8164,
+          "top10_overlap_visible_only": 8,
+          "max_count_inflation": 2.0
+        },
+        {
+          "entity_type": "ORDER",
+          "objects": 4699,
+          "rho": 0.3978,
+          "top10_overlap": 0,
+          "objects_invisible_share": 0.3062,
+          "rho_visible_only": 0.2745,
+          "top10_overlap_visible_only": 0,
+          "max_count_inflation": 2.0
+        },
+        {
+          "entity_type": "TOKEN",
+          "objects": 922,
+          "rho": 0.8857,
+          "top10_overlap": 8,
+          "objects_invisible_share": 0.0239,
+          "rho_visible_only": 0.8836,
+          "top10_overlap_visible_only": 8,
+          "max_count_inflation": 2.0
+        }
+      ]
+    },
+    {
+      "case_type": "MARKET",
+      "covered_events": 102373,
+      "C1_activity_rank_rho": 0.6761,
+      "C1_top3_overlap": 2,
+      "C1_activities_visible_share": 0.8718,
+      "C1_dup_only_rho": 0.9996,
+      "C1_dup_only_top3_overlap": 3,
+      "C2_pairs": 110019,
+      "C2_perspective_coverage_of_reference": 0.2903,
+      "C2_pair_duplication": 1.0166,
+      "C2_dup_only_edge_rho": 1.0,
+      "C2_dup_only_top10_edge_overlap": 10,
+      "C2_edge_freq_rho": 0.6055,
+      "C2_top10_edge_overlap": 4,
+      "C2_max_inflation_top10_edges": 1.0,
+      "C3_variants": {
+        "cases": 1259,
+        "variants": 885,
+        "variants_per_case": 0.7029,
+        "top10_variant_coverage": 0.1835
+      },
+      "C4_entity_rankings": [
+        {
+          "entity_type": "CONTRACT",
+          "objects": 1022,
+          "rho": 0.596,
+          "top10_overlap": 7,
+          "objects_invisible_share": 0.5294,
+          "rho_visible_only": 0.7227,
+          "top10_overlap_visible_only": 7,
+          "max_count_inflation": 2.0
+        },
+        {
+          "entity_type": "EOA",
+          "objects": 9871,
+          "rho": 0.5142,
+          "top10_overlap": 6,
+          "objects_invisible_share": 0.188,
+          "rho_visible_only": 0.6024,
+          "top10_overlap_visible_only": 6,
+          "max_count_inflation": 3.0
+        },
+        {
+          "entity_type": "ORDER",
+          "objects": 4699,
+          "rho": 0.0601,
+          "top10_overlap": 0,
+          "objects_invisible_share": 0.3328,
+          "rho_visible_only": 0.0404,
+          "top10_overlap_visible_only": 0,
+          "max_count_inflation": 2.0
+        },
+        {
+          "entity_type": "TOKEN",
+          "objects": 922,
+          "rho": 0.9702,
+          "top10_overlap": 10,
+          "objects_invisible_share": 0.0,
+          "rho_visible_only": 0.9702,
+          "top10_overlap_visible_only": 10,
+          "max_count_inflation": 3.0
+        }
+      ]
+    },
+    {
+      "case_type": "ORDER",
+      "covered_events": 112123,
+      "C1_activity_rank_rho": 0.643,
+      "C1_top3_overlap": 0,
+      "C1_activities_visible_share": 0.8,
+      "C1_dup_only_rho": 0.9999,
+      "C1_dup_only_top3_overlap": 3,
+      "C2_pairs": 111944,
+      "C2_perspective_coverage_of_reference": 0.2997,
+      "C2_pair_duplication": 1.0018,
+      "C2_dup_only_edge_rho": 1.0,
+      "C2_dup_only_top10_edge_overlap": 10,
+      "C2_edge_freq_rho": 0.5581,
+      "C2_top10_edge_overlap": 5,
+      "C2_max_inflation_top10_edges": 1.0,
+      "C3_variants": {
+        "cases": 4699,
+        "variants": 3365,
+        "variants_per_case": 0.7161,
+        "top10_variant_coverage": 0.1043
+      },
+      "C4_entity_rankings": [
+        {
+          "entity_type": "CONTRACT",
+          "objects": 1022,
+          "rho": 0.7128,
+          "top10_overlap": 9,
+          "objects_invisible_share": 0.4755,
+          "rho_visible_only": 0.7875,
+          "top10_overlap_visible_only": 9,
+          "max_count_inflation": 1.5
+        },
+        {
+          "entity_type": "EOA",
+          "objects": 9871,
+          "rho": 0.3246,
+          "top10_overlap": 7,
+          "objects_invisible_share": 0.7492,
+          "rho_visible_only": 0.6794,
+          "top10_overlap_visible_only": 7,
+          "max_count_inflation": 2.0
+        },
+        {
+          "entity_type": "MARKET",
+          "objects": 1259,
+          "rho": 0.8325,
+          "top10_overlap": 7,
+          "objects_invisible_share": 0.3932,
+          "rho_visible_only": 0.8019,
+          "top10_overlap_visible_only": 7,
+          "max_count_inflation": 2.0
+        },
+        {
+          "entity_type": "TOKEN",
+          "objects": 922,
+          "rho": 0.6818,
+          "top10_overlap": 8,
+          "objects_invisible_share": 0.4317,
+          "rho_visible_only": 0.774,
+          "top10_overlap_visible_only": 8,
+          "max_count_inflation": 2.0
+        }
+      ]
+    },
+    {
+      "case_type": "TOKEN",
+      "covered_events": 93195,
+      "C1_activity_rank_rho": 0.5859,
+      "C1_top3_overlap": 3,
+      "C1_activities_visible_share": 0.7487,
+      "C1_dup_only_rho": 1.0,
+      "C1_dup_only_top3_overlap": 3,
+      "C2_pairs": 95058,
+      "C2_perspective_coverage_of_reference": 0.2522,
+      "C2_pair_duplication": 1.0109,
+      "C2_dup_only_edge_rho": 1.0,
+      "C2_dup_only_top10_edge_overlap": 10,
+      "C2_edge_freq_rho": 0.5412,
+      "C2_top10_edge_overlap": 3,
+      "C2_max_inflation_top10_edges": 1.0,
+      "C3_variants": {
+        "cases": 922,
+        "variants": 239,
+        "variants_per_case": 0.2592,
+        "top10_variant_coverage": 0.5868
+      },
+      "C4_entity_rankings": [
+        {
+          "entity_type": "CONTRACT",
+          "objects": 1022,
+          "rho": 0.6119,
+          "top10_overlap": 8,
+          "objects_invisible_share": 0.635,
+          "rho_visible_only": 0.7017,
+          "top10_overlap_visible_only": 8,
+          "max_count_inflation": 1.0
+        },
+        {
+          "entity_type": "EOA",
+          "objects": 9871,
+          "rho": 0.4147,
+          "top10_overlap": 6,
+          "objects_invisible_share": 0.3392,
+          "rho_visible_only": 0.5212,
+          "top10_overlap_visible_only": 6,
+          "max_count_inflation": 2.0
+        },
+        {
+          "entity_type": "MARKET",
+          "objects": 1259,
+          "rho": 0.6912,
+          "top10_overlap": 8,
+          "objects_invisible_share": 0.4162,
+          "rho_visible_only": 0.8558,
+          "top10_overlap_visible_only": 8,
+          "max_count_inflation": 2.0
+        },
+        {
+          "entity_type": "ORDER",
+          "objects": 4699,
+          "rho": 0.0514,
+          "top10_overlap": 0,
+          "objects_invisible_share": 0.481,
+          "rho_visible_only": 0.167,
+          "top10_overlap_visible_only": 0,
+          "max_count_inflation": 2.0
+        }
+      ]
+    }
+  ]
+}

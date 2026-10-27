@@ -1,9 +1,0 @@
-{
-  "seed": 4971,
-  "registry_sha256": "d54d14a08f6f2093508ce5ec9428a2cf63e8f84d7c4965309c2348b6f31fd3d5",
-  "datasets": [
-    "oulad"
-  ],
-  "min_positives": 5,
-  "inject_share": 0.05
-}

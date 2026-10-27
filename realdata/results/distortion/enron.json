@@ -1,0 +1,209 @@
+{
+  "log": "enron",
+  "events": 96175,
+  "objects": 70541,
+  "object_types": [
+    "EMAILADDRESS:CC",
+    "EMAILADDRESS:FROM",
+    "EMAILADDRESS:TO",
+    "MESSAGEID"
+  ],
+  "e2o_rows": 336454,
+  "objects_per_event_mean": 3.498,
+  "case_notions": [
+    {
+      "case_type": "EMAILADDRESS:CC",
+      "cases": 3996,
+      "flat_rows": 45037,
+      "deficiency": 0.7784,
+      "convergence_share": 0.6674,
+      "copies_per_event": 2.114,
+      "max_activity_inflation": 3.286,
+      "divergence_share": 0.7693,
+      "nested_children": [],
+      "variants": 963,
+      "variants_per_case": 0.241,
+      "median_case_length": 3.0,
+      "cross_instance_adjacency": null
+    },
+    {
+      "case_type": "EMAILADDRESS:FROM",
+      "cases": 5257,
+      "flat_rows": 91720,
+      "deficiency": 0.0463,
+      "convergence_share": 0.0,
+      "copies_per_event": 1.0,
+      "max_activity_inflation": 1.0,
+      "divergence_share": 0.8018,
+      "nested_children": [],
+      "variants": 1093,
+      "variants_per_case": 0.2079,
+      "median_case_length": 3.0,
+      "cross_instance_adjacency": null
+    },
+    {
+      "case_type": "EMAILADDRESS:TO",
+      "cases": 7907,
+      "flat_rows": 142117,
+      "deficiency": 0.0601,
+      "convergence_share": 0.3343,
+      "copies_per_event": 1.572,
+      "max_activity_inflation": 2.345,
+      "divergence_share": 0.778,
+      "nested_children": [],
+      "variants": 1997,
+      "variants_per_case": 0.2526,
+      "median_case_length": 3.0,
+      "cross_instance_adjacency": null
+    },
+    {
+      "case_type": "MESSAGEID",
+      "cases": 53381,
+      "flat_rows": 57580,
+      "deficiency": 0.4014,
+      "convergence_share": 0.0002,
+      "copies_per_event": 1.0,
+      "max_activity_inflation": 1.0,
+      "divergence_share": 0.715,
+      "nested_children": [],
+      "variants": 246,
+      "variants_per_case": 0.0046,
+      "median_case_length": 1.0,
+      "cross_instance_adjacency": null
+    }
+  ],
+  "coupling": [
+    {
+      "case_type": "EMAILADDRESS:CC",
+      "other_type": "EMAILADDRESS:FROM",
+      "u_objects": 2048,
+      "share_u_in_multiple_cases": 0.7925,
+      "mean_cases_per_u": 5.277,
+      "t_cases": 3868,
+      "mean_u_per_case": 2.794,
+      "max_u_per_case": 180,
+      "events_per_other_object": 17.447
+    },
+    {
+      "case_type": "EMAILADDRESS:CC",
+      "other_type": "EMAILADDRESS:TO",
+      "u_objects": 3611,
+      "share_u_in_multiple_cases": 0.8117,
+      "mean_cases_per_u": 6.369,
+      "t_cases": 3913,
+      "mean_u_per_case": 5.878,
+      "max_u_per_case": 351,
+      "events_per_other_object": 17.974
+    },
+    {
+      "case_type": "EMAILADDRESS:CC",
+      "other_type": "MESSAGEID",
+      "u_objects": 11482,
+      "share_u_in_multiple_cases": 0.6722,
+      "mean_cases_per_u": 2.173,
+      "t_cases": 3454,
+      "mean_u_per_case": 7.222,
+      "max_u_per_case": 755,
+      "events_per_other_object": 1.079
+    },
+    {
+      "case_type": "EMAILADDRESS:FROM",
+      "other_type": "EMAILADDRESS:CC",
+      "u_objects": 3868,
+      "share_u_in_multiple_cases": 0.4237,
+      "mean_cases_per_u": 2.794,
+      "t_cases": 2048,
+      "mean_u_per_case": 5.277,
+      "max_u_per_case": 341,
+      "events_per_other_object": 11.271
+    },
+    {
+      "case_type": "EMAILADDRESS:FROM",
+      "other_type": "EMAILADDRESS:TO",
+      "u_objects": 7665,
+      "share_u_in_multiple_cases": 0.3474,
+      "mean_cases_per_u": 3.083,
+      "t_cases": 5094,
+      "mean_u_per_case": 4.639,
+      "max_u_per_case": 708,
+      "events_per_other_object": 17.974
+    },
+    {
+      "case_type": "EMAILADDRESS:FROM",
+      "other_type": "MESSAGEID",
+      "u_objects": 50990,
+      "share_u_in_multiple_cases": 0.008,
+      "mean_cases_per_u": 1.021,
+      "t_cases": 4445,
+      "mean_u_per_case": 11.713,
+      "max_u_per_case": 5153,
+      "events_per_other_object": 1.079
+    },
+    {
+      "case_type": "EMAILADDRESS:TO",
+      "other_type": "EMAILADDRESS:CC",
+      "u_objects": 3913,
+      "share_u_in_multiple_cases": 0.7478,
+      "mean_cases_per_u": 5.878,
+      "t_cases": 3611,
+      "mean_u_per_case": 6.369,
+      "max_u_per_case": 426,
+      "events_per_other_object": 11.271
+    },
+    {
+      "case_type": "EMAILADDRESS:TO",
+      "other_type": "EMAILADDRESS:FROM",
+      "u_objects": 5094,
+      "share_u_in_multiple_cases": 0.5143,
+      "mean_cases_per_u": 4.639,
+      "t_cases": 7665,
+      "mean_u_per_case": 3.083,
+      "max_u_per_case": 551,
+      "events_per_other_object": 17.447
+    },
+    {
+      "case_type": "EMAILADDRESS:TO",
+      "other_type": "MESSAGEID",
+      "u_objects": 49461,
+      "share_u_in_multiple_cases": 0.3524,
+      "mean_cases_per_u": 1.654,
+      "t_cases": 6841,
+      "mean_u_per_case": 11.962,
+      "max_u_per_case": 3718,
+      "events_per_other_object": 1.079
+    },
+    {
+      "case_type": "MESSAGEID",
+      "other_type": "EMAILADDRESS:CC",
+      "u_objects": 3454,
+      "share_u_in_multiple_cases": 0.6624,
+      "mean_cases_per_u": 7.222,
+      "t_cases": 11482,
+      "mean_u_per_case": 2.173,
+      "max_u_per_case": 30,
+      "events_per_other_object": 11.271
+    },
+    {
+      "case_type": "MESSAGEID",
+      "other_type": "EMAILADDRESS:FROM",
+      "u_objects": 4445,
+      "share_u_in_multiple_cases": 0.6333,
+      "mean_cases_per_u": 11.713,
+      "t_cases": 50990,
+      "mean_u_per_case": 1.021,
+      "max_u_per_case": 28,
+      "events_per_other_object": 17.447
+    },
+    {
+      "case_type": "MESSAGEID",
+      "other_type": "EMAILADDRESS:TO",
+      "u_objects": 6841,
+      "share_u_in_multiple_cases": 0.6853,
+      "mean_cases_per_u": 11.962,
+      "t_cases": 49461,
+      "mean_u_per_case": 1.654,
+      "max_u_per_case": 71,
+      "events_per_other_object": 17.974
+    }
+  ]
+}

@@ -8,7 +8,6 @@ from __future__ import annotations
 
 import hashlib
 import json
-import math
 import sys
 import time
 from pathlib import Path
@@ -18,14 +17,13 @@ import pandas as pd
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import registry  # noqa: E402
 from cooc import dflat_view, evaluate_predicate, flat_view, leading_view, native_view  # noqa: E402
-from inject import MIN_POSITIVES, inject  # noqa: E402
+MIN_POSITIVES = 5
 from ocel_io import load_ocel  # noqa: E402
 from profile_all import DATASETS  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "results"
 SEED = 4971
-INJECT_SHARE = 0.05
 
 
 def build_views(ocel, key):
@@ -46,12 +44,7 @@ def run_dataset(key: str, seed: int) -> list[dict]:
         t0 = time.time()
         universe = set(ocel.objects.loc[ocel.objects["type"] == pred.scope, "oid"])
         natural = {o for o in pred.evaluate(natural_views[0]) if o in universe}
-        mode, injected, log, views = "natural", 0, ocel, natural_views
-        if len(natural) < MIN_POSITIVES:
-            n = max(MIN_POSITIVES, math.ceil(INJECT_SHARE * len(universe)))
-            log, injected = inject(ocel, pred, n, seed + int(hashlib.sha256(pred.pid.encode()).hexdigest(), 16) % 10_000)
-            views = build_views(log, key)
-            mode = "injected" if injected else "no_positives"
+        mode, injected, log, views = "natural" if len(natural) >= MIN_POSITIVES else "excluded_low_positives", 0, ocel, natural_views
         for r in evaluate_predicate(log, pred, views, views[0]):
             r.update({"mode": mode, "injected_units": injected, "natural_positives": len(natural), "rationale": pred.rationale})
             rows.append(r)
@@ -70,13 +63,13 @@ def main() -> None:
     if "--seed" in sys.argv:
         seed = int(sys.argv[sys.argv.index("--seed") + 1])
         args = [a for a in args if a != str(seed)]
-    keys = args or ["p2p_berti", "hiring", "o2c", "hospital", "order_management", "container_logistics", "crop", "oulad"]
+    keys = args or ["crop", "oulad"]
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "rows").mkdir(exist_ok=True)
     for key in keys:
         pd.DataFrame(run_dataset(key, seed)).to_csv(OUT / "rows" / f"{key}_seed{seed}.csv", index=False)
     reg_hash = hashlib.sha256((Path(__file__).parent / "registry.py").read_bytes()).hexdigest()
-    (OUT / f"cooc_run_seed{seed}_{'_'.join(keys)}.json").write_text(json.dumps({"seed": seed, "registry_sha256": reg_hash, "datasets": keys, "min_positives": MIN_POSITIVES, "inject_share": INJECT_SHARE}, indent=2))
+    (OUT / f"cooc_run_seed{seed}_{'_'.join(keys)}.json").write_text(json.dumps({"seed": seed, "registry_sha256": reg_hash, "datasets": keys, "min_positives": MIN_POSITIVES, "injection": "none (real data only)"}, indent=2))
     print("wrote per-dataset rows to", OUT / "rows")
 
 

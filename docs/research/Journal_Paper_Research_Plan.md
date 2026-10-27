@@ -3,7 +3,7 @@
 **Working title:** *How Much Does Flattening Hide? Measuring Cross-Object Observability in Transactional Review Workflows with OCEL 2.0*
 (Project title for Review 2 stays "Object-Centric Event Log Mining for Academic Capstone Processes: A Native OCEL 2.0 Approach"; the journal title may differ from the course title.)
 
-**Drafted:** 2026-10-27 · **Status (updated same day):** Phase 1 data downloaded and checksum-verified into `realdata/raw/` (approved by the team); the first executable COOC experiments have run — see §13 for what they showed and how that changes this plan. Sections 1–12 are the original plan; where §13 contradicts them, §13 wins.
+**Latest (2026-10-27, later): the plan is re-scoped to real data only — see `Novelty_Assessment_and_Rescope.md`; sections on simulated data, injection, COOC as headline metric and H2/H3 are superseded.** · **Drafted:** 2026-10-27 · **Status (earlier that day):** Phase 1 data downloaded and checksum-verified into `realdata/raw/` (approved by the team); the first executable COOC experiments have run — see §13 for what they showed and how that changes this plan. Sections 1–12 are the original plan; where §13 contradicts them, §13 wins.
 
 **Evidence classes used in this document** (extends the Review 2 rule): *Documented platform fact* · *External literature claim* · *Synthetic result* · **Public real-data result** (new — real, but not capstone) · *Proposed work*.
 
@@ -56,8 +56,8 @@ These are the reasons the current results cannot support a journal paper by them
 
 **Closest prior art to cite and differentiate (all found 2026-10-27; verify each before citing):**
 - Miri, Khayatbashi, Zdravkovic, Jalali (2026), *Decision Analytics Journal* 19:100724 — Moodle→OCEL, direct educational prior art. Related: PM4Moodle demo (CEUR-WS Vol-4274, paper 34); OCPM² (arXiv:2503.10735, LMS + administrative grading data); Khayatbashi, Miri, Jalali (arXiv:2412.00393, four-year BPM course log, drill-down/roll-up operations).
-- Adams, Park, van der Aalst (2023) — flattening as information loss for predictive monitoring; and the feature-extraction framework paper (arXiv:2209.01219). *They measure ML-feature loss, not predicate-level correctness.* This is the key novelty boundary for COOC.
-- van der Aalst (2019) — deficiency/convergence/divergence; Adams & van der Aalst on connected-component case extraction (vdaalst.com/publications/p1412.pdf) — our strongest flattening baseline.
+- Adams, Park, van der Aalst (2023), *Eng. Appl. Artif. Intell.* 125:106764, "Preserving complex object-centric graph structures to improve machine learning tasks in process mining" (doi:10.1016/j.engappai.2023.106764), and Adams, Park, Levich, Schuster (2022), feature extraction/encoding (arXiv:2209.01219; not van der Aalst as co-author — corrected 2026-10-27). *They address ML-feature/graph structure, not predicate-level correctness; the full text still has to be read to confirm.* This is the key novelty boundary for COOC.
+- van der Aalst (2019) — deficiency/convergence/divergence; Adams, Schuster, Schmitz, Schuh (ICPM 2022), "Defining cases and variants for object-centric event data" (doi:10.1109/ICPM57379.2022.9980730). An earlier note here about a "connected-component case extraction" paper (vdaalst.com/publications/p1412.pdf) could not be matched to a verified citation and was removed.
 - Küsters & van der Aalst, OCPQ (arXiv:2506.11541) and Li/Park/van der Aalst object-centric constraint checking; `ocpa` constraint monitoring — existing ways to *express* cross-object constraints. We do not claim to invent object-centric constraints.
 - Premchaiswadi & Porouhan (2015), process modelling and bottleneck mining in online peer-review systems (PMC4546073) — closest prior process-mining study of a review workflow.
 
@@ -233,7 +233,7 @@ Cannot claim: real capstone defect rates, detector accuracy on the real portal, 
 ### 13.1 What was done
 - Downloaded and MD5/size-verified (CC BY 4.0, ~350 MB): Berti simulated logs (Hiring, Hospital, O2C, P2P), Order Management, Container Logistics, Park P2P, Angular commits, the small Berti collection zips, CROP (`metadata.zip`, `discussion.zip`), the Cádiz Moodle CSV, and OULAD (UCI mirror; the official Open University link returned HTTP 404).
 - Built `realdata/`: loaders, flattening statistics, an executable COOC engine with three representation tiers (native oracle, plain flat, denormalised flat) plus a leading-type baseline, 8 predicate templates, a registry of 45 predicates (41 evaluated), violation injection, bootstrap aggregation, a 10-seed run, and an independent SQL cross-check.
-- Converted two **real** corpora to OCEL 2.0: CROP (54,487 Gerrit changes, 352,057 events, 11 projects) and OULAD (216,532 events, 32,587 enrolments).
+- Converted two **real** corpora to OCEL 2.0: CROP (54,487 Gerrit changes, 306,716 events after removing 45,341 duplicate comments, 11 projects) and OULAD (216,532 events, 32,587 enrolments).
 - Wrote `docs/research/Journal_Manuscript_Draft.md` (v0.1) with these numbers. Not run: the rebuild of the synthetic capstone benchmark (audit items A1–A7), human labelling, missingness sweeps, Bundestag, OpenReview.
 
 ### 13.2 What the evidence says
@@ -244,7 +244,7 @@ Cannot claim: real capstone defect rates, detector accuracy on the real portal, 
 | New finding | A denormalised export that keeps related object IDs as columns recovers capacity and actor-conflict rules (single log 28.4 %, portfolio 87.8 %). o2o-consistency and object-attribute deadline rules stay unanswerable in every flat tier. Whether the actor is an event attribute or only an object changes the answer for the *same* rule. | **New central message:** what must a flat export carry to answer a given agenda, and what is still unreachable. This also operationalises the plan's "source instrumentation vs representation preservation" split. |
 | H3: OCEL vs SQL on source | Cannot be tested on public OCEL files (they are already the relational export). | Test only on the rebuilt capstone synthetic source. |
 | Stability | Headline shares identical across 10 injection seeds (SD ≤ 0.002). | Confirms the measure is structural; sampling noise is not the issue, predicate selection is. |
-| Real data (descriptive, unvalidated) | CROP: 35.1 % of changes have a person who both uploaded and approved; 1.0 % merged without prior approval; 0.8 % exceed 3 request-changes rounds. OULAD: 47.1 % of enrolments have ≥ 1 late submission. | Needs two-rater labels before any claim that these are violations. |
+| Real data (descriptive, unvalidated) | CROP: 53.1 % of the 35,963 changes with both an upload record and an approval have a person who did both (35.1 % of all changes; 25 % of changes lack upload records); 1.1 % of merged changes lack a prior approval; 5.5 % of changes with request-changes votes exceed 3 rounds. OULAD: 47.1 % of enrolments have ≥ 1 late submission. | Needs two-rater labels before any claim that these are violations. |
 | Flattening distortion on real OCEL (Angular) | Branch-case flat log is 81.6× the event rows (99.99 % convergence). | Usable as a motivating figure. |
 
 ### 13.3 Data-source changes versus §5
@@ -280,3 +280,24 @@ Consequences for this plan:
 - **No capstone-shaped data remains in the study.** The capstone relevance of the paper now rests on (a) the documented platform lifecycle in `docs/educational-capstone-platform/`, (b) CROP/Gerrit as the closest public review-lifecycle analogue, and (c) a clearly stated future-work path to de-identified portal logs. State this limitation plainly; a reviewer will ask why a capstone paper contains no capstone data.
 - **Review 2 deliverables** (`docs/review-2/*.pptx`, `*.docx`, `docs/research/Team1_Literature_Review.docx`) still describe the synthetic results and were not edited. Keep them as course artifacts and do not reuse their numbers.
 - Repository plumbing updated accordingly: `README.md`, `Makefile`, `scripts/check_package.py`, `.github/workflows/validate.yml`, `.gitignore`, `CITATION.cff`, `SECURITY.md`, `PUBLICATION_CHECKLIST.md`.
+
+
+### 13.6 Verification pass (2026-10-27, after the first write-up)
+- **Reproducibility:** `make study` regenerated every tracked result byte-identical; `make check` and `compileall` pass.
+- **Bug found and fixed — duplicate CROP events:** 45,341 of 352,057 events (13 %) were repeats of comments that CROP stores in several per-revision files (78,317 Merge events for 46,285 merged changes). Set/min-based predicates were unaffected; event counts were. Converter now de-duplicates.
+- **Bug found and fixed — missed abandon form:** "Patch Set N: Abandoned" was read as a plain comment (Abandon events 4,695 → 7,735), which had inflated the stall count (1,467 → 584) and lowered the finality count (116 → 164).
+- **Bug found and fixed — cross-check script mutated its input** (created an index inside `crop.sqlite`, failing on re-run). Now opens the log read-only.
+- **Citation error fixed:** arXiv:2209.01219 had been attributed to van der Aalst; the intended paper is a different one (doi above). One claim about "connected-component case extraction" had no verifiable source and was removed. All other DOIs/arXiv IDs resolve to the stated titles and authors; claim-level checks against full texts are still outstanding.
+- **Wording fixed:** OULAD's 29 stage-order positives are 25 submissions before registration plus 4 with no registration date; CROP prevalence figures now state denominators.
+- **Unchanged:** all pooled COOC figures (12.0 %, 70.7 %, 28.4 %, 87.8 %; silent errors 0/29 and 1/72).
+- **Still not independently tested:** the CROP and OULAD converters (only hand-reviewed by the same author), and the vote-label regexes.
+
+
+---
+
+## 15. Re-scope to real data only (2026-10-27)
+See [`Novelty_Assessment_and_Rescope.md`](Novelty_Assessment_and_Rescope.md). Summary: the COOC-as-headline claim is weak; the surviving gap is a multi-log empirical study of when flattening and case-independence matter in real object-centric data. Simulated logs, injection, and the old results were removed; additional real many-to-many logs are proposed (not yet downloaded).
+
+Update (same day): the approved real logs (German Bundestag, Enron, Ethereum window, Age of Empires 10-match filter) were downloaded, checksum-verified and profiled with the predicate-free distortion metrics together with CROP, OULAD and Angular (7 real logs). Result summary and the revised recommendation are in `Novelty_Assessment_and_Rescope.md` §3-§4.
+
+Update (same day): the consequence analysis (activity rankings, directly-follows frequencies and spurious edges, variant counts, entity rankings) was run on all seven real logs; see `Novelty_Assessment_and_Rescope.md` §3. Headline: duplication alone rarely reorders outputs; narrowing (deficiency) dominates in partitioned logs; naive entity counts from denormalised exports can be badly wrong. The variant-count hypothesis (flat parents hide standard paths) was not supported and is dropped.

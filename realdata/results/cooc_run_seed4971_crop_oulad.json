@@ -1,0 +1,10 @@
+{
+  "seed": 4971,
+  "registry_sha256": "10b60b9439d5db3d5da62601c2a5b0466096b1381264b0d1b7a620d7d92470a5",
+  "datasets": [
+    "crop",
+    "oulad"
+  ],
+  "min_positives": 5,
+  "injection": "none (real data only)"
+}

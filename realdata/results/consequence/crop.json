@@ -1,0 +1,137 @@
+{
+  "log": "crop",
+  "events_used": 306716,
+  "activities": 10,
+  "reference_pairs": 561194,
+  "reference_edge_types": 99,
+  "notions": [
+    {
+      "case_type": "Change",
+      "covered_events": 306716,
+      "C1_activity_rank_rho": 1.0,
+      "C1_top3_overlap": 3,
+      "C1_activities_visible_share": 1.0,
+      "C1_dup_only_rho": 1.0,
+      "C1_dup_only_top3_overlap": 3,
+      "C2_pairs": 252229,
+      "C2_perspective_coverage_of_reference": 0.4495,
+      "C2_pair_duplication": 1.0,
+      "C2_dup_only_edge_rho": 1.0,
+      "C2_dup_only_top10_edge_overlap": 10,
+      "C2_edge_freq_rho": 0.7643,
+      "C2_top10_edge_overlap": 6,
+      "C2_max_inflation_top10_edges": 0.969,
+      "C3_variants": {
+        "cases": 54487,
+        "variants": 12341,
+        "variants_per_case": 0.2265,
+        "top10_variant_coverage": 0.4409
+      },
+      "C4_entity_rankings": [
+        {
+          "entity_type": "Person",
+          "objects": 825,
+          "rho": 1.0,
+          "top10_overlap": 10,
+          "objects_invisible_share": 0.0,
+          "rho_visible_only": 1.0,
+          "top10_overlap_visible_only": 10,
+          "max_count_inflation": 1.0
+        }
+      ]
+    },
+    {
+      "case_type": "Person",
+      "covered_events": 306716,
+      "C1_activity_rank_rho": 1.0,
+      "C1_top3_overlap": 3,
+      "C1_activities_visible_share": 1.0,
+      "C1_dup_only_rho": 1.0,
+      "C1_dup_only_top3_overlap": 3,
+      "C2_pairs": 305891,
+      "C2_perspective_coverage_of_reference": 0.5451,
+      "C2_pair_duplication": 1.0,
+      "C2_dup_only_edge_rho": 1.0,
+      "C2_dup_only_top10_edge_overlap": 10,
+      "C2_edge_freq_rho": 0.9732,
+      "C2_top10_edge_overlap": 9,
+      "C2_max_inflation_top10_edges": 0.981,
+      "C3_variants": {
+        "cases": 825,
+        "variants": 604,
+        "variants_per_case": 0.7321,
+        "top10_variant_coverage": 0.2097
+      },
+      "C4_entity_rankings": [
+        {
+          "entity_type": "Change",
+          "objects": 54487,
+          "rho": 1.0,
+          "top10_overlap": 10,
+          "objects_invisible_share": 0.0,
+          "rho_visible_only": 1.0,
+          "top10_overlap_visible_only": 10,
+          "max_count_inflation": 1.0
+        }
+      ]
+    },
+    {
+      "case_type": "Project",
+      "covered_events": 306716,
+      "C1_activity_rank_rho": 1.0,
+      "C1_top3_overlap": 3,
+      "C1_activities_visible_share": 1.0,
+      "C1_dup_only_rho": 1.0,
+      "C1_dup_only_top3_overlap": 3,
+      "C2_pairs": 306705,
+      "C2_perspective_coverage_of_reference": 0.5465,
+      "C2_pair_duplication": 1.0,
+      "C2_dup_only_edge_rho": 1.0,
+      "C2_dup_only_top10_edge_overlap": 10,
+      "C2_edge_freq_rho": 0.9849,
+      "C2_top10_edge_overlap": 9,
+      "C2_max_inflation_top10_edges": 0.857,
+      "C2_spurious_edge_mass_vs_children": 0.048,
+      "C2_spurious_pairs_evaluated": 306705,
+      "nested_children": [
+        "Change"
+      ],
+      "C3_variants": {
+        "cases": 11,
+        "variants": 11,
+        "variants_per_case": 1.0,
+        "top10_variant_coverage": 0.9091
+      },
+      "C3_children_variants": {
+        "Change": {
+          "cases": 54487,
+          "variants": 12341,
+          "variants_per_case": 0.2265,
+          "top10_variant_coverage": 0.4409
+        }
+      },
+      "C4_entity_rankings": [
+        {
+          "entity_type": "Change",
+          "objects": 54487,
+          "rho": 1.0,
+          "top10_overlap": 10,
+          "objects_invisible_share": 0.0,
+          "rho_visible_only": 1.0,
+          "top10_overlap_visible_only": 10,
+          "max_count_inflation": 1.0
+        },
+        {
+          "entity_type": "Person",
+          "objects": 825,
+          "rho": 1.0,
+          "top10_overlap": 10,
+          "objects_invisible_share": 0.0,
+          "rho_visible_only": 1.0,
+          "top10_overlap_visible_only": 10,
+          "max_count_inflation": 1.0
+        }
+      ]
+    }
+  ]
+}

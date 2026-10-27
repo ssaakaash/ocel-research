@@ -1,0 +1,8 @@
+log,events,objects,types,objects_per_event,case_notions_covering_ge1000_events,notions_with_event_duplication_gt5pct,max_copies_per_event,median_copies_per_event,median_deficiency,type_pairs,pairs_with_ge50pct_shared_objects
+angular_commits,27842,28317,2,88.036,2,2,81.651,44.056,0.001,2,2
+aoe2,34860,5054,25,4.289,11,4,1.757,1.006,0.863,137,50
+bundestag,62719,37665,44,1.064,9,2,1.275,1.002,0.908,13,2
+crop,306716,55323,3,3.0,3,0,1.0,1.0,0.0,6,4
+enron,96175,70541,4,3.498,4,2,2.114,1.286,0.231,12,8
+ethereum,300000,17773,5,1.572,5,2,1.087,1.04,0.689,20,10
+oulad,216532,61577,4,3.803,4,0,1.0,1.0,0.0,12,7

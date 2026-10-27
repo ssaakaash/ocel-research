@@ -1,0 +1,67 @@
+{
+  "log": "angular_commits",
+  "events": 27842,
+  "objects": 28317,
+  "object_types": [
+    "branches",
+    "files"
+  ],
+  "e2o_rows": 2451100,
+  "objects_per_event_mean": 88.036,
+  "case_notions": [
+    {
+      "case_type": "branches",
+      "cases": 139,
+      "flat_rows": 2271272,
+      "deficiency": 0.0009,
+      "convergence_share": 0.9999,
+      "copies_per_event": 81.651,
+      "max_activity_inflation": 119.0,
+      "divergence_share": 0.883,
+      "nested_children": [],
+      "variants": 99,
+      "variants_per_case": 0.7122,
+      "median_case_length": 19066.0,
+      "cross_instance_adjacency": null
+    },
+    {
+      "case_type": "files",
+      "cases": 28178,
+      "flat_rows": 179828,
+      "deficiency": 0.0005,
+      "convergence_share": 0.6345,
+      "copies_per_event": 6.462,
+      "max_activity_inflation": 787.5,
+      "divergence_share": 0.5963,
+      "nested_children": [],
+      "variants": 8536,
+      "variants_per_case": 0.3029,
+      "median_case_length": 2.0,
+      "cross_instance_adjacency": null
+    }
+  ],
+  "coupling": [
+    {
+      "case_type": "branches",
+      "other_type": "files",
+      "u_objects": 28178,
+      "share_u_in_multiple_cases": 1.0,
+      "mean_cases_per_u": 92.791,
+      "t_cases": 139,
+      "mean_u_per_case": 18810.46,
+      "max_u_per_case": 28178,
+      "events_per_other_object": 6.382
+    },
+    {
+      "case_type": "files",
+      "other_type": "branches",
+      "u_objects": 139,
+      "share_u_in_multiple_cases": 1.0,
+      "mean_cases_per_u": 18810.46,
+      "t_cases": 28178,
+      "mean_u_per_case": 92.791,
+      "max_u_per_case": 130,
+      "events_per_other_object": 16340.086
+    }
+  ]
+}

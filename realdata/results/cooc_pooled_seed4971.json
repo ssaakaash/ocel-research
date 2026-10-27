@@ -7,54 +7,54 @@
     ]
   },
   "any_flat_correct": {
-    "share": 0.7073,
+    "share": 0.6364,
     "ci95": [
-      0.561,
-      0.8293
+      0.3636,
+      0.9091
     ]
   },
   "any_dflat_correct": {
-    "share": 0.878,
+    "share": 0.8182,
     "ci95": [
-      0.7805,
-      0.9756
+      0.5455,
+      1.0
     ]
   },
   "any_flat_or_lead_correct": {
-    "share": 0.7073,
+    "share": 0.6364,
     "ci95": [
-      0.561,
-      0.8293
+      0.3636,
+      0.9091
     ]
   },
   "single_flat_view_cooc": {
-    "share": 0.1204,
+    "share": 0.1735,
     "ci95": [
-      0.0602,
-      0.1885
+      0.0,
+      0.4082
     ],
-    "views": 46
+    "views": 7
   },
   "silent_error_rate_among_answered_flat_pairs": {
     "silent": 0,
-    "answered": 29,
+    "answered": 7,
     "rate": 0.0
   },
   "single_dflat_view_cooc": {
-    "share": 0.2837,
+    "share": 0.6429,
     "ci95": [
-      0.1851,
-      0.3832
+      0.3571,
+      0.8571
     ],
-    "views": 46
+    "views": 7
   },
   "silent_error_rate_among_answered_dflat_pairs": {
-    "silent": 1,
-    "answered": 72,
-    "rate": 0.0139
+    "silent": 0,
+    "answered": 27,
+    "rate": 0.0
   },
-  "predicates_evaluated": 41,
-  "predicates_excluded_low_positives": 4,
-  "predicates_natural": 20,
-  "predicates_injected": 21
+  "predicates_evaluated": 11,
+  "predicates_excluded_low_positives": 0,
+  "predicates_natural": 11,
+  "predicates_injected": 0
 }

@@ -26,16 +26,33 @@ def get_json(url: str) -> dict:
         return json.load(r)
 
 
-def stream(url: str, dest: Path, max_bytes: int | None = None) -> tuple[str, str, int]:
-    md5, sha, size = hashlib.md5(), hashlib.sha256(), 0
+def stream(url: str, dest: Path, max_bytes: int | None = None, attempts: int = 5) -> tuple[str, str, int]:
+    """Download with retries; a stalled socket resumes from the partial file via an HTTP Range request."""
     tmp = dest.with_suffix(dest.suffix + ".part")
-    with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=120) as r, tmp.open("wb") as out:
-        while chunk := r.read(1 << 20):
-            size += len(chunk)
-            if max_bytes and size > max_bytes:
-                tmp.unlink(missing_ok=True)
-                raise SystemExit(f"{dest.name}: exceeded size cap of {max_bytes} bytes; aborted")
-            md5.update(chunk); sha.update(chunk); out.write(chunk)
+    tmp.unlink(missing_ok=True)
+    for attempt in range(1, attempts + 1):
+        have = tmp.stat().st_size if tmp.exists() else 0
+        headers = dict(UA, **({"Range": f"bytes={have}-"} if have else {}))
+        try:
+            with urllib.request.urlopen(urllib.request.Request(url, headers=headers), timeout=60) as r, tmp.open("ab" if have and r.status == 206 else "wb") as out:
+                if have and r.status != 206:
+                    have = 0
+                while chunk := r.read(1 << 20):
+                    have += len(chunk)
+                    if max_bytes and have > max_bytes:
+                        tmp.unlink(missing_ok=True)
+                        raise SystemExit(f"{dest.name}: exceeded size cap of {max_bytes} bytes; aborted")
+                    out.write(chunk)
+            break
+        except (TimeoutError, OSError) as exc:
+            print(f"  attempt {attempt}/{attempts} failed at {have / 1e6:.1f} MB ({exc.__class__.__name__}); retrying", flush=True)
+            if attempt == attempts:
+                raise
+    md5, sha = hashlib.md5(), hashlib.sha256()
+    with tmp.open("rb") as h:
+        while chunk := h.read(1 << 20):
+            md5.update(chunk); sha.update(chunk)
+    size = tmp.stat().st_size
     tmp.replace(dest)
     return md5.hexdigest(), sha.hexdigest(), size
 

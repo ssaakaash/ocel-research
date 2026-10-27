@@ -1,8 +1,8 @@
 {
   "name": "crop",
-  "events": 352057,
+  "events": 306716,
   "objects": 55323,
-  "e2o_rows": 1056171,
+  "e2o_rows": 920148,
   "o2o_rows": 54487,
   "time_span": [
     "2009-10-01 23:01:07+00:00",
@@ -14,15 +14,15 @@
   ],
   "activities": {
     "Upload": 96177,
-    "Merge": 78317,
-    "Comment": 63621,
     "Approve": 55659,
+    "Comment": 47185,
+    "Merge": 46300,
     "Verify": 20292,
     "RequestChanges": 11753,
     "Rebase": 10806,
     "Review+1": 10558,
-    "Abandon": 4695,
-    "Restore": 179
+    "Abandon": 7735,
+    "Restore": 251
   },
   "object_types": {
     "Change": 54487,
@@ -30,9 +30,9 @@
     "Project": 11
   },
   "qualifiers": {
-    "change": 352057,
-    "actor": 352057,
-    "project": 352057
+    "change": 306716,
+    "actor": 306716,
+    "project": 306716
   },
   "objects_per_event": {
     "mean": 3.0,
@@ -43,28 +43,28 @@
     {
       "case_type": "Change",
       "cases": 54487,
-      "events": 352057,
-      "flat_rows": 352057,
+      "events": 306716,
+      "flat_rows": 306716,
       "row_multiplier": 1.0,
       "deficiency_share": 0.0,
       "convergence_share": 0.0,
-      "divergence_share": 0.3239
+      "divergence_share": 0.4128
     },
     {
       "case_type": "Person",
       "cases": 825,
-      "events": 352057,
-      "flat_rows": 352057,
+      "events": 306716,
+      "flat_rows": 306716,
       "row_multiplier": 1.0,
       "deficiency_share": 0.0,
       "convergence_share": 0.0,
-      "divergence_share": 0.909
+      "divergence_share": 0.9104
     },
     {
       "case_type": "Project",
       "cases": 11,
-      "events": 352057,
-      "flat_rows": 352057,
+      "events": 306716,
+      "flat_rows": 306716,
       "row_multiplier": 1.0,
       "deficiency_share": 0.0,
       "convergence_share": 0.0,

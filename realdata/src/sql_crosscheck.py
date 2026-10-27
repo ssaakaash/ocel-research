@@ -20,7 +20,7 @@ CREATE TEMP VIEW ev AS
 """
 
 def main() -> None:
-    con = sqlite3.connect(DB)
+    con = sqlite3.connect(f"file:{DB}?mode=ro", uri=True)  # read-only: never modify the input log
     cur = con.cursor()
     tables = [r[0] for r in cur.execute("SELECT name FROM sqlite_master WHERE type='table'")]
     time_tables = [t for t in tables if t.startswith("event_") and t not in ("event_object", "event_map_type")]
@@ -31,14 +31,15 @@ def main() -> None:
     cur.executescript(f"""
       CREATE TEMP TABLE et AS {union};
       CREATE INDEX et_e ON et(eid);
-      CREATE INDEX ev_o ON event_object(ocel_event_id);
+      CREATE TEMP TABLE eo AS SELECT ocel_event_id, ocel_object_id FROM event_object;
+      CREATE INDEX eo_e ON eo(ocel_event_id);
       CREATE TEMP TABLE ce AS
         SELECT eo.ocel_object_id AS change_id, e.ocel_id AS eid, e.ocel_type AS act, t.ts AS ts
-        FROM event_object eo JOIN object o ON o.ocel_id = eo.ocel_object_id AND o.ocel_type = 'Change'
+        FROM eo JOIN object o ON o.ocel_id = eo.ocel_object_id AND o.ocel_type = 'Change'
         JOIN event e ON e.ocel_id = eo.ocel_event_id JOIN et t ON t.eid = e.ocel_id;
       CREATE TEMP TABLE pe AS
         SELECT eo.ocel_object_id AS person_id, e.ocel_id AS eid
-        FROM event_object eo JOIN object o ON o.ocel_id = eo.ocel_object_id AND o.ocel_type = 'Person'
+        FROM eo JOIN object o ON o.ocel_id = eo.ocel_object_id AND o.ocel_type = 'Person'
         JOIN event e ON e.ocel_id = eo.ocel_event_id;
       CREATE INDEX ce_c ON ce(change_id, act, ts);
       CREATE INDEX ce_e ON ce(eid);

@@ -1,50 +1,6 @@
 {
-  "_comment": "Phase 1 public sources for the cross-domain observability study. Every entry is CC BY 4.0 per its Zenodo record (or the cited paper for OULAD). Metadata read 2026-10-27.",
+  "_comment": "Real (non-synthetic, non-simulated) public sources only. Simulated OCEL logs were removed from the study on 2026-10-27. Metadata read 2026-10-27.",
   "sources": [
-    {
-      "id": "T1a_berti_simulated",
-      "kind": "zenodo",
-      "record": "13879980",
-      "doi": "10.5281/zenodo.13879980",
-      "title": "Simulated Object-Centric Event Logs (OCEL 2.0) for Order-to-Cash, Procure-to-Pay, Hiring, and Hospital Patient Lifecycle Processes",
-      "creators": "Berti, A.",
-      "license": "CC-BY-4.0",
-      "nature": "simulated",
-      "files": ["03_hiring.xml", "04_hospital.xml", "01_o2c.xml", "02_p2p.xml"]
-    },
-    {
-      "id": "T1b_order_management",
-      "kind": "zenodo",
-      "record": "8337464",
-      "doi": "10.5281/zenodo.8337464",
-      "title": "Order Management Object-centric Event Log in OCEL 2.0 Standard",
-      "creators": "Knopp, B.; van der Aalst, W.M.P.",
-      "license": "CC-BY-4.0",
-      "nature": "simulated (CPN Tools)",
-      "files": ["order-management.sqlite"]
-    },
-    {
-      "id": "T1c_container_logistics",
-      "kind": "zenodo",
-      "record": "8428084",
-      "doi": "10.5281/zenodo.8428084",
-      "title": "Container Logistics Object-centric Event Log",
-      "creators": "Knopp, B.; Graves, N.",
-      "license": "CC-BY-4.0",
-      "nature": "simulated (CPN Tools)",
-      "files": ["ContainerLogistics.sqlite"]
-    },
-    {
-      "id": "T1d_p2p",
-      "kind": "zenodo",
-      "record": "8412920",
-      "doi": "10.5281/zenodo.8412920",
-      "title": "Procure-To-Payment (P2P) Object-centric Event Log in OCEL 2.0 Standard",
-      "creators": "Park, G.; Tacke genannt Unterberg, L.",
-      "license": "CC-BY-4.0",
-      "nature": "simulated (SAP-style)",
-      "files": ["ocel2-p2p.sqlite"]
-    },
     {
       "id": "T1e_angular_commits",
       "kind": "zenodo",
@@ -54,18 +10,9 @@
       "creators": "Pegoraro, M.",
       "license": "CC-BY-4.0",
       "nature": "real",
-      "files": ["angular_github_commits_ocel.jsonocel"]
-    },
-    {
-      "id": "T1g_berti_collection",
-      "kind": "zenodo",
-      "record": "18333978",
-      "doi": "10.5281/zenodo.18333978",
-      "title": "Collection of Object-Centric Event Logs (OCEL 2.0 format; XML specification)",
-      "creators": "Berti, A.",
-      "license": "CC-BY-4.0",
-      "nature": "mixed (see record)",
-      "files": ["5_recruiting.zip", "6_github_pm4py.zip", "1_running-example.zip"]
+      "files": [
+        "angular_github_commits_ocel.jsonocel"
+      ]
     },
     {
       "id": "T2a_oulad",
@@ -88,7 +35,10 @@
       "creators": "Caballero-Hernandez; Palomo-Duarte; Munoz; Dodero (Univ. de Cadiz)",
       "license": "CC-BY-4.0",
       "nature": "real",
-      "files": ["dataset-anon.csv", "moodle_activity_mapping_EN.json"]
+      "files": [
+        "dataset-anon.csv",
+        "moodle_activity_mapping_EN.json"
+      ]
     },
     {
       "id": "T3a_crop",
@@ -99,7 +49,63 @@
       "creators": "Paixao, M.; Krinke, J.; Han, D.; Harman, M.",
       "license": "CC-BY-4.0",
       "nature": "real",
-      "files": ["metadata.zip", "discussion.zip", "LICENSE"]
+      "files": [
+        "metadata.zip",
+        "discussion.zip",
+        "LICENSE"
+      ]
+    },
+    {
+      "id": "T4a_bundestag",
+      "kind": "zenodo",
+      "record": "16811928",
+      "doi": "10.5281/zenodo.16811928",
+      "title": "Object-Centric and Traditional Event Data of the German Bundestag (filtered OCEL, 20th period)",
+      "creators": "Diers, H.; Peeva, V.; Rennert, C.; van der Aalst, W.M.P.",
+      "license": "CC-BY-4.0 (underlying DIP API terms also apply)",
+      "nature": "real",
+      "files": [
+        "Period20_procedure_steps_all_additional_event_types_filtered.json"
+      ]
+    },
+    {
+      "id": "T4b_enron",
+      "kind": "zenodo",
+      "record": "21989732",
+      "doi": "10.5281/zenodo.21989732",
+      "title": "Object-Centric Event Log (OCEL) of the Enron Email Dataset (top 100,000 mails)",
+      "creators": "Berti, A.",
+      "license": "CC-BY-4.0",
+      "nature": "real (contains personal data; pseudonymise before any output)",
+      "files": [
+        "enron_top_100000.ocel.zip"
+      ]
+    },
+    {
+      "id": "T4c_ethereum",
+      "kind": "zenodo",
+      "record": "21989580",
+      "doi": "10.5281/zenodo.21989580",
+      "title": "Comprehensive Ethereum Execution Data for Object-Centric Process Mining of DApps",
+      "creators": "Berti, A.",
+      "license": "CC-BY-4.0",
+      "nature": "real",
+      "files": [
+        "ethereum_blockchain.ocel.zip"
+      ]
+    },
+    {
+      "id": "T4d_aoe2",
+      "kind": "zenodo",
+      "record": "13365584",
+      "doi": "10.5281/zenodo.13365584",
+      "title": "Object-Centric Event Log for Age of Empires Game Interactions (10-match filter)",
+      "creators": "Liss, L.; Elbert, N.; Flath, C.M.",
+      "license": "CC-BY-4.0",
+      "nature": "real (human gameplay)",
+      "files": [
+        "age_of_empires_ocel2_10_match_filter.zip"
+      ]
     }
   ]
 }

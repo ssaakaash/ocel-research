@@ -1,0 +1,79 @@
+{
+  "log": "angular_commits",
+  "events_used": 27842,
+  "activities": 67,
+  "reference_pairs": 106974,
+  "reference_edge_types": 546,
+  "notions": [
+    {
+      "case_type": "branches",
+      "covered_events": 27817,
+      "C1_activity_rank_rho": 0.9604,
+      "C1_top3_overlap": 3,
+      "C1_activities_visible_share": 1.0,
+      "C1_dup_only_rho": 0.9604,
+      "C1_dup_only_top3_overlap": 3,
+      "C2_pairs": 2271133,
+      "C2_perspective_coverage_of_reference": 0.2867,
+      "C2_pair_duplication": 74.0506,
+      "C2_dup_only_edge_rho": 0.9715,
+      "C2_dup_only_top10_edge_overlap": 7,
+      "C2_edge_freq_rho": 0.7452,
+      "C2_top10_edge_overlap": 8,
+      "C2_max_inflation_top10_edges": 26.454,
+      "C3_variants": {
+        "cases": 139,
+        "variants": 99,
+        "variants_per_case": 0.7122,
+        "top10_variant_coverage": 0.3165
+      },
+      "C4_entity_rankings": [
+        {
+          "entity_type": "files",
+          "objects": 28178,
+          "rho": 0.8834,
+          "top10_overlap": 8,
+          "objects_invisible_share": 0.0,
+          "rho_visible_only": 0.8834,
+          "top10_overlap_visible_only": 8,
+          "max_count_inflation": 119.0
+        }
+      ]
+    },
+    {
+      "case_type": "files",
+      "covered_events": 27828,
+      "C1_activity_rank_rho": 0.8051,
+      "C1_top3_overlap": 2,
+      "C1_activities_visible_share": 0.9701,
+      "C1_dup_only_rho": 0.8059,
+      "C1_dup_only_top3_overlap": 2,
+      "C2_pairs": 151650,
+      "C2_perspective_coverage_of_reference": 0.7478,
+      "C2_pair_duplication": 1.8957,
+      "C2_dup_only_edge_rho": 0.9424,
+      "C2_dup_only_top10_edge_overlap": 10,
+      "C2_edge_freq_rho": 0.8834,
+      "C2_top10_edge_overlap": 9,
+      "C2_max_inflation_top10_edges": 2.109,
+      "C3_variants": {
+        "cases": 28178,
+        "variants": 8536,
+        "variants_per_case": 0.3029,
+        "top10_variant_coverage": 0.3835
+      },
+      "C4_entity_rankings": [
+        {
+          "entity_type": "branches",
+          "objects": 139,
+          "rho": 0.9987,
+          "top10_overlap": 10,
+          "objects_invisible_share": 0.0,
+          "rho_visible_only": 0.9987,
+          "top10_overlap_visible_only": 10,
+          "max_count_inflation": 77.0
+        }
+      ]
+    }
+  ]
+}

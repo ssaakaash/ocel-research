@@ -1,0 +1,132 @@
+{
+  "log": "crop",
+  "events": 306716,
+  "objects": 55323,
+  "object_types": [
+    "Change",
+    "Person",
+    "Project"
+  ],
+  "e2o_rows": 920148,
+  "objects_per_event_mean": 3.0,
+  "case_notions": [
+    {
+      "case_type": "Change",
+      "cases": 54487,
+      "flat_rows": 306716,
+      "deficiency": 0.0,
+      "convergence_share": 0.0,
+      "copies_per_event": 1.0,
+      "max_activity_inflation": 1.0,
+      "divergence_share": 0.4128,
+      "nested_children": [],
+      "variants": 12341,
+      "variants_per_case": 0.2265,
+      "median_case_length": 4.0,
+      "cross_instance_adjacency": null
+    },
+    {
+      "case_type": "Person",
+      "cases": 825,
+      "flat_rows": 306716,
+      "deficiency": 0.0,
+      "convergence_share": 0.0,
+      "copies_per_event": 1.0,
+      "max_activity_inflation": 1.0,
+      "divergence_share": 0.9104,
+      "nested_children": [],
+      "variants": 604,
+      "variants_per_case": 0.7321,
+      "median_case_length": 10.0,
+      "cross_instance_adjacency": null
+    },
+    {
+      "case_type": "Project",
+      "cases": 11,
+      "flat_rows": 306716,
+      "deficiency": 0.0,
+      "convergence_share": 0.0,
+      "copies_per_event": 1.0,
+      "max_activity_inflation": 1.0,
+      "divergence_share": 1.0,
+      "nested_children": [
+        "Change"
+      ],
+      "variants": 11,
+      "variants_per_case": 1.0,
+      "median_case_length": 29369.0,
+      "pairs": 306705,
+      "eligible_pairs": 306705,
+      "cross_instance_pairs": 186872,
+      "cross_instance_adjacency": 0.6093
+    }
+  ],
+  "coupling": [
+    {
+      "case_type": "Change",
+      "other_type": "Person",
+      "u_objects": 825,
+      "share_u_in_multiple_cases": 0.7164,
+      "mean_cases_per_u": 138.721,
+      "t_cases": 54487,
+      "mean_u_per_case": 2.1,
+      "max_u_per_case": 10,
+      "events_per_other_object": 371.777
+    },
+    {
+      "case_type": "Change",
+      "other_type": "Project",
+      "u_objects": 11,
+      "share_u_in_multiple_cases": 1.0,
+      "mean_cases_per_u": 4953.364,
+      "t_cases": 54487,
+      "mean_u_per_case": 1.0,
+      "max_u_per_case": 1,
+      "events_per_other_object": 27883.273
+    },
+    {
+      "case_type": "Person",
+      "other_type": "Change",
+      "u_objects": 54487,
+      "share_u_in_multiple_cases": 0.7093,
+      "mean_cases_per_u": 2.1,
+      "t_cases": 825,
+      "mean_u_per_case": 138.721,
+      "max_u_per_case": 7465,
+      "events_per_other_object": 5.629
+    },
+    {
+      "case_type": "Person",
+      "other_type": "Project",
+      "u_objects": 11,
+      "share_u_in_multiple_cases": 1.0,
+      "mean_cases_per_u": 108.364,
+      "t_cases": 825,
+      "mean_u_per_case": 1.445,
+      "max_u_per_case": 7,
+      "events_per_other_object": 27883.273
+    },
+    {
+      "case_type": "Project",
+      "other_type": "Change",
+      "u_objects": 54487,
+      "share_u_in_multiple_cases": 0.0,
+      "mean_cases_per_u": 1.0,
+      "t_cases": 11,
+      "mean_u_per_case": 4953.364,
+      "max_u_per_case": 11346,
+      "events_per_other_object": 5.629
+    },
+    {
+      "case_type": "Project",
+      "other_type": "Person",
+      "u_objects": 825,
+      "share_u_in_multiple_cases": 0.2727,
+      "mean_cases_per_u": 1.445,
+      "t_cases": 11,
+      "mean_u_per_case": 108.364,
+      "max_u_per_case": 289,
+      "events_per_other_object": 371.777
+    }
+  ]
+}

@@ -19,16 +19,19 @@ RAW = ROOT / "raw"
 OUT = ROOT / "results" / "profiles"
 
 DATASETS = {
-    "hiring": RAW / "T1a_berti_simulated" / "03_hiring.xml",
-    "hospital": RAW / "T1a_berti_simulated" / "04_hospital.xml",
-    "o2c": RAW / "T1a_berti_simulated" / "01_o2c.xml",
-    "p2p_berti": RAW / "T1a_berti_simulated" / "02_p2p.xml",
-    "order_management": RAW / "T1b_order_management" / "order-management.sqlite",
-    "container_logistics": RAW / "T1c_container_logistics" / "ContainerLogistics.sqlite",
-    "p2p_park": RAW / "T1d_p2p" / "ocel2-p2p.sqlite",
     "crop": ROOT / "ocel" / "crop.sqlite",
     "oulad": ROOT / "ocel" / "oulad.sqlite",
     "angular_commits": RAW / "T1e_angular_commits" / "angular_github_commits_ocel.jsonocel",
+    "bundestag": RAW / "T4a_bundestag" / "Period20_procedure_steps_all_additional_event_types_filtered.json",
+    "enron": RAW / "T4b_enron_x",
+    "ethereum": RAW / "T4c_ethereum_x",
+    "aoe2": RAW / "T4d_aoe2_x" / "age_of_empires_ocel2_10_match_filter.sqlite",
+}
+
+# per-log loader options: pseudonymise personal identifiers; role-aware case notions
+LOAD_OPTIONS = {
+    "enron": {"pseudonymise": ("EMAILADDRESS",), "split_role_types": ("EMAILADDRESS",)},
+    "ethereum": {"max_events": 300_000},  # contiguous time window; the full log has 3.2 M events and does not fit in 8 GB RAM
 }
 
 
@@ -42,7 +45,7 @@ def main() -> None:
             print(f"[{key}] missing: {path.relative_to(ROOT)}")
             continue
         t0 = time.time()
-        ocel = load_ocel(path, key)
+        ocel = load_ocel(path, key, **LOAD_OPTIONS.get(key, {}))
         prof = profile(ocel)
         prof["source_file"] = str(path.relative_to(ROOT))
         (OUT / f"{key}.json").write_text(json.dumps(prof, indent=2, default=str), encoding="utf-8")

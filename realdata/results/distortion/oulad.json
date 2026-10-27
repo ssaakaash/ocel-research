@@ -1,0 +1,215 @@
+{
+  "log": "oulad",
+  "events": 216532,
+  "objects": 61577,
+  "object_types": [
+    "Assessment",
+    "Enrollment",
+    "Presentation",
+    "Student"
+  ],
+  "e2o_rows": 823508,
+  "objects_per_event_mean": 3.803,
+  "case_notions": [
+    {
+      "case_type": "Assessment",
+      "cases": 188,
+      "flat_rows": 173912,
+      "deficiency": 0.1968,
+      "convergence_share": 0.0,
+      "copies_per_event": 1.0,
+      "max_activity_inflation": 1.0,
+      "divergence_share": 1.0,
+      "nested_children": [],
+      "variants": 180,
+      "variants_per_case": 0.9574,
+      "median_case_length": 909.0,
+      "cross_instance_adjacency": null
+    },
+    {
+      "case_type": "Enrollment",
+      "cases": 32587,
+      "flat_rows": 216532,
+      "deficiency": 0.0,
+      "convergence_share": 0.0,
+      "copies_per_event": 1.0,
+      "max_activity_inflation": 1.0,
+      "divergence_share": 1.0,
+      "nested_children": [],
+      "variants": 85,
+      "variants_per_case": 0.0026,
+      "median_case_length": 6.0,
+      "cross_instance_adjacency": null
+    },
+    {
+      "case_type": "Presentation",
+      "cases": 22,
+      "flat_rows": 216532,
+      "deficiency": 0.0,
+      "convergence_share": 0.0,
+      "copies_per_event": 1.0,
+      "max_activity_inflation": 1.0,
+      "divergence_share": 1.0,
+      "nested_children": [
+        "Assessment",
+        "Enrollment"
+      ],
+      "variants": 22,
+      "variants_per_case": 1.0,
+      "median_case_length": 10439.5,
+      "pairs": 216510,
+      "eligible_pairs": 216510,
+      "cross_instance_pairs": 216395,
+      "cross_instance_adjacency": 0.9995
+    },
+    {
+      "case_type": "Student",
+      "cases": 28780,
+      "flat_rows": 216532,
+      "deficiency": 0.0,
+      "convergence_share": 0.0,
+      "copies_per_event": 1.0,
+      "max_activity_inflation": 1.0,
+      "divergence_share": 1.0,
+      "nested_children": [],
+      "variants": 942,
+      "variants_per_case": 0.0327,
+      "median_case_length": 7.0,
+      "cross_instance_adjacency": null
+    }
+  ],
+  "coupling": [
+    {
+      "case_type": "Assessment",
+      "other_type": "Enrollment",
+      "u_objects": 25843,
+      "share_u_in_multiple_cases": 0.9025,
+      "mean_cases_per_u": 6.73,
+      "t_cases": 188,
+      "mean_u_per_case": 925.064,
+      "max_u_per_case": 1917,
+      "events_per_other_object": 6.645
+    },
+    {
+      "case_type": "Assessment",
+      "other_type": "Presentation",
+      "u_objects": 22,
+      "share_u_in_multiple_cases": 1.0,
+      "mean_cases_per_u": 8.545,
+      "t_cases": 188,
+      "mean_u_per_case": 1.0,
+      "max_u_per_case": 1,
+      "events_per_other_object": 9842.364
+    },
+    {
+      "case_type": "Assessment",
+      "other_type": "Student",
+      "u_objects": 23369,
+      "share_u_in_multiple_cases": 0.9164,
+      "mean_cases_per_u": 7.442,
+      "t_cases": 188,
+      "mean_u_per_case": 925.064,
+      "max_u_per_case": 1917,
+      "events_per_other_object": 7.524
+    },
+    {
+      "case_type": "Enrollment",
+      "other_type": "Assessment",
+      "u_objects": 188,
+      "share_u_in_multiple_cases": 1.0,
+      "mean_cases_per_u": 925.064,
+      "t_cases": 25843,
+      "mean_u_per_case": 6.73,
+      "max_u_per_case": 14,
+      "events_per_other_object": 925.064
+    },
+    {
+      "case_type": "Enrollment",
+      "other_type": "Presentation",
+      "u_objects": 22,
+      "share_u_in_multiple_cases": 1.0,
+      "mean_cases_per_u": 1481.227,
+      "t_cases": 32587,
+      "mean_u_per_case": 1.0,
+      "max_u_per_case": 1,
+      "events_per_other_object": 9842.364
+    },
+    {
+      "case_type": "Enrollment",
+      "other_type": "Student",
+      "u_objects": 28780,
+      "share_u_in_multiple_cases": 0.1229,
+      "mean_cases_per_u": 1.132,
+      "t_cases": 32587,
+      "mean_u_per_case": 1.0,
+      "max_u_per_case": 1,
+      "events_per_other_object": 7.524
+    },
+    {
+      "case_type": "Presentation",
+      "other_type": "Assessment",
+      "u_objects": 188,
+      "share_u_in_multiple_cases": 0.0,
+      "mean_cases_per_u": 1.0,
+      "t_cases": 22,
+      "mean_u_per_case": 8.545,
+      "max_u_per_case": 14,
+      "events_per_other_object": 925.064
+    },
+    {
+      "case_type": "Presentation",
+      "other_type": "Enrollment",
+      "u_objects": 32587,
+      "share_u_in_multiple_cases": 0.0,
+      "mean_cases_per_u": 1.0,
+      "t_cases": 22,
+      "mean_u_per_case": 1481.227,
+      "max_u_per_case": 2497,
+      "events_per_other_object": 6.645
+    },
+    {
+      "case_type": "Presentation",
+      "other_type": "Student",
+      "u_objects": 28780,
+      "share_u_in_multiple_cases": 0.1229,
+      "mean_cases_per_u": 1.132,
+      "t_cases": 22,
+      "mean_u_per_case": 1481.227,
+      "max_u_per_case": 2497,
+      "events_per_other_object": 7.524
+    },
+    {
+      "case_type": "Student",
+      "other_type": "Assessment",
+      "u_objects": 188,
+      "share_u_in_multiple_cases": 1.0,
+      "mean_cases_per_u": 925.064,
+      "t_cases": 23369,
+      "mean_u_per_case": 7.442,
+      "max_u_per_case": 28,
+      "events_per_other_object": 925.064
+    },
+    {
+      "case_type": "Student",
+      "other_type": "Enrollment",
+      "u_objects": 32587,
+      "share_u_in_multiple_cases": 0.0,
+      "mean_cases_per_u": 1.0,
+      "t_cases": 28780,
+      "mean_u_per_case": 1.132,
+      "max_u_per_case": 5,
+      "events_per_other_object": 6.645
+    },
+    {
+      "case_type": "Student",
+      "other_type": "Presentation",
+      "u_objects": 22,
+      "share_u_in_multiple_cases": 1.0,
+      "mean_cases_per_u": 1481.227,
+      "t_cases": 28780,
+      "mean_u_per_case": 1.132,
+      "max_u_per_case": 5,
+      "events_per_other_object": 9842.364
+    }
+  ]
+}

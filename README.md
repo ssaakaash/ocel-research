@@ -16,10 +16,10 @@ The project does **not** claim to be the first use of object-centric process min
 
 1. **COOC (Cross-Object Observability Coverage):** the share of a registered set of rule predicates that a representation can express *and* answer identically to an object-centric oracle. It is a study-specific diagnostic, not a universal quality standard.
 2. **Three representation tiers:** native OCEL (oracle), plain case-centric flat log, and a denormalised flat log that keeps related object identifiers as columns.
-3. **Public datasets:** simulated OCEL 2.0 logs, a real Gerrit code-review corpus (CROP) as the closest public analogue of a capstone review lifecycle, and a real education log (OULAD). All are openly licensed and downloaded locally, never redistributed here.
+3. **Real public datasets only (no synthetic or simulated data):** a Gerrit code-review corpus (CROP), a real education log (OULAD), and further real many-to-many logs under evaluation (see the re-scope note). All are openly licensed and downloaded locally, never redistributed here.
 4. **Executable predicate registry** with an independent SQL cross-check of the oracle.
 
-Preliminary results, limitations and the remaining work are in [`docs/research/Journal_Manuscript_Draft.md`](docs/research/Journal_Manuscript_Draft.md); the plan and its execution log are in [`docs/research/Journal_Paper_Research_Plan.md`](docs/research/Journal_Paper_Research_Plan.md).
+The novelty assessment and re-scope are in [`docs/research/Novelty_Assessment_and_Rescope.md`](docs/research/Novelty_Assessment_and_Rescope.md) (the earlier manuscript draft is superseded); the plan and its execution log are in [`docs/research/Journal_Paper_Research_Plan.md`](docs/research/Journal_Paper_Research_Plan.md).
 
 ## Repository layout
 

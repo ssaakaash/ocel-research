@@ -53,6 +53,10 @@ def classify(body: str) -> tuple[str, int | None]:
     m = re.match(r"Patch Set (\d+):\s*(.*)", first)
     if m:
         ps, rest = int(m.group(1)), m.group(2)
+        if rest.startswith("Abandoned"):
+            return "Abandon", ps
+        if rest.startswith("Restored"):
+            return "Restore", ps
         if re.search(r"was rebased", rest):
             return "Rebase", ps
         label = rest
@@ -112,6 +116,10 @@ def main() -> None:
     df["timestamp"] = pd.to_datetime(df["date"], utc=True, errors="coerce")
     df = df.dropna(subset=["timestamp"]).sort_values(["project", "review", "timestamp"], kind="stable").reset_index(drop=True)
     df["change"] = df["project"] + "/" + df["review"]
+    # CROP repeats some comments (e.g. the final merge message) in several per-revision discussion files.
+    before = len(df)
+    df = df.drop_duplicates(["change", "author", "timestamp", "activity", "ps"]).reset_index(drop=True)
+    print(f"duplicate comments removed: {before - len(df):,} of {before:,}")
     df["person"] = df["author"].map(pseudo)
     df["eid"] = ["e%07d" % i for i in range(len(df))]
     print("events:", len(df), "| activities:", df["activity"].value_counts().to_dict())
