@@ -23,6 +23,7 @@ import zipfile
 from pathlib import Path
 
 from lxml import etree
+from PIL import Image
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import report_chapters_1_4 as A  # noqa: E402
@@ -49,26 +50,26 @@ SECT_BODY = ('<w:sectPr><w:headerReference w:type="default" r:id="rId11"/><w:foo
              '<w:pgMar w:top="1418" w:right="1134" w:bottom="1418" w:left="1701" w:header="709" w:footer="709" w:gutter="0"/><w:pgNumType w:start="1"/><w:cols w:space="720"/></w:sectPr>')
 
 ABSTRACT = [
-    "Process mining normally assigns every event to exactly one case. Workflows that involve several entities at once do not fit that rule. "
-    "In an academic capstone, a single review submission concerns a project, a team, three students, a guide, a report version and, later, a score. "
-    "Forcing such an event into one case notion, called flattening, can copy the event into several cases (convergence), drop it altogether (deficiency) "
-    "or mix up repeated events (divergence). Object-centric event logs, in the OCEL 2.0 standard, keep the many-to-many links instead.",
+    "Imagine one click on a capstone portal. A student leader submits a report, and that single event touches a project, a team, three students, a guide and a report version. "
+    "Process mining wants every event in exactly one case, so something has to give. Flatten the event to one case notion and it can be copied into several cases (convergence), "
+    "dropped altogether (deficiency) or mixed up with repeated events that belong to other objects (divergence). Object-centric event logs, in the OCEL 2.0 standard, keep the many-to-many links instead.",
 
-    "We began this project to study capstone review processes with OCEL 2.0. Production logs of a capstone portal are not available to us, and we found no public capstone or "
-    "thesis-management event log. We therefore changed what we claim. We kept the capstone as a documented OCEL 2.0 design, and we measured flattening on seven real public logs: "
-    "Gerrit code review (CROP), Open University learning analytics (OULAD), Angular commits, German Bundestag procedures, Enron e-mail, an Ethereum window and Age of Empires II matches. "
-    "No synthetic or simulated data was used.",
+    "We began this project to study capstone review processes with OCEL 2.0, and then we couldn't get portal logs. We also found no public capstone or thesis-management event log. "
+    "So we changed what we claim. The capstone stays as a documented OCEL 2.0 design, and we measured flattening on seven real public logs: Gerrit code review (CROP), "
+    "Open University learning analytics (OULAD), Angular commits, German Bundestag procedures, Enron e-mail, an Ethereum window and Age of Empires II matches. No synthetic or simulated data was used anywhere.",
 
-    "We built a reproducible pipeline that downloads and checks each source, converts Gerrit and OULAD data to OCEL 2.0, computes flattening distortion for 38 case notions, "
-    "and compares standard outputs between flat and object-centric views: activity rankings, directly-follows edges, process variants and entity rankings.",
+    "We built a reproducible pipeline that downloads and checks each source, converts the Gerrit and OULAD data to OCEL 2.0, computes flattening distortion for 38 case notions, "
+    "and compares what an analyst would read off a flat view against the object-centric one: activity rankings, directly-follows edges, process variants and entity rankings.",
 
     "The logs fall into three groups. In star logs (CROP, OULAD) every event touches one object of each type, so flattening copies nothing. In partitioned logs (Bundestag, Age of Empires II, Ethereum) "
-    "one case notion drops 69% to 91% of the events in the median. In fan-out logs (Angular, Enron) flattening duplicates events, up to 81.65 copies of one event in Angular. "
-    "Duplication alone rarely changes activity rankings: only 2 of 38 case notions fall below a rank correlation of 0.95. The larger effect is narrowing: in 20 of 38 case notions the flat log "
-    "shows fewer than half of the process's activities. A denormalised flat export can also mislead entity rankings, with worst-case rank correlations of 0.16 (Enron), -0.01 (Ethereum) and -0.41 (Age of Empires II).",
+    "one case notion drops 69% to 91% of the events in the median. In fan-out logs (Angular, Enron) flattening does duplicate events, up to 81.65 copies of one event in Angular. "
+    "Duplication alone rarely changes an activity ranking, since only 2 of 38 case notions fall below a rank correlation of 0.95. The bigger effect is narrowing: in 20 of 38 case notions "
+    "the flat log shows fewer than half of the process's activities. Counting rows in a denormalised flat export can also wreck an entity ranking, with worst-case rank correlations of 0.16 (Enron), "
+    "-0.01 (Ethereum) and -0.41 (Age of Empires II).",
 
-    "The results are checked by an independent SQL implementation, a brute-force self-check, an independent recomputation of OULAD counts and byte-identical re-runs. These checks found three bugs of our own, which we fixed. "
-    "No second person has labelled the findings, and the capstone model remains a design that has not been tested on portal data. A journal manuscript is in preparation and has not been submitted.",
+    "We checked parts of the pipeline with an independent SQL implementation, a brute-force self-check, an independent recomputation of the OULAD counts and byte-identical re-runs. "
+    "Those checks caught three bugs of our own, which we fixed. The distortion metrics themselves have no second implementation yet, nobody outside the team has labelled the findings, and the capstone model is still a design that hasn't met portal data. "
+    "A journal manuscript is in preparation and hasn't been submitted.",
 ]
 
 ABBREVIATIONS = [
@@ -151,9 +152,9 @@ def edit_front(body):
                             "The Dean's leadership and vision have inspired us to strive for excellence, and the dedication to academic excellence and innovation has been a constant source of motivation. "
                             "We appreciate the effort that goes into creating an environment that nurtures creativity and critical thinking.", sz=24))
     set_runs(ps[92], inline("We express our profound appreciation to {{[Name of the Head of the Department]}}, the Head of the {{[Department name]}}, for their insightful guidance and continuous support. "
-                            "Their expertise and advice have been crucial in shaping the direction of our project, and their commitment to a collaborative and supportive atmosphere has greatly helped our learning.", sz=24))
+                            "Their expertise and advice shaped the direction of our project, and the collaborative, supportive atmosphere they keep made learning easier for us.", sz=24))
     set_runs(ps[94], inline(f"We are immensely thankful to our project guide, {GUIDE}, for their dedicated mentorship and valuable feedback. "
-                            "Their patience, knowledge and encouragement were pivotal in completing this project, and their willingness to share expertise and give thoughtful guidance helped us refine our ideas and methods.", sz=24))
+                            "Their patience, knowledge and encouragement carried us through this project, and the time they spent sharing expertise and giving thoughtful guidance helped us refine our ideas and methods.", sz=24))
     sigs = frag("".join(f'<w:p><w:pPr><w:spacing w:before="0" w:after="0"/><w:ind w:left="5000"/></w:pPr>{run(n, b=True, sz=24)}</w:p>' for _, n in TEAM))
     parent = ps[100].getparent()
     idx = parent.index(ps[100])
@@ -267,7 +268,7 @@ def assemble(labels: dict, out: Path) -> Doc:
         rels = rels_path.read_text(encoding="utf-8")
         add = ""
         for rid, name in D.rels:
-            shutil.copy(FIG / name, media / name)
+            Image.open(FIG / name).save(media / name, "PNG")        # re-save without the plotting library's metadata text
             add += f'<Relationship Id="{rid}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="media/{name}"/>'
         rels_path.write_text(rels.replace("</Relationships>", add + "</Relationships>"), encoding="utf-8")
         ct_path = work / "[Content_Types].xml"
@@ -292,7 +293,17 @@ def assemble(labels: dict, out: Path) -> Doc:
             if "<dc:title>" not in c:
                 c = c.replace("</cp:coreProperties>", f"<dc:title>{esc(TITLE)}</dc:title></cp:coreProperties>")
             c = re.sub(r"<dc:creator>.*?</dc:creator>|<dc:creator/>", "<dc:creator>Team 1, BCSE497J</dc:creator>", c, flags=re.S)
+            c = re.sub(r"<cp:lastModifiedBy>.*?</cp:lastModifiedBy>", "<cp:lastModifiedBy>Team 1, BCSE497J</cp:lastModifiedBy>", c, flags=re.S)
+            c = re.sub(r"(<dcterms:created[^>]*>)[^<]*", r"\g<1>2026-10-27T00:00:00Z", c)
+            c = re.sub(r"(<dcterms:modified[^>]*>)[^<]*", r"\g<1>2026-10-27T00:00:00Z", c)
             core.write_text(c, encoding="utf-8")
+        app = work / "docProps" / "app.xml"
+        if app.exists():                                          # drop the template's stale page and word counts; Word recomputes them
+            a_xml = app.read_text(encoding="utf-8")
+            for tag in ("TotalTime", "Pages", "Words", "Characters", "Lines", "Paragraphs", "CharactersWithSpaces"):
+                a_xml = re.sub(rf"<{tag}>[^<]*</{tag}>", "", a_xml)
+            a_xml = re.sub(r"<HeadingPairs>.*?</TitlesOfParts>", "", a_xml, flags=re.S)
+            app.write_text(a_xml, encoding="utf-8")
         out.parent.mkdir(parents=True, exist_ok=True)
         if out.exists():
             out.unlink()

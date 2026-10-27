@@ -386,7 +386,7 @@ def build_slides():
         ["Independent recomputation", "OULAD counts match raw CSVs", "15,348 / 415 / 29 exact"],
         ["Bugs our own checks found", "Verification is not a formality", "3 fixed: duplicate events, missed abandon form, tie-breaking"]],
         sz=13, row_h=0.66, header_h=0.45)
-    s.text(0.5, 6.0, 12.33, 0.75, [para([run("What we did not do: ", 15, b=True, color=ORANGE), run("independent human labelling of the real-data findings; the converters are checked by us, not by a second team.", 15)], before=0)], fill=CARD, rounded=True, anchor="ctr", name="Limits")
+    s.text(0.5, 6.0, 12.33, 0.75, [para([run("What we did not do: ", 15, b=True, color=ORANGE), run("independent human labelling of the real-data findings; a second implementation of the distortion metrics; the converters are checked by us, not by a second team.", 15)], before=0)], fill=CARD, rounded=True, anchor="ctr", name="Limits")
     s.notes = ("We tested the project the way we would test someone else's. Downloads are checked against the published size and MD5 where the publisher gives one, and every file gets a SHA-256 on record. Re-running reproduces every result file byte for byte. "
                "Our fast code is compared with a slow, plain Python version, and our rule code with independent SQL, and the OULAD counts with a separate read of the raw files. "
                "And here is the part we are actually proud of: those checks found three real bugs of our own. Duplicate Gerrit comments, an abandon message we missed, and a tie-breaking problem in event order. We fixed all three and re-ran everything. "
@@ -417,7 +417,7 @@ def build_slides():
     s.table(0.5, 1.5, [4.2, 8.13], [["Outcome type", "Status today"],
         ["Patent", "None filed"],
         ["International conference proceedings", "None submitted"],
-        ["Journal publication (Scopus-indexed)", "Manuscript in preparation (draft v0.2); not submitted; venue not yet chosen"],
+        ["Journal publication (Scopus-indexed)", "Manuscript in preparation (draft v0.3); not submitted; venue not yet chosen"],
         ["Start-up", "None"],
         ["Others", "Open, re-runnable code and result tables in the project repository"]], sz=15, row_h=0.65, header_h=0.5)
     s.text(0.5, 5.4, 12.33, 1.3, [para([run("Proof to upload: ", 15, b=True, color=BLUE), run("none yet, because nothing has been accepted or published. We will upload proof as soon as a submission receipt or acceptance exists.", 15)], before=0),
