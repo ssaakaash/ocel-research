@@ -78,11 +78,16 @@ def ch2(D):
 
     D.h2("Research Gap")
     D.p("Taken together, the reviewed work leaves three gaps.")
-    D.p("First, flattening problems are named but not measured. Convergence and divergence appear in small or single-case examples, and most object-centric evidence we found uses simulated logs.")
-    D.p("Second, work on education and capstones relies on learning-platform data. Object-centric educational mining uses Moodle activity. "
-        "A review lifecycle with submit, review, reject, resubmit and score has no public object-centric dataset.")
-    D.p("Third, capstone portal logs are not available. Searches of Zenodo, 4TU and the web found no public capstone or thesis-management event log, so we cannot test the capstone claim directly.")
-    D.p("Our approach is therefore to measure flattening on real review-like and multi-entity logs, to give the capstone an OCEL 2.0 model, and to state the limits explicitly.")
+    D.p("First, flattening is described but not measured. Convergence, divergence and deficiency are defined conceptually [1], [4] and shown on single case studies [5], "
+        "but no study we found reports how often they occur across several real logs from different domains. "
+        "We address this with distortion metrics for 38 case notions on seven real public logs, which sort the logs into three regimes.")
+    D.p("Second, the effect of flattening on what an analyst reads is unknown. Earlier work compares machine-learning performance [3] or classifies data-quality issues [6], "
+        "but none measures, across logs, whether flattening changes activity rankings, process paths or discovered models, or separates duplication, which can be fixed, from narrowing, which cannot. "
+        "We address this by comparing five standard outputs (C1 to C5) with an object-centric reference, with bootstrap intervals on the headline numbers.")
+    D.p("Third, review workflows have no object-centric model. Object-centric educational mining uses learning-platform activity [7], and review processes have been mined with a single case notion only [11]. "
+        "A lifecycle of submit, review, reject, resubmit and score has no object-centric model that we could find, and no public capstone or thesis-management event log exists. "
+        "We address this with an OCEL 2.0 model of the capstone lifecycle, and by measuring on real logs that have a review shape (code review and student assessment).")
+    D.p("Our approach is therefore to measure first, on real data only, and to check every number with independent code.")
 
     D.h2("Objectives")
     D.p("The project has five objectives, in the order we worked on them.")

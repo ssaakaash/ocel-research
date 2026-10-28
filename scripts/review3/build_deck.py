@@ -258,18 +258,25 @@ def build_slides():
 
     # 7 ---- research gap
     s = Slide(); s.title("Research Gap")
-    rows = [("1", "Flattening problems are named, but not measured", "Convergence and divergence appear as toy or single-case examples. We found no study that reports how often or how badly they occur across several real logs. Most object-centric evidence uses simulated logs.", BLUE),
-            ("2", "Education and capstone work stays on LMS data", "Object-centric educational mining uses Moodle activity. A transactional review lifecycle (submit, review, reject, resubmit, score) has no public object-centric dataset.", ORANGE),
-            ("3", "Capstone portal logs cannot be had", "Searches of Zenodo, 4TU and the web found no public capstone or thesis-management event log, so the capstone claim cannot be tested directly.", AQUA)]
-    for k, (n, h, t, c) in enumerate(rows):
-        y = 1.5 + k * 1.45
-        s.shape("ellipse", 0.5, y + 0.1, 0.75, 0.75, c, text=n, sz=24)
-        s.text(1.5, y, 11.3, 1.3, [para([run(h, 19, b=True)], before=0, after=3), para([run(t, 15, color=MUTED)], before=0)], fill=CARD, rounded=True, anchor="ctr", inset=0.2, name="Gap")
-    s.text(0.5, 5.95, 12.33, 0.7, [para([run("Our angle: ", 17, b=True, color=BLUE), run("measure on real review-like and multi-entity logs, give the capstone an OCEL 2.0 model, and state the limits plainly.", 17)], before=0)], anchor="ctr", name="Angle")
-    s.notes = ("So where is the gap? Number one: everyone agrees flattening is a problem, but we could not find a study that counts it across several real logs. Most of the evidence is simulated or one company's case. "
-               "Number two: in education, object-centric work is about Moodle clicks. A capstone is different, it is a chain of submit, review, reject, resubmit, score. "
-               "And number three, the awkward one: nobody publishes capstone portal logs. We searched. So we cannot prove anything about the portal itself. "
-               "What we can do is measure the effect on real logs that look like it, and be upfront about that limit.")
+    rows = [("1", "Flattening is described, but not measured",
+             "Convergence, divergence and deficiency are defined conceptually [1, 4] and shown on single case studies [5]. No study reports how often they occur across several real logs from different domains.",
+             "Distortion metrics for 38 case notions on 7 real public logs; three regimes", BLUE),
+            ("2", "Its effect on what an analyst reads is unknown",
+             "Prior work compares machine-learning performance [3] or classifies data-quality issues [6]. None measures, across logs, whether flattening changes rankings, process paths or discovered models, or separates fixable duplication from unfixable narrowing.",
+             "Five outputs (C1 to C5) compared with an object-centric reference, with bootstrap intervals", ORANGE),
+            ("3", "Review workflows have no object-centric model",
+             "Object-centric educational mining uses learning-platform activity [7], and review processes have been mined with one case notion only [11]. A submit, review, reject, resubmit and score lifecycle has no object-centric model that we could find.",
+             "OCEL 2.0 model of the capstone lifecycle, plus real review-like logs (code review, assessment)", AQUA)]
+    for k, (n, h, t, a, c) in enumerate(rows):
+        y = 1.45 + k * 1.5
+        s.shape("ellipse", 0.5, y + 0.18, 0.75, 0.75, c, text=n, sz=24)
+        s.text(1.5, y, 11.3, 1.38, [para([run(h, 18, b=True)], before=0, after=2), para([run(t, 13, color=MUTED)], before=0, after=3),
+                                    para([run("Addressed by: ", 13, b=True, color=c), run(a, 13)], before=0)], fill=CARD, rounded=True, anchor="ctr", inset=0.16, name="Gap")
+    s.text(0.5, 6.05, 12.33, 0.6, [para([run("Our angle: ", 17, b=True, color=BLUE), run("measure first, on real data only, and check every number with independent code.", 17)], before=0)], anchor="ctr", name="Angle")
+    s.notes = ("So where exactly is the gap? Three places. "
+               "One: the problems of flattening have names, convergence, divergence and deficiency, and they are explained in theory and in single case studies. But nobody has counted how often they happen across several real logs. That is the first thing we do: 38 case notions on seven real logs. "
+               "Two: even where people discuss flattening, they look at machine-learning accuracy or list data-quality issues. Nobody checks what an analyst actually reads off the screen, the activity ranking, the process paths, the discovered model. And nobody separates duplication, which you can fix, from narrowing, which you cannot. That is our consequence analysis, C1 to C5. "
+               "Three: object-centric work in education looks at Moodle clicks, and review processes have only been mined with one case notion. A capstone is a chain of submit, review, reject, resubmit and score. We give it an OCEL 2.0 model, and we measure on real logs that have that review shape.")
     S.append(s)
 
     # 8 ---- objectives
